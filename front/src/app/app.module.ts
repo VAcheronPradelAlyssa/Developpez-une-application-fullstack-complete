@@ -15,9 +15,10 @@ import { CreateSubjectComponent } from './pages/create-subject/create-subject';
 import { ListSubjectComponent } from './pages/list-subject/list-subject';
 import { CreatePostComponent } from './pages/create-post/create-post';
 import { NavbarComponent } from './navbar/navbar';
+import { PostDetailComponent } from './pages/post-detail/post-detail';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent],
+  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent, PostDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

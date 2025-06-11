@@ -28,4 +28,11 @@ public class PostController {
         Post createdPost = postService.createPost(postCreateDTO);
         return ResponseEntity.ok(createdPost);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        return postService.getPostById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
 }

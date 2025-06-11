@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post, PostService } from 'src/app/services/post';
+import { Router } from '@angular/router';
+import { Post } from 'src/app/models/post.dto';
+import { PostService } from 'src/app/services/posts/post';
 
 @Component({
   selector: 'app-posts',
@@ -14,7 +16,10 @@ export class PostComponent implements OnInit {
 
   sortBy: string = 'date'; // valeur par défaut
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private router: Router // <-- Ajoute ceci
+  ) {}
 
   ngOnInit() {
     this.postService.getPosts().subscribe({
@@ -42,5 +47,9 @@ export class PostComponent implements OnInit {
 
   onSortChange() {
     this.sortPosts();
+  }
+
+  goToPost(id: number) {
+    this.router.navigate(['/post', id]);
   }
 }

@@ -1,0 +1,23 @@
+<div *ngIf="loading">Chargement...</div>
+<div *ngIf="!loading && post">
+  <button class="back-btn" routerLink="/articles">
+    ← Retour
+  </button>
+  <h1>{{ post.title }}</h1>
+  <div class="meta-list">
+    <span>Date: {{ post.createdAt | date:'short' }}</span>
+    <span>Auteur: {{ post.author.username }}</span>
+    <span>Thème: {{ post.subject.name }}</span>
+  </div>
+  <div class="article-content">{{ post.content }}</div>
+  <hr>
+  <h3>Commentaires</h3>
+  <div *ngFor="let comment of comments" class="comment-block">
+    <span class="username">{{ comment.author.username }}</span>
+    <span class="comment-content">{{ comment.content }}</span>
+  </div>
+  <form (ngSubmit)="addComment()" class="add-comment-form">
+    <textarea [(ngModel)]="newComment" name="newComment" placeholder="Écrivez ici votre commentaire"></textarea>
+    <button type="submit" class="send-btn" aria-label="Envoyer">Envoyer</button>
+  </form>
+</div>

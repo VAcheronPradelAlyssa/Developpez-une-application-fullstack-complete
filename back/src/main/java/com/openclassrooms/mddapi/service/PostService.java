@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -44,5 +45,9 @@ public class PostService {
         post.setSubject(subject);
 
         return postRepository.save(post);
+    }
+
+    public Optional<Post> getPostById(Long id) {
+        return postRepository.findById(id);
     }
 }
