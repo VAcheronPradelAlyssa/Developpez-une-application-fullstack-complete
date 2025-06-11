@@ -11,9 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login';
 import { PostComponent } from './pages/post/post';
+import { CreateSubjectComponent } from './pages/create-subject/create-subject';
+import { ListSubjectComponent } from './pages/list-subject/list-subject';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent],
+  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

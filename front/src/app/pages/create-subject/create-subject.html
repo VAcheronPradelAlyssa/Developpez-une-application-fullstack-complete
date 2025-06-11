@@ -1,0 +1,13 @@
+<form [formGroup]="subjectForm" (ngSubmit)="onSubmit()">
+  <label>
+    Nom :
+    <input formControlName="name">
+  </label>
+  <br>
+  <label>
+    Description :
+    <textarea formControlName="description"></textarea>
+  </label>
+  <br>
+  <button type="submit" [disabled]="subjectForm.invalid">Créer le sujet</button>
+</form>
