@@ -10,7 +10,9 @@ import { Post, PostService } from 'src/app/services/post';
 export class PostComponent implements OnInit {
   posts: Post[] = [];
   loading = true;
-  error = '';
+  error: string | null = null;
+
+  sortBy: string = 'date'; // valeur par défaut
 
   constructor(private postService: PostService) {}
 
@@ -19,11 +21,26 @@ export class PostComponent implements OnInit {
       next: (data) => {
         this.posts = data;
         this.loading = false;
+        this.sortPosts();
       },
       error: () => {
         this.error = 'Erreur lors du chargement des articles';
         this.loading = false;
       }
     });
+  }
+
+  sortPosts() {
+    if (this.sortBy === 'date') {
+      this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    } else if (this.sortBy === 'author') {
+      this.posts.sort((a, b) => a.author.username.localeCompare(b.author.username));
+    } else if (this.sortBy === 'subject') {
+      this.posts.sort((a, b) => a.subject.name.localeCompare(b.subject.name));
+    }
+  }
+
+  onSortChange() {
+    this.sortPosts();
   }
 }

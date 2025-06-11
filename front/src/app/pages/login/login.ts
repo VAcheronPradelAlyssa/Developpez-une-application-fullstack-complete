@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,11 @@ export class LoginComponent {
   loginForm: FormGroup;
   error: string = '';
   success: boolean = false;
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -39,5 +40,9 @@ export class LoginComponent {
         this.error = err?.error?.message || 'Erreur de connexion';
       }
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

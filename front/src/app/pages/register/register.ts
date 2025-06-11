@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -35,11 +37,15 @@ export class RegisterComponent {
         this.success = true;
         setTimeout(() => {
           this.router.navigate(['/']);
-        }); // Redirige après 1,5s
+        });
       },
       error: (err) => {
         this.error = err?.error?.message || 'Registration failed';
       }
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

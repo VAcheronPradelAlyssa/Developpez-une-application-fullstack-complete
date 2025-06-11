@@ -1,3 +1,8 @@
+<div class="article-list-header">
+  <button class="btn btn-primary" routerLink="/create-post" >
+    Créer un article
+  </button>
+
 <div *ngIf="loading">Chargement...</div>
 <div *ngIf="error" class="error">{{ error }}</div>
 <div *ngIf="!loading && posts.length === 0">Aucun article trouvé.</div>

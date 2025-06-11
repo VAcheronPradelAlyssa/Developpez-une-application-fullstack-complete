@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubjectDTO } from '../../models/subject.dto';
 import { PostService } from 'src/app/services/posts/post';
 import { SubjectService } from 'src/app/services/subject/subject';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -17,7 +18,8 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private postService: PostService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private router: Router
   ) {
     this.postForm = this.fb.group({
       title: ['', Validators.required],
@@ -35,11 +37,13 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit() {
     if (this.postForm.valid) {
-      // Récupère l'id de l'utilisateur connecté (à adapter selon ta logique)
-      const authorId = 1;
+      const authorId = 1; // À adapter selon ta logique d'utilisateur connecté
       const postRequest = { ...this.postForm.value, authorId };
       this.postService.createPost(postRequest).subscribe({
-        next: () => alert('Article créé !'),
+        next: () => {
+          alert('Article créé !');
+          this.router.navigate(['/post']); // Redirection après succès
+        },
         error: () => alert('Erreur lors de la création de l\'article')
       });
     }
