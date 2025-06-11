@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonIgnore
     private Post post;
 
 }

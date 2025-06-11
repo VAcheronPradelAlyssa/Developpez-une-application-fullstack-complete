@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,12 +19,13 @@ public class Subscription {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonIgnore
     private Subject subject;
 
     private LocalDateTime subscribedAt = LocalDateTime.now();
-
 }
