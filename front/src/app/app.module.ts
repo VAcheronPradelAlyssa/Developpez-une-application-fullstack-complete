@@ -8,7 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login';
 import { PostComponent } from './pages/post/post';
 import { CreateSubjectComponent } from './pages/create-subject/create-subject';
@@ -16,9 +16,11 @@ import { ListSubjectComponent } from './pages/list-subject/list-subject';
 import { CreatePostComponent } from './pages/create-post/create-post';
 import { NavbarComponent } from './navbar/navbar';
 import { PostDetailComponent } from './pages/post-detail/post-detail';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { LogoutComponent } from './pages/logout/logout';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent, PostDetailComponent],
+  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent, PostDetailComponent, LogoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,7 +31,9 @@ import { PostDetailComponent } from './pages/post-detail/post-detail';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

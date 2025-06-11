@@ -32,8 +32,7 @@ export class LoginComponent {
     this.success = false;
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        this.success = true;
-        // Redirection immédiate vers /post après connexion réussie
+        localStorage.setItem('token', res.token);
         this.router.navigate(['/post']);
       },
       error: (err) => {

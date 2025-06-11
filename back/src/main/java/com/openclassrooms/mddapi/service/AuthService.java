@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.dto.RegisterRequest;
 import com.openclassrooms.mddapi.dto.LoginRequest;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.util.JwtUtil; // adapte le chemin selon ton projet
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,15 +38,10 @@ public class AuthService {
         Optional<User> userOpt = userRepository.findByEmail(request.getEmail());
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            System.out.println("User trouvé : " + user.getEmail());
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                System.out.println("Mot de passe OK");
-                return "Connexion réussie";
-            } else {
-                System.out.println("Mot de passe incorrect");
+                // Génère un JWT au lieu d'un simple message
+                return JwtUtil.generateToken(user.getUsername());
             }
-        } else {
-            System.out.println("Utilisateur non trouvé");
         }
         return null;
     }
