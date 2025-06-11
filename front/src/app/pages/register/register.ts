@@ -46,6 +46,6 @@ export class RegisterComponent {
   }
 
   goBack() {
-    this.location.back();
-  }
+  this.router.navigate(['/']);
+}
 }

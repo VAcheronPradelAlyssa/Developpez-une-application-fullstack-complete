@@ -41,7 +41,7 @@ export class LoginComponent {
     });
   }
 
-  goBack() {
-    this.location.back();
-  }
+ goBack() {
+  this.router.navigate(['/']);
+}
 }
