@@ -2,8 +2,13 @@ package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.CommentCreateDTO;
 import com.openclassrooms.mddapi.model.Comment;
+import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.repository.PostRepository;
+import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.CommentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +18,13 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
-    public CommentController(CommentService commentService) {
+    public CommentController(CommentService commentService, UserRepository userRepository, PostRepository postRepository) {
         this.commentService = commentService;
+        this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @GetMapping
@@ -24,13 +33,11 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<Comment> addComment(
-            @PathVariable Long postId,
-            @RequestBody CommentCreateDTO dto
-    ) {
-        // dto doit contenir userId et content
-        return commentService.addComment(postId, dto.getUserId(), dto.getContent())
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+    public ResponseEntity<Comment> addComment(@PathVariable Long postId, @RequestBody CommentCreateDTO dto, Authentication authentication) {
+        String username = authentication.getName();
+        User author = userRepository.findByUsername(username).orElseThrow();
+        Post post = postRepository.findById(postId).orElseThrow();
+        Comment comment = commentService.createComment(dto, author, post);
+        return ResponseEntity.ok(comment);
     }
 }

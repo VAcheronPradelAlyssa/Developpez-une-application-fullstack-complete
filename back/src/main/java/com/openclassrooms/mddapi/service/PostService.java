@@ -31,15 +31,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public Post createPost(PostCreateDTO dto) {
-        User author = userRepository.findById(dto.authorId)
-            .orElseThrow(() -> new RuntimeException("Author not found"));
-        Subject subject = subjectRepository.findById(dto.subjectId)
-            .orElseThrow(() -> new RuntimeException("Subject not found"));
-
+    public Post createPost(PostCreateDTO dto, User author, Subject subject) {
         Post post = new Post();
-        post.setTitle(dto.title);
-        post.setContent(dto.content);
+        post.setTitle(dto.getTitle());
+        post.setContent(dto.getContent());
         post.setCreatedAt(LocalDateTime.now());
         post.setAuthor(author);
         post.setSubject(subject);

@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.service;
 
+import com.openclassrooms.mddapi.dto.CommentCreateDTO;
 import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.User;
@@ -31,6 +32,17 @@ public class CommentService {
         return commentRepository.findByPostId(postId);
     }
 
+    // Nouvelle méthode pour le controller
+    public Comment createComment(CommentCreateDTO dto, User author, Post post) {
+        Comment comment = new Comment();
+        comment.setPost(post);
+        comment.setAuthor(author);
+        comment.setContent(dto.getContent());
+        comment.setCreatedAt(LocalDateTime.now());
+        return commentRepository.save(comment);
+    }
+
+    // Ancienne méthode, tu peux la garder si tu veux
     public Optional<Comment> addComment(Long postId, Long userId, String content) {
         Optional<Post> postOpt = postRepository.findById(postId);
         Optional<User> userOpt = userRepository.findById(userId);

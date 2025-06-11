@@ -2,8 +2,13 @@ package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.PostCreateDTO;
 import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.model.Subject;
+import com.openclassrooms.mddapi.model.User;
+import com.openclassrooms.mddapi.repository.SubjectRepository;
+import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.PostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +18,13 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final UserRepository userRepository;
+    private final SubjectRepository subjectRepository;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, UserRepository userRepository, SubjectRepository subjectRepository) {
         this.postService = postService;
+        this.userRepository = userRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @GetMapping
@@ -24,9 +33,12 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody PostCreateDTO postCreateDTO) {
-        Post createdPost = postService.createPost(postCreateDTO);
-        return ResponseEntity.ok(createdPost);
+    public ResponseEntity<Post> createPost(@RequestBody PostCreateDTO dto, Authentication authentication) {
+        String username = authentication.getName();
+        User author = userRepository.findByUsername(username).orElseThrow();
+        Subject subject = subjectRepository.findById(dto.getSubjectId()).orElseThrow();
+        Post post = postService.createPost(dto, author, subject);
+        return ResponseEntity.ok(post);
     }
 
     @GetMapping("/{id}")
