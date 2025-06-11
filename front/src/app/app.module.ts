@@ -7,16 +7,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login';
 import { PostComponent } from './pages/post/post';
 import { CreateSubjectComponent } from './pages/create-subject/create-subject';
 import { ListSubjectComponent } from './pages/list-subject/list-subject';
 import { CreatePostComponent } from './pages/create-post/create-post';
+import { NavbarComponent } from './navbar/navbar';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent],
+  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +26,7 @@ import { CreatePostComponent } from './pages/create-post/create-post';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
