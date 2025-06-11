@@ -37,10 +37,15 @@ public class AuthService {
         Optional<User> userOpt = userRepository.findByEmail(request.getEmail());
         if (userOpt.isPresent()) {
             User user = userOpt.get();
+            System.out.println("User trouvé : " + user.getEmail());
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                //générer jwt token ou retourner un message de succès
+                System.out.println("Mot de passe OK");
                 return "Connexion réussie";
+            } else {
+                System.out.println("Mot de passe incorrect");
             }
+        } else {
+            System.out.println("Utilisateur non trouvé");
         }
         return null;
     }

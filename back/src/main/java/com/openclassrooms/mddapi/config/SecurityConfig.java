@@ -11,11 +11,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> {}) // Active CORS avec la configuration par défaut
+            .cors(cors -> {}) // Active CORS
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll() // Autorise l'accès à l'inscription/connexion
-                .anyRequest().authenticated()
+                .anyRequest().permitAll() // Autorise toutes les requêtes sans authentification
             );
         return http.build();
     }

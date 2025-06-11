@@ -32,9 +32,11 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         this.success = true;
-        // Si tu veux stocker le token :
-        // localStorage.setItem('token', res.token);
-        setTimeout(() => this.router.navigate(['/']), 1200);
+        // Redirection immédiate vers /post après connexion réussie
+        this.router.navigate(['/post']);
+      },
+      error: (err) => {
+        this.error = err?.error?.message || 'Erreur de connexion';
       }
     });
   }

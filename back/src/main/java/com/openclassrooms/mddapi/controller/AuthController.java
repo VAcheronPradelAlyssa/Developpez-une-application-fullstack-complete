@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -24,12 +26,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        // La méthode login doit retourner un token ou un message de succès
         String token = authService.login(request);
         if (token != null) {
-            return ResponseEntity.ok().body(token);
+            // Retourne un objet JSON
+            return ResponseEntity.ok(Map.of("message", token));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Identifiants invalides");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Identifiants invalides"));
         }
     }
 }
