@@ -1,0 +1,20 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <label>
+    Sujet :
+    <select formControlName="subjectId">
+      <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
+    </select>
+  </label>
+  <br>
+  <label>
+    Titre :
+    <input formControlName="title">
+  </label>
+  <br>
+  <label>
+    Contenu :
+    <textarea formControlName="content"></textarea>
+  </label>
+  <br>
+  <button type="submit" [disabled]="postForm.invalid">Créer l'article</button>
+</form>

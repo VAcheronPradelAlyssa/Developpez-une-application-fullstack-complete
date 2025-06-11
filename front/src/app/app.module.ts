@@ -13,9 +13,10 @@ import { LoginComponent } from './pages/login/login';
 import { PostComponent } from './pages/post/post';
 import { CreateSubjectComponent } from './pages/create-subject/create-subject';
 import { ListSubjectComponent } from './pages/list-subject/list-subject';
+import { CreatePostComponent } from './pages/create-post/create-post';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent],
+  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

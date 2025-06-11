@@ -7,6 +7,7 @@ import { PostComponent } from './pages/post/post';
 import { Subject } from 'rxjs';
 import { ListSubjectComponent } from './pages/list-subject/list-subject';
 import { CreateSubjectComponent } from './pages/create-subject/create-subject';
+import { CreatePostComponent } from './pages/create-post/create-post';
 
 // consider a guard combined with canLoad / canActivate route option
 // to manage unauthenticated user to access private routes
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'post', component: PostComponent},
   { path: 'subject', component: ListSubjectComponent },
-  { path: 'create-subject', component: CreateSubjectComponent } 
+  { path: 'create-subject', component: CreateSubjectComponent },
+  { path: 'create-post', component: CreatePostComponent }
 ];
 
 @NgModule({
