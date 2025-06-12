@@ -23,8 +23,12 @@ export class ListSubjectComponent implements OnInit {
       next: (subjects) => this.subjects = subjects,
       error: () => alert('Erreur lors du chargement des sujets')
     });
+    this.loadSubscriptions();
+  }
+
+  loadSubscriptions() {
     this.subscriptionService.getUserSubscriptions().subscribe({
-      next: (subs: any[]) => this.subscribedIds = subs.map(sub => sub.subject.id),
+      next: (subs: any[]) => this.subscribedIds = subs.map(sub => sub.subject ? sub.subject.id : sub),
       error: () => alert('Erreur lors du chargement des abonnements')
     });
   }
@@ -36,16 +40,12 @@ export class ListSubjectComponent implements OnInit {
   toggleSubscription(subjectId: number) {
     if (this.isSubscribed(subjectId)) {
       this.subscriptionService.unsubscribe(subjectId).subscribe({
-        next: () => {
-          this.subscribedIds = this.subscribedIds.filter(id => id !== subjectId);
-        },
+        next: () => this.loadSubscriptions(),
         error: () => alert('Erreur lors de la désinscription')
       });
     } else {
       this.subscriptionService.subscribe(subjectId).subscribe({
-        next: () => {
-          this.subscribedIds.push(subjectId);
-        },
+        next: () => this.loadSubscriptions(),
         error: () => alert('Erreur lors de l\'abonnement')
       });
     }

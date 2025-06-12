@@ -6,7 +6,9 @@
       <a class="nav-link logout" routerLink="/logout">Se déconnecter</a>
       <a class="nav-link" routerLink="/post" routerLinkActive="active">Articles</a>
       <a class="nav-link" routerLink="/subject" routerLinkActive="active">Thèmes</a>
-      <img src="assets/avatar.png" alt="Avatar" class="profile-avatar" />
+      <a routerLink="/user-profile">
+        <img src="assets/avatar.png" alt="Avatar" class="profile-avatar" />
+      </a>
     </nav>
 
     <!-- Burger icon for mobile -->
@@ -23,5 +25,8 @@
   <a class="mobile-nav-link" routerLink="/post" routerLinkActive="active" (click)="closeMobileMenu()">Articles</a>
   <a class="mobile-nav-link" routerLink="/subject" routerLinkActive="active" (click)="closeMobileMenu()">Thèmes</a>
   <a class="mobile-nav-link logout" routerLink="/logout" (click)="closeMobileMenu()">Se déconnecter</a>
-  <img src="assets/avatar.png" alt="Avatar" class="profile-avatar" />
+  <a class="mobile-nav-link" routerLink="/user-profile" (click)="closeMobileMenu()">
+    <img src="assets/avatar.png" alt="Avatar" class="profile-avatar" />
+    Mon profil
+  </a>
 </div>

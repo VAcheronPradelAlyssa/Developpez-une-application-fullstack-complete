@@ -10,7 +10,7 @@ import { CreateSubjectComponent } from './pages/create-subject/create-subject';
 import { CreatePostComponent } from './pages/create-post/create-post';
 import { PostDetailComponent } from './pages/post-detail/post-detail';
 import { LogoutComponent } from './pages/logout/logout';
-
+import { UserProfileComponent } from './pages/user-profil/user-profil';
 // consider a guard combined with canLoad / canActivate route option
 // to manage unauthenticated user to access private routes
 const routes: Routes = [
@@ -22,7 +22,9 @@ const routes: Routes = [
   { path: 'create-subject', component: CreateSubjectComponent },
   { path: 'create-post', component: CreatePostComponent },
   { path: 'post/:id', component: PostDetailComponent },
-  { path: 'logout', component: LogoutComponent }
+  { path: 'logout', component: LogoutComponent },
+  { path: 'user-profile', component: UserProfileComponent }
+
 ];
 
 @NgModule({

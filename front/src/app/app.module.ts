@@ -18,9 +18,10 @@ import { NavbarComponent } from './navbar/navbar';
 import { PostDetailComponent } from './pages/post-detail/post-detail';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
 import { LogoutComponent } from './pages/logout/logout';
+import { UserProfileComponent } from './pages/user-profil/user-profil';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent, PostDetailComponent, LogoutComponent],
+  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent, PostDetailComponent, LogoutComponent, UserProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
