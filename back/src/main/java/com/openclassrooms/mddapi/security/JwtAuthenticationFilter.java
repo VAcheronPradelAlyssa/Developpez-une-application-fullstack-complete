@@ -51,7 +51,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         .getBody();
                 String username = claims.getSubject();
                 UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(username, null, Collections.singletonList(new SimpleGrantedAuthority("USER")));
+                    new UsernamePasswordAuthenticationToken(
+                        username,
+                        null,
+                        Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+                    );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

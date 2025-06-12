@@ -1,5 +1,5 @@
 export interface SubjectDTO {
-  id?: number;
+  id: number; 
   name: string;
   description: string;
 }
