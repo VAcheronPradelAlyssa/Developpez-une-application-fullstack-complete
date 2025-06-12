@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/posts/post';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-post-detail',
@@ -19,7 +21,8 @@ export class PostDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private postService: PostService
+    private postService: PostService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -46,5 +49,8 @@ export class PostDetailComponent implements OnInit {
       this.newComment = '';
       this.loadComments(this.post.id);
     });
+  }
+  goBack() {
+  this.location.back();
   }
 }

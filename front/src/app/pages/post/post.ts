@@ -14,7 +14,7 @@ export class PostComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
-  sortBy: string = 'date'; // valeur par défaut
+  sortBy: string = 'desc'; // valeur par défaut : du plus récent au plus ancien
 
   constructor(
     private postService: PostService,
@@ -35,15 +35,19 @@ export class PostComponent implements OnInit {
     });
   }
 
-  sortPosts() {
-    if (this.sortBy === 'date') {
-      this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-    } else if (this.sortBy === 'author') {
-      this.posts.sort((a, b) => a.author.username.localeCompare(b.author.username));
-    } else if (this.sortBy === 'subject') {
-      this.posts.sort((a, b) => a.subject.name.localeCompare(b.subject.name));
-    }
+
+toggleSort() {
+  this.sortBy = this.sortBy === 'desc' ? 'asc' : 'desc';
+  this.sortPosts();
+}
+
+sortPosts() {
+  if (this.sortBy === 'desc') {
+    this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  } else {
+    this.posts.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
   }
+}
 
   onSortChange() {
     this.sortPosts();

@@ -1,9 +1,12 @@
-<div *ngIf="loading">Chargement...</div>
-<div *ngIf="!loading && post">
-  <button class="back-btn" routerLink="/articles">
-    ← Retour
-  </button>
-  <h1>{{ post.title }}</h1>
+<div *ngIf="loading" class="loading-block">Chargement...</div>
+<button class="back-btn" (click)="goBack()" aria-label="Retour">
+  <span class="material-icons">keyboard_backspace</span>
+</button>
+
+
+<div *ngIf="!loading && post" class="article-container">
+ 
+  <h1 class="article-title">{{ post.title }}</h1>
   <div class="meta-list">
     <span>Date: {{ post.createdAt | date:'short' }}</span>
     <span>Auteur: {{ post.author.username }}</span>
@@ -11,13 +14,15 @@
   </div>
   <div class="article-content">{{ post.content }}</div>
   <hr>
-  <h3>Commentaires</h3>
+  <h3 class="comment-title">Commentaires</h3>
   <div *ngFor="let comment of comments" class="comment-block">
     <span class="username">{{ comment.author.username }}</span>
     <span class="comment-content">{{ comment.content }}</span>
   </div>
   <form (ngSubmit)="addComment()" class="add-comment-form">
     <textarea [(ngModel)]="newComment" name="newComment" placeholder="Écrivez ici votre commentaire"></textarea>
-    <button type="submit" class="send-btn" aria-label="Envoyer">Envoyer</button>
+    <button type="submit" class="send-btn" aria-label="Envoyer">
+      <svg width="30" height="30" viewBox="0 0 30 30"><path d="M3 27L29 15L3 3V13L21 15L3 17V27Z" fill="#7d5fff"/></svg>
+    </button>
   </form>
 </div>

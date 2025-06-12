@@ -1,17 +1,37 @@
 <div class="article-list-header">
-  <button class="btn btn-primary" routerLink="/create-post" >
+  <button class="btn-create" routerLink="/create-post">
     Créer un article
   </button>
+  <div class="sort-container">
+    <span class="sort-label">Trier par</span>
+    <span class="sort-arrow" (click)="toggleSort()" [attr.aria-label]="sortBy === 'desc' ? 'Trier du plus récent au plus ancien' : 'Trier du plus ancien au plus récent'">
+      <!-- Icône North (haut) si asc, South (bas) si desc -->
+      <svg *ngIf="sortBy === 'desc'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M12 19V5m0 0-7 7m7-7 7 7" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg *ngIf="sortBy === 'asc'" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24"><path d="M12 5v14m0 0 7-7m-7 7-7-7" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </div>
 </div>
-<div *ngIf="loading">Chargement...</div>
+
+<div *ngIf="loading" class="loading-block">Chargement...</div>
 <div *ngIf="error" class="error">{{ error }}</div>
-<div *ngIf="!loading && posts.length === 0">Aucun article trouvé.</div>
+<div *ngIf="!loading && posts.length === 0" class="no-post">Aucun article trouvé.</div>
 <div *ngIf="!loading && posts.length > 0" class="article-list">
-  <div *ngFor="let post of posts" class="post-card" [routerLink]="['/post', post.id]" style="cursor:pointer">
-    <h2>{{ post.title }}</h2>
-    <p class="meta">
-      Par {{ post.author.username }} | Sujet : {{ post.subject.name }} | {{ post.createdAt | date:'short' }}
-    </p>
+  <div *ngFor="let post of posts" class="post-card" (click)="goToPost(post.id)">
+    <h2 class="post-title">{{ post.title }}</h2>
+    <div class="meta-row">
+      <span>Date</span>
+      <span>Auteur</span>
+    </div>
+    <div class="meta-row meta-values">
+      <span>{{ post.createdAt | date:'short' }}</span>
+      <span>{{ post.author.username }}</span>
+    </div>
+    <div class="meta-row">
+      <span>Thème</span>
+    </div>
+    <div class="meta-row meta-values">
+      <span>{{ post.subject.name }}</span>
+    </div>
     <div class="content">{{ post.content }}</div>
   </div>
 </div>
