@@ -46,8 +46,8 @@ body {
   }
 }
 
-// --- Boutons principaux ---
-.btn {
+// --- Boutons principaux et utilitaires ---
+.btn, button {
   padding: 0.5rem 1.2rem;
   border: 1px solid var(--border-grey);
   border-radius: var(--radius);
@@ -70,6 +70,22 @@ body {
   &:active {
     background: #674ccf;
     color: #fff;
+  }
+
+  &.btn-primary, &.subscribe {
+    background: var(--main-purple);
+    color: #fff;
+    border: none;
+  }
+  &.btn-danger {
+    background: var(--danger);
+    color: #fff;
+    border: none;
+  }
+  &.subscribed {
+    background: #e4e4fd;
+    color: var(--main-purple);
+    cursor: default;
   }
 }
 
@@ -221,18 +237,29 @@ h2, .subtitle {
   color: #222;
 }
 
+h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+}
+
 .text-danger { color: var(--danger); }
 .text-grey { color: var(--text-grey); }
 
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
-// --- Cartes d’articles (liste) ---
+// --- Cartes globales ---
+.card, .article-card, .subject-card, .sub-card {
+  background: #fff;
+  border-radius: var(--radius, 12px);
+  box-shadow: 0 2px 8px #ececff;
+  padding: 1.3rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
 .article-card {
   background: var(--main-grey);
-  border-radius: var(--radius);
-  padding: 1rem 1.2rem;
-  margin-bottom: 1.2rem;
   box-shadow: 0 2px 8px rgba(80,80,80,0.03);
 
   h2 {
@@ -257,7 +284,53 @@ h2, .subtitle {
   }
 }
 
-// --- Utilitaires ---
+// --- Grilles et flex utilitaires ---
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.subjects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+// --- Cartes de sujets spécifiques ---
+.subject-card {
+  width: 310px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+  p {
+    color: #333;
+    font-size: 0.98rem;
+    margin-bottom: 1.2rem;
+  }
+  button {
+    align-self: flex-end;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+  }
+}
+
+// --- Utilitaires marges/paddings ---
 .mt-1 { margin-top: 1rem; }
 .mb-1 { margin-bottom: 1rem; }
 .mt-2 { margin-top: 2rem; }
@@ -273,11 +346,26 @@ h2, .subtitle {
 }
 
 // --- Responsive général ---
+@media (max-width: 800px) {
+  .grid-2, .article-list, .subjects-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .card, .subject-card, .sub-card {
+    width: 96vw;
+    min-width: unset;
+    padding: 1rem 0.5rem;
+  }
+}
+
 @media (max-width: 600px) {
   html { font-size: 15px; }
   h1, .main-title { font-size: 1.4rem; }
   .article-card { padding: 0.7rem 0.7rem; }
 }
+
+// --- Bouton retour ---
 .back-btn {
   background: none;
   border: none;
