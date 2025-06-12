@@ -57,4 +57,5 @@ public class SubscriptionService {
             .map(s -> s.getSubject().getId())
             .collect(Collectors.toSet());
     }
+    
 }

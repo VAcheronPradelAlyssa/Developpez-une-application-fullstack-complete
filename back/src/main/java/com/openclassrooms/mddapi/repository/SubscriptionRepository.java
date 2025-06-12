@@ -13,4 +13,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     boolean existsByUserAndSubject(User user, Subject subject);
     Optional<Subscription> findByUserAndSubject(User user, Subject subject);
     Set<Subscription> findByUser(User user);
+    Optional<Subscription> findByUserIdAndSubjectId(Long userId, Long subjectId);
+
 }
