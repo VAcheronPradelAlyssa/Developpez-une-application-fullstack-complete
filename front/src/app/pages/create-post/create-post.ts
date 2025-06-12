@@ -4,6 +4,7 @@ import { SubjectDTO } from '../../models/subject.dto';
 import { PostService } from 'src/app/services/posts/post';
 import { SubjectService } from 'src/app/services/subject/subject';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-post',
@@ -21,7 +22,8 @@ export class CreatePostComponent implements OnInit {
     private fb: FormBuilder,
     private postService: PostService,
     private subjectService: SubjectService,
-    private router: Router
+    private router: Router,
+    private location: Location // Ajout de Location pour la navigation
   ) {
     this.postForm = this.fb.group({
       subjectName: ['', Validators.required], // utilisé pour l’autocomplete
@@ -73,5 +75,8 @@ export class CreatePostComponent implements OnInit {
         error: () => alert('Erreur lors de la création de l\'article')
       });
     }
+  }
+   goBack() {
+  this.location.back();
   }
 }

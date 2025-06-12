@@ -25,6 +25,8 @@ h2 {
     padding: 0.7rem;
     font-size: 1rem;
     outline: none;
+    transition: border 0.17s;
+    &:focus { border-color: #7d5fff; }
   }
 
   button {
@@ -36,6 +38,11 @@ h2 {
     font-size: 1rem;
     cursor: pointer;
     font-weight: 600;
+    width: 100%;
+    margin-top: 0.2rem;
+    transition: background 0.18s;
+    &:hover:enabled { background: #5f47d4; }
+    &:disabled { opacity: 0.6; cursor: not-allowed; }
   }
 
   .error {
@@ -64,48 +71,70 @@ h3 {
   text-align: left;
 }
 
+/* 2 colonnes, marge latérale, responsive */
 .subscriptions-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
+  margin: 0 0.2rem 0 0.2rem; /* espace pour ne pas coller les bords */
 }
 
 .sub-card {
-  background: #eee;
-  border-radius: 14px;
-  padding: 1rem 1.3rem;
+  background: #fafaff;
+  border: 1.5px solid #bdb2fa;
+  border-radius: 13px;
+  padding: 1.1rem 1rem 1.1rem 1.2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 0;
 
   .sub-title {
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 0.3rem;
+    font-size: 1.05rem;
+    
   }
   .sub-desc {
-    font-size: 0.98rem;
-    margin-bottom: 0.7rem;
+    font-size: 0.985rem;
+    margin-bottom: 0.8rem;
     color: #555;
+    
   }
   .unsubscribe-btn {
     background: #7d5fff;
     color: #fff;
     border: none;
     border-radius: 6px;
-    padding: 0.4rem 1.1rem;
+    padding: 0.5rem 1.2rem;
     cursor: pointer;
-    align-self: flex-end;
-    font-size: 0.97rem;
+    align-self: center; // <-- centrer horizontalement dans la sub-card
+    font-size: 0.99rem;
     font-weight: 500;
+    margin-top: auto;
+    transition: background 0.18s;
+    &:hover { background: #5f47d4; }
   }
 }
 
-@media (max-width: 700px) {
-  .profile-container {
-    max-width: 98vw;
-    padding: 1rem 0.2rem;
+@media (max-width: 900px) {
+  .subscriptions-list {
+    grid-template-columns: 1fr;
+    margin: 0 0.05rem;
   }
-  .sub-card {
-    padding: 1rem 0.5rem;
+  .profile-container {
+    max-width: 99vw;
+    padding: 1.2rem 0.2rem;
+  }
+}
+.subscriptions-container {
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin: 10px;
+
+  h3 {
+    text-align: center;
   }
 }

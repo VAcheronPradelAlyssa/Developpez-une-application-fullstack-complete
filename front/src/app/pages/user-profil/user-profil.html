@@ -6,21 +6,22 @@
     <input type="email" [(ngModel)]="user.email" name="email" placeholder="email@email.fr" required />
     <input type="password" [(ngModel)]="user.password" name="password" placeholder="Mot de passe" autocomplete="new-password" />
 
-    <button type="submit" [disabled]="saving">Sauvegarder</button>
+    <button class="btn-cr" type="submit" [disabled]="saving">Sauvegarder</button>
 
     <div class="success" *ngIf="success">{{ success }}</div>
     <div class="error" *ngIf="error">{{ error }}</div>
   </form>
 
-  <hr />
-
-  <h3>Abonnements</h3>
+  
+</div><hr />
+<div class="subscriptions-container" *ngIf="!loading">
+  <h2>Abonnements</h2>
 
   <div class="subscriptions-list" *ngIf="subscriptions?.length && subscriptions.length > 0; else noSub">
     <div class="sub-card" *ngFor="let sub of subscriptions">
       <ng-container *ngIf="sub?.subject">
         <div class="sub-title">{{ sub.subject.name }}</div>
-        <div class="sub-description">{{ sub.subject.description }}</div>
+        <div class="sub-desc">{{ sub.subject.description }}</div>
 
         <button class="unsubscribe-btn" (click)="unsubscribe(sub.subject.id)">
           Se désabonner
@@ -32,7 +33,6 @@
   <ng-template #noSub>
     <p>Aucun abonnement trouvé.</p>
   </ng-template>
-
 </div>
 
 <div *ngIf="loading">Chargement…</div>
