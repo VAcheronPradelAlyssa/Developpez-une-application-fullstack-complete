@@ -4,7 +4,7 @@ import com.openclassrooms.mddapi.dto.RegisterRequest;
 import com.openclassrooms.mddapi.dto.LoginRequest;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
-import com.openclassrooms.mddapi.util.JwtUtil; // adapte le chemin selon ton projet
+import com.openclassrooms.mddapi.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,8 +39,8 @@ public class AuthService {
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                // Génère un JWT au lieu d'un simple message
-                return JwtUtil.generateToken(user.getUsername());
+                // Génère un JWT avec username ET userId
+                return JwtUtil.generateToken(user.getUsername(), user.getId());
             }
         }
         return null;

@@ -43,6 +43,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User updateUserByUsername(String username, UserUpdateDTO dto) {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        if (dto.getUsername() != null) user.setUsername(dto.getUsername());
+        if (dto.getEmail() != null) user.setEmail(dto.getEmail());
+        if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+        return userRepository.save(user);
+    }
+
     public Set<Subscription> getSubscriptions(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         return user.getSubscriptions();

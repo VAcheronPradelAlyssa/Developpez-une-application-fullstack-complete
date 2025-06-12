@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // (Optionnel) Vérifie la validité du token (expiration, signature, etc.)
+            // Vérifie la validité du token et extrait les infos
             try {
                 Claims claims = Jwts.parserBuilder()
                         .setSigningKey(JwtUtil.getSecretKeyBytes())
@@ -50,9 +50,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         .parseClaimsJws(token)
                         .getBody();
                 String username = claims.getSubject();
+                Long userId = claims.get("userId", Integer.class).longValue(); // ou Long.class selon ta génération
+
+                CustomUserPrincipal principal = new CustomUserPrincipal(userId, username);
+
                 UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                        username,
+                        principal,
                         null,
                         Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
                     );

@@ -23,9 +23,9 @@ public class SubscriptionService {
     private final SubjectRepository subjectRepository;
     private final UserRepository userRepository;
 
-    public void subscribe(Long subjectId, String username) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec le username : " + username));
+    public void subscribe(Long subjectId, Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + userId));
         Subject subject = subjectRepository.findById(subjectId)
             .orElseThrow(() -> new RuntimeException("Sujet non trouvé avec l'id : " + subjectId));
 
@@ -38,9 +38,9 @@ public class SubscriptionService {
         subscriptionRepository.save(subscription);
     }
 
-    public void unsubscribe(Long subjectId, String username) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec le username : " + username));
+    public void unsubscribe(Long subjectId, Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + userId));
         Subject subject = subjectRepository.findById(subjectId)
             .orElseThrow(() -> new RuntimeException("Sujet non trouvé avec l'id : " + subjectId));
 
@@ -49,13 +49,12 @@ public class SubscriptionService {
         subscriptionRepository.delete(sub);
     }
 
-    public Set<Long> getSubscribedSubjectIds(String username) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec le username : " + username));
+    public Set<Long> getSubscribedSubjectIds(Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + userId));
         return subscriptionRepository.findByUser(user)
             .stream()
             .map(s -> s.getSubject().getId())
             .collect(Collectors.toSet());
     }
-    
 }

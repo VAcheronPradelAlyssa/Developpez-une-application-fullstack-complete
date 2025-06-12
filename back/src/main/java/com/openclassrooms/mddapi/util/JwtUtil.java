@@ -20,10 +20,12 @@ public class JwtUtil {
         JwtUtil.secretKey = value;
     }
 
-    public static String generateToken(String username) {
+    // Ajoute l'id utilisateur dans le token
+    public static String generateToken(String username, Long userId) {
         Key key = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
         return Jwts.builder()
                 .setSubject(username)
+                .claim("userId", userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 24h
                 .signWith(key, SignatureAlgorithm.HS256)
