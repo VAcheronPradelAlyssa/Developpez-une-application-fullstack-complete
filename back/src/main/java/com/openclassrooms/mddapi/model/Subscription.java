@@ -24,7 +24,6 @@ public class Subscription {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @JsonIgnore
     private Subject subject;
 
     private LocalDateTime subscribedAt = LocalDateTime.now();

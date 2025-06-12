@@ -9,7 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
+import com.openclassrooms.mddapi.model.Subject;
 
 @Service
 public class UserService {
@@ -54,15 +55,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Set<Subscription> getSubscriptions(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        return user.getSubscriptions();
-    }
-
-    public Set<Subscription> getSubscriptions(String username) {
-        User user = userRepository.findByUsername(username)
+    // Correction : retourne la liste des abonnements de l'utilisateur via le repository
+    public List<Subscription> getSubscriptions(Long userId) {
+        User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-        return subscriptionRepository.findByUser(user);
+        // Conversion du Set en List
+        return new java.util.ArrayList<>(subscriptionRepository.findByUser(user));
     }
 
     public void unsubscribe(Long userId, Long subjectId) {

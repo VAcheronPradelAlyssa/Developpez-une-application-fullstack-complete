@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfile, UserService, Subscription as UserSubscription } from 'src/app/services/user/user-profil';
+import { Subscription, UserProfile, UserService, Subscription as UserSubscription } from 'src/app/services/user/user-profil';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,7 +9,7 @@ import { UserProfile, UserService, Subscription as UserSubscription } from 'src/
 })
 export class UserProfileComponent implements OnInit {
   user: UserProfile = { id: 0, username: '', email: '', password: '' };
-  subscriptions: UserSubscription[] = [];
+subscriptions: Subscription[] = [];
   loading = true;
   saving = false;
   error = '';

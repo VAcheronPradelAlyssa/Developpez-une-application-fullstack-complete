@@ -28,7 +28,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String role = "USER"; // valeurs possibles : "USER" ou "ADMIN"
+    private String role = "USER";
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
