@@ -34,8 +34,8 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody PostCreateDTO dto, Authentication authentication) {
-        String username = authentication.getName();
-        User author = userRepository.findByUsername(username).orElseThrow();
+        Long userId = ((com.openclassrooms.mddapi.security.CustomUserPrincipal) authentication.getPrincipal()).getId();
+        User author = userRepository.findById(userId).orElseThrow();
         Subject subject = subjectRepository.findById(dto.getSubjectId()).orElseThrow();
         Post post = postService.createPost(dto, author, subject);
         return ResponseEntity.ok(post);
