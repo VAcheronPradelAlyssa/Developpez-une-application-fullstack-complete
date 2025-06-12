@@ -1,9 +1,65 @@
-.subscribe {
-  background-color: #8b5cf6;
-  color: white;
+
+
+.subjects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1.5rem;
 }
 
-.subscribed {
-  background-color: #d1d5db;
-  color: black;
+.subject-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #e4e4fd;
+  padding: 1.3rem 1.2rem 1.5rem 1.2rem;
+  width: 310px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+  p {
+    color: #333;
+    font-size: 0.98rem;
+    margin-bottom: 1.2rem;
+  }
+  button {
+    align-self: flex-end;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #ececff;
+    transition: background 0.15s, color 0.15s;
+    &.subscribe {
+      background: #7d5fff;
+      color: #fff;
+    }
+    &.subscribed {
+      background: #e4e4fd;
+      color: #7d5fff;
+      cursor: default;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .subjects-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+  }
+  .subject-card {
+    width: 96vw;
+    min-width: unset;
+  }
 }
