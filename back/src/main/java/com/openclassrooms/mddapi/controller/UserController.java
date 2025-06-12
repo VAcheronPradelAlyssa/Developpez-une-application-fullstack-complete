@@ -7,6 +7,7 @@ import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Set;
 
 @RestController
@@ -16,12 +17,12 @@ public class UserController {
     private final UserService userService;
     public UserController(UserService userService) { this.userService = userService; }
 
-    // GET /api/user/profile?userId=X
+    // GET /api/user/profile
     @GetMapping("/profile")
-    public ResponseEntity<User> getProfile(@RequestParam Long userId) {
-        return userService.getUserById(userId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<User> getProfile(Principal principal) {
+        User user = userService.getUserByUsername(principal.getName())
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        return ResponseEntity.ok(user);
     }
 
     // PUT /api/user/profile?userId=X
@@ -31,11 +32,10 @@ public class UserController {
         return ResponseEntity.ok(updated);
     }
 
-    // GET /api/user/subscriptions?userId=X
+    // GET /api/user/subscriptions
     @GetMapping("/subscriptions")
-    public ResponseEntity<Set<Subscription>> getSubscriptions(@RequestParam Long userId) {
-        Set<Subscription> subs = userService.getSubscriptions(userId);
-        return ResponseEntity.ok(subs);
+    public ResponseEntity<Set<Subscription>> getSubscriptions(Principal principal) {
+        return ResponseEntity.ok(userService.getSubscriptions(principal.getName()));
     }
 
     // DELETE /api/user/subscriptions/{subjectId}?userId=X

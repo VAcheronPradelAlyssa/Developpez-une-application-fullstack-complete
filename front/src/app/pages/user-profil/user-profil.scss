@@ -1,0 +1,111 @@
+.profile-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 3px 12px #e4e4fd;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.3rem;
+  text-align: center;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  input {
+    border: 1.5px solid #bdb2fa;
+    border-radius: 7px;
+    padding: 0.7rem;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  button {
+    background: #7d5fff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 0;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .error {
+    color: #dc143c;
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .success {
+    color: #27ae60;
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+}
+
+hr {
+  margin: 2rem 0 1.2rem 0;
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+  text-align: left;
+}
+
+.subscriptions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.sub-card {
+  background: #eee;
+  border-radius: 14px;
+  padding: 1rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .sub-title {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+  .sub-desc {
+    font-size: 0.98rem;
+    margin-bottom: 0.7rem;
+    color: #555;
+  }
+  .unsubscribe-btn {
+    background: #7d5fff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 1.1rem;
+    cursor: pointer;
+    align-self: flex-end;
+    font-size: 0.97rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 700px) {
+  .profile-container {
+    max-width: 98vw;
+    padding: 1rem 0.2rem;
+  }
+  .sub-card {
+    padding: 1rem 0.5rem;
+  }
+}

@@ -1,0 +1,29 @@
+<div class="profile-container" *ngIf="!loading">
+  <h2>Profil utilisateur</h2>
+  <form (ngSubmit)="saveProfile()" class="profile-form">
+    <input type="text" [(ngModel)]="user.username" name="username" placeholder="Username" required />
+    <input type="email" [(ngModel)]="user.email" name="email" placeholder="email@email.fr" required />
+    <input type="password" [(ngModel)]="user.password" name="password" placeholder="Mot de passe" autocomplete="new-password" />
+    <button type="submit" [disabled]="saving">Sauvegarder</button>
+    <div class="success" *ngIf="success">{{ success }}</div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+  </form>
+  <hr />
+  <h3>Abonnements</h3>
+  <div class="subscriptions-list" *ngIf="subscriptions.length > 0; else noSub">
+    <div class="sub-card" *ngFor="let sub of subscriptions">
+      <div class="sub-title">{{ sub.subject?.name }}</div>
+      <div class="sub-desc">{{ sub.subject?.description }}</div>
+      <button
+        class="unsubscribe-btn"
+        *ngIf="sub.subject?.id"
+        (click)="unsubscribe(sub.subject.id)">
+        Se désabonner
+      </button>
+    </div>
+  </div>
+  <ng-template #noSub>
+    <p>Aucun abonnement trouvé.</p>
+  </ng-template>
+</div>
+<div *ngIf="loading">Chargement…</div>
