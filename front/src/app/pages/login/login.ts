@@ -21,7 +21,7 @@ export class LoginComponent {
     private location: Location
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      emailOrUsername: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -36,12 +36,12 @@ export class LoginComponent {
         this.router.navigate(['/post']);
       },
       error: (err) => {
-        this.error = err?.error?.message || 'Erreur de connexion';
+        this.error = err?.error?.error || err?.error?.message || 'Erreur de connexion';
       }
     });
   }
 
- goBack() {
-  this.router.navigate(['/']);
-}
+  goBack() {
+    this.router.navigate(['/']);
+  }
 }

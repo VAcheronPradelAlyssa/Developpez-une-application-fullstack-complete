@@ -35,19 +35,23 @@ public class AuthService {
     }
 
     public String login(LoginRequest request) {
-        Optional<User> userOpt = userRepository.findByEmail(request.getEmail());
-        if (userOpt.isPresent()) {
+        Optional<User> userOpt = getUserByEmailOrUsername(request.getEmailOrUsername());
+        if (userOpt.isPresent() && passwordEncoder.matches(request.getPassword(), userOpt.get().getPassword())) {
             User user = userOpt.get();
-            if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-                // Génère un JWT avec username ET userId
-                return JwtUtil.generateToken(user.getUsername(), user.getId());
-            }
+            return JwtUtil.generateToken(user.getUsername(), user.getId());
         }
         return null;
     }
 
-    // Ajout de la méthode generateToken pour l'inscription
     public String generateToken(User user) {
         return JwtUtil.generateToken(user.getUsername(), user.getId());
+    }
+
+    public Optional<User> getUserByEmailOrUsername(String emailOrUsername) {
+        Optional<User> userOpt = userRepository.findByEmail(emailOrUsername);
+        if (userOpt.isEmpty()) {
+            userOpt = userRepository.findByUsername(emailOrUsername);
+        }
+        return userOpt;
     }
 }

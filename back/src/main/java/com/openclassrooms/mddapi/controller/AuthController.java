@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,7 +26,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         User user = authService.register(request);
-        String token = authService.generateToken(user); // Ajoute cette ligne
+        String token = authService.generateToken(user);
         return ResponseEntity.ok(Map.of(
             "user", user,
             "token", token
@@ -36,8 +37,13 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         String token = authService.login(request);
         if (token != null) {
-            // Retourne un objet JSON
-            return ResponseEntity.ok(Map.of("token", token));
+            // Récupère l'utilisateur pour le front (optionnel)
+            Optional<User> userOpt = authService.getUserByEmailOrUsername(request.getEmailOrUsername());
+            User user = userOpt.orElse(null);
+            return ResponseEntity.ok(Map.of(
+                "user", user,
+                "token", token
+            ));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Identifiants invalides"));
         }
