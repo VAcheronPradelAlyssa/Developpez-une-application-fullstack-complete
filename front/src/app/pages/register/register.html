@@ -1,14 +1,58 @@
-<!-- Flèche retour -->
 <button class="back-btn" (click)="goBack()" aria-label="Retour">
     <span class="material-icons">keyboard_backspace</span>
-
 </button>
 <div class="register-container">
   <h2>Inscription</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <input formControlName="username" placeholder="Nom d'utilisateur" required>
     <input formControlName="email" type="email" placeholder="Email" required>
-    <input formControlName="password" type="password" placeholder="Mot de passe" required>
+    <input
+      formControlName="password"
+      type="password"
+      placeholder="Mot de passe"
+      required
+      (focus)="showPasswordRules = true"
+      (blur)="showPasswordRules = false"
+    />
+
+    <div style="position: relative;">
+      <div
+        class="password-rules-bubble"
+        *ngIf="showPasswordRules"
+      >
+        <div>
+          <span [class.valid]="passwordChecks.length" [class.invalid]="!passwordChecks.length">
+            {{ passwordChecks.length ? '✔️' : '❌' }}
+          </span>
+          Au moins 8 caractères
+        </div>
+        <div>
+          <span [class.valid]="passwordChecks.lowercase" [class.invalid]="!passwordChecks.lowercase">
+            {{ passwordChecks.lowercase ? '✔️' : '❌' }}
+          </span>
+          Une lettre minuscule
+        </div>
+        <div>
+          <span [class.valid]="passwordChecks.uppercase" [class.invalid]="!passwordChecks.uppercase">
+            {{ passwordChecks.uppercase ? '✔️' : '❌' }}
+          </span>
+          Une lettre majuscule
+        </div>
+        <div>
+          <span [class.valid]="passwordChecks.digit" [class.invalid]="!passwordChecks.digit">
+            {{ passwordChecks.digit ? '✔️' : '❌' }}
+          </span>
+          Un chiffre
+        </div>
+        <div>
+          <span [class.valid]="passwordChecks.special" [class.invalid]="!passwordChecks.special">
+            {{ passwordChecks.special ? '✔️' : '❌' }}
+          </span>
+          Un caractère spécial
+        </div>
+      </div>
+    </div>
+
     <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
   </form>
   <div *ngIf="error" class="error">{{error}}</div>

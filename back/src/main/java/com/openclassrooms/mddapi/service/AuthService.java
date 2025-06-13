@@ -45,4 +45,9 @@ public class AuthService {
         }
         return null;
     }
+
+    // Ajout de la méthode generateToken pour l'inscription
+    public String generateToken(User user) {
+        return JwtUtil.generateToken(user.getUsername(), user.getId());
+    }
 }

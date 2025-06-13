@@ -23,9 +23,13 @@ public class AuthController {
     private TokenBlacklistService tokenBlacklistService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         User user = authService.register(request);
-        return ResponseEntity.ok(user);
+        String token = authService.generateToken(user); // Ajoute cette ligne
+        return ResponseEntity.ok(Map.of(
+            "user", user,
+            "token", token
+        ));
     }
 
     @PostMapping("/login")

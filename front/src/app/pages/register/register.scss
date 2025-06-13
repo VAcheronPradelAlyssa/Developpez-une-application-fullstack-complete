@@ -36,3 +36,62 @@
     transition: background 0.2s;
   }
 }
+
+/* Ajout pour l'affichage dynamique des règles du mot de passe */
+.password-rules {
+  margin: 0.7rem 0 1.2rem 0;
+  font-size: 0.98rem;
+  div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.2rem;
+    span {
+      display: inline-block;
+      width: 1.5em;
+      text-align: center;
+      font-weight: bold;
+      margin-right: 0.5em;
+      &.valid { color: #2ecc40; }
+      &.invalid { color: #e74c3c; }
+    }
+  }
+}
+
+.password-rules-bubble {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 100%;
+  z-index: 10;
+  background: #fff;
+  border: 1.5px solid #7c55ea;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #0002;
+  padding: 1rem 1.2rem;
+  width: 95%;
+  max-width: 350px;
+  font-size: 0.98rem;
+  margin-top: 0.3rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.2rem;
+    span {
+      display: inline-block;
+      width: 1.5em;
+      text-align: center;
+      font-weight: bold;
+      margin-right: 0.5em;
+      &.valid { color: #2ecc40; }
+      &.invalid { color: #e74c3c; }
+    }
+  }
+}
+
+.warning {
+  color: #e74c3c;
+  font-size: 0.97rem;
+  margin-bottom: 0.5rem;
+}
