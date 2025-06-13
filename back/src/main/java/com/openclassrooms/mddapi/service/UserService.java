@@ -44,16 +44,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUserByUsername(String username, UserUpdateDTO dto) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-        if (dto.getUsername() != null) user.setUsername(dto.getUsername());
-        if (dto.getEmail() != null) user.setEmail(dto.getEmail());
-        if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        }
-        return userRepository.save(user);
-    }
 
     // Correction : retourne la liste des abonnements de l'utilisateur via le repository
     public List<Subscription> getSubscriptions(Long userId) {

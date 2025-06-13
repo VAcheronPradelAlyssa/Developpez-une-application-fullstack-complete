@@ -43,7 +43,6 @@ export class PostDetailComponent implements OnInit {
   addComment() {
     if (!this.newComment.trim()) return;
     this.postService.addComment(this.post.id, {
-      userId: this.userId,
       content: this.newComment
     }).subscribe(() => {
       this.newComment = '';

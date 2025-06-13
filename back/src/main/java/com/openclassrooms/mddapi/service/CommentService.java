@@ -42,19 +42,5 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    // Ancienne méthode, tu peux la garder si tu veux
-    public Optional<Comment> addComment(Long postId, Long userId, String content) {
-        Optional<Post> postOpt = postRepository.findById(postId);
-        Optional<User> userOpt = userRepository.findById(userId);
-
-        if (postOpt.isPresent() && userOpt.isPresent()) {
-            Comment comment = new Comment();
-            comment.setPost(postOpt.get());
-            comment.setAuthor(userOpt.get());
-            comment.setContent(content);
-            comment.setCreatedAt(LocalDateTime.now());
-            return Optional.of(commentRepository.save(comment));
-        }
-        return Optional.empty();
-    }
+    
 }

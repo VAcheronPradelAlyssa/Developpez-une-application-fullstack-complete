@@ -6,9 +6,8 @@
       <p>{{subject.description}}</p>
       <button 
         [ngClass]="isSubscribed(subject.id) ? 'subscribed' : 'subscribe'" 
-        [disabled]="isSubscribed(subject.id)"
-        (click)="!isSubscribed(subject.id) && toggleSubscription(subject.id)">
-        {{ isSubscribed(subject.id) ? 'Déjà abonné' : "S’abonner" }}
+        (click)="toggleSubscription(subject.id)">
+        {{ isSubscribed(subject.id) ? 'Se désabonner' : "S’abonner" }}
       </button>
     </div>
   </div>

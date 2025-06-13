@@ -34,7 +34,7 @@ export class PostService {
     return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
   }
 
-  addComment(postId: number, comment: { userId: number; content: string }): Observable<any> {
+  addComment(postId: number, comment: { content: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/${postId}/comments`, comment);
   }
 }

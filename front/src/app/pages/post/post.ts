@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post.dto';
 import { PostService } from 'src/app/services/posts/post';
 
+const SORT_KEY = 'post_sort_order';
+
 @Component({
   selector: 'app-posts',
   templateUrl: './post.html',
@@ -14,7 +16,7 @@ export class PostComponent implements OnInit {
   loading = true;
   error: string | null = null;
 
-  sortBy: string = 'desc'; // valeur par défaut : du plus récent au plus ancien
+  sortBy: string = localStorage.getItem(SORT_KEY) || 'desc'; // valeur par défaut : du plus récent au plus ancien
 
   constructor(
     private postService: PostService,
@@ -38,6 +40,7 @@ export class PostComponent implements OnInit {
 
 toggleSort() {
   this.sortBy = this.sortBy === 'desc' ? 'asc' : 'desc';
+  localStorage.setItem(SORT_KEY, this.sortBy);
   this.sortPosts();
 }
 
@@ -50,6 +53,7 @@ sortPosts() {
 }
 
   onSortChange() {
+    localStorage.setItem(SORT_KEY, this.sortBy);
     this.sortPosts();
   }
 
