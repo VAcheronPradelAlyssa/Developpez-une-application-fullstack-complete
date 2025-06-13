@@ -1,5 +1,5 @@
 <button class="back-btn" (click)="goBack()" aria-label="Retour">
-    <span class="material-icons">keyboard_backspace</span>
+  <span class="material-icons">keyboard_backspace</span>
 </button>
 <div class="register-container">
   <h2>Inscription</h2>
@@ -14,14 +14,28 @@
         Le format de l'email est invalide.
       </span>
     </div>
-    <input
-      formControlName="password"
-      type="password"
-      placeholder="Mot de passe"
-      required
-      (focus)="showPasswordRules = true"
-      (blur)="showPasswordRules = false"
-    />
+
+    <div class="password-field-wrapper">
+      <input
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Mot de passe"
+        required
+        (focus)="showPasswordRules = true"
+        (blur)="showPasswordRules = false"
+      />
+      <button
+        type="button"
+        class="toggle-password-btn"
+        (click)="showPassword = !showPassword"
+        aria-label="Afficher ou masquer le mot de passe"
+        tabindex="-1"
+      >
+        <span class="material-icons">
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </span>
+      </button>
+    </div>
 
     <div style="position: relative;">
       <div

@@ -15,6 +15,7 @@ export class RegisterComponent {
   error: string = '';
   success: boolean = false;
   showPasswordRules = false;
+  showPassword: boolean = false;
 
   // Ajout pour l'analyse dynamique du mot de passe
   passwordChecks = {
@@ -70,14 +71,15 @@ export class RegisterComponent {
     this.error = '';
     this.success = false;
     this.authService.register(this.registerForm.value).subscribe({
-      next: () => {
+      next: (res) => {
+        // Stocke le token comme pour le login
+        localStorage.setItem('token', res.token);
         this.success = true;
         setTimeout(() => {
-          this.router.navigate(['/']);
-        });
+          this.router.navigate(['/post']);
+        }, 500); // petite pause pour afficher "Inscription réussie"
       },
       error: (err) => {
-        // Essaye plusieurs chemins pour récupérer le message
         this.error =
           err?.error?.message ||
           err?.error ||

@@ -23,6 +23,8 @@
     border: 1px solid #7c55ea;
     font-size: 1rem;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
   }
   button {
     background: #7c55ea;
@@ -34,6 +36,37 @@
     font-size: 1.1rem;
     cursor: pointer;
     transition: background 0.2s;
+  }
+}
+
+.password-field-wrapper {
+  position: relative;
+  width: 100%;
+
+  input {
+    padding-right: 40px; // espace pour le bouton œil
+  }
+
+  .toggle-password-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .material-icons {
+      font-size: 20px;
+      color: #7c55ea;
+    }
   }
 }
 
