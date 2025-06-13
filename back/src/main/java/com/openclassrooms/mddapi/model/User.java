@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.openclassrooms.mddapi.validation.ValidEmail;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @ValidEmail
     private String email;
 
     @Column(nullable = false, unique = true)

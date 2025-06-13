@@ -33,7 +33,7 @@ export class RegisterComponent {
   ) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, this.emailValidator]],
       password: ['', [Validators.required, this.passwordValidator]]
     });
 
@@ -46,6 +46,13 @@ export class RegisterComponent {
     if (!value) return null;
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
     return regex.test(value) ? null : { passwordInvalid: true };
+  }
+
+  emailValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return null;
+    const regex = /^[^@]+@[^@]+\.[^@]+$/;
+    return regex.test(value) ? null : { email: true };
   }
 
   // Analyse dynamique du mot de passe
@@ -70,7 +77,12 @@ export class RegisterComponent {
         });
       },
       error: (err) => {
-        this.error = err?.error?.message || 'Registration failed';
+        // Essaye plusieurs chemins pour récupérer le message
+        this.error =
+          err?.error?.message ||
+          err?.error ||
+          err?.message ||
+          'Une erreur est survenue';
       }
     });
   }

@@ -6,6 +6,14 @@
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <input formControlName="username" placeholder="Nom d'utilisateur" required>
     <input formControlName="email" type="email" placeholder="Email" required>
+    <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error">
+      <span *ngIf="registerForm.get('email')?.errors?.['required']">
+        L'email est requis.
+      </span>
+      <span *ngIf="registerForm.get('email')?.errors?.['email']">
+        Le format de l'email est invalide.
+      </span>
+    </div>
     <input
       formControlName="password"
       type="password"
