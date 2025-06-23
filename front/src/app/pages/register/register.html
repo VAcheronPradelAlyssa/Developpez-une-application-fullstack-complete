@@ -3,6 +3,12 @@
   <h2>Inscription</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <input formControlName="username" placeholder="Nom d'utilisateur" required>
+    <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="error">
+      <span *ngIf="registerForm.get('username')?.errors?.['required']">
+        Nom d'utilisateur requis.
+      </span>
+    </div>
+
     <input formControlName="email" type="email" placeholder="Email" required>
     <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error">
       <span *ngIf="registerForm.get('email')?.errors?.['required']">

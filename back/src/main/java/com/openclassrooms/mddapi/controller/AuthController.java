@@ -33,7 +33,7 @@ public class AuthController {
 
         Cookie cookie = new Cookie("token", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(true); // à mettre à false en local si besoin, true en prod (HTTPS)
+        cookie.setSecure(false); // false en local
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24); // 1 jour
         response.addCookie(cookie);
@@ -50,7 +50,7 @@ public class AuthController {
 
             Cookie cookie = new Cookie("token", token);
             cookie.setHttpOnly(true);
-            cookie.setSecure(true); // à mettre à false en local si besoin, true en prod (HTTPS)
+            cookie.setSecure(false); // false en local
             cookie.setPath("/");
             cookie.setMaxAge(60 * 60 * 24); // 1 jour
             response.addCookie(cookie);
@@ -63,10 +63,9 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletResponse response) {
-        // Supprime le cookie côté client
         Cookie cookie = new Cookie("token", "");
-        cookie.setHttpOnly(false);
-        cookie.setSecure(true); // à mettre à false en local si besoin, true en prod (HTTPS)
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // false en local
         cookie.setPath("/");
         cookie.setMaxAge(0); // expire immédiatement
         response.addCookie(cookie);

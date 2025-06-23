@@ -4,7 +4,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register';
 import { LoginComponent } from './pages/login/login';
 import { PostComponent } from './pages/post/post';
-import { Subject } from 'rxjs';
 import { ListSubjectComponent } from './pages/list-subject/list-subject';
 import { CreateSubjectComponent } from './pages/create-subject/create-subject';
 import { CreatePostComponent } from './pages/create-post/create-post';

@@ -37,6 +37,13 @@
     cursor: pointer;
     transition: background 0.2s;
   }
+  button[disabled] {
+    background: #ccc !important;
+    color: #888 !important;
+    cursor: not-allowed !important;
+    border: 1px solid #bbb !important;
+    opacity: 1 !important;
+  }
 }
 
 .password-field-wrapper {

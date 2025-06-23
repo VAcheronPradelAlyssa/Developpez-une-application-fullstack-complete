@@ -7,7 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:all": "concurrently \"npm start\" \"cd ../back && mvn spring-boot:run\""
+    "start:all": "concurrently \"npm start\" \"cd ../back && mvn spring-boot:run\"",
+    "cypress:run": "cypress run",
+    "start:back:test": "cd ../back && mvn spring-boot:run -Dspring-boot.run.profiles=test",
+    "start:front": "ng serve",
+    "cypress:open": "cypress open",
+    "test:e2e:all": "concurrently \"npm run start:back:test\" \"npm run start:front\" \"wait-on http://localhost:4200 && npm run cypress:open\""
   },
   "private": true,
   "dependencies": {
@@ -30,7 +35,7 @@
     "@angular/cli": "^20.0.1",
     "@angular/compiler-cli": "^20.0.0",
     "@types/jasmine": "~5.1.8",
-    "concurrently": "^9.1.2",
+    "concurrently": "^9.2.0",
     "cypress": "^14.5.0",
     "jasmine-core": "~5.7.1",
     "karma": "~6.4.4",
@@ -38,6 +43,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "wait-on": "^8.0.3"
   }
 }

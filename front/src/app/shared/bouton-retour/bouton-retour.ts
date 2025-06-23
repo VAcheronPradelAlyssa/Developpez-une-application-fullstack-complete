@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bouton-retour',
@@ -10,9 +10,9 @@ import { Location } from '@angular/common';
 export class BoutonRetourComponent {
   @Input() label: string = 'Retour';
 
-  constructor(private location: Location) {}
+  constructor(private router: Router) {}
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['']);
   }
 }
