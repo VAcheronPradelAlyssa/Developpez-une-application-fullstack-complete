@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 import { PostDetailComponent } from './post-detail';
+import { BoutonRetourComponent } from 'src/app/shared/bouton-retour/bouton-retour';
 
 describe('PostDetailComponent', () => {
   let component: PostDetailComponent;
@@ -10,8 +12,15 @@ describe('PostDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PostDetailComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule]
+      declarations: [
+        PostDetailComponent,
+        BoutonRetourComponent
+      ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        FormsModule
+      ]
     })
     .compileComponents();
 

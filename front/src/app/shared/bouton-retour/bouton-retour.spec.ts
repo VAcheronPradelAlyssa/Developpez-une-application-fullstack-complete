@@ -7,8 +7,7 @@ describe('BoutonRetourComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoutonRetourComponent], // <-- ici, PAS dans imports
-      // imports: [ ... ] si besoin
+      declarations: [BoutonRetourComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BoutonRetourComponent);
@@ -20,3 +19,4 @@ describe('BoutonRetourComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

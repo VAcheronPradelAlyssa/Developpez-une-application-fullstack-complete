@@ -13,7 +13,7 @@ describe('NavbarComponent', () => {
       declarations: [NavbarComponent],
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule // Ajout du module de test HTTP
+        HttpClientTestingModule
       ],
     })
     .compileComponents();
