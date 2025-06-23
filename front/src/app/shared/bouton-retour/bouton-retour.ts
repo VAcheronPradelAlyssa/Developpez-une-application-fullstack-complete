@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bouton-retour',
-  imports: [],
   templateUrl: './bouton-retour.html',
-  styleUrl: './bouton-retour.scss'
+  styleUrls: ['./bouton-retour.scss'],
+  standalone: false,
 })
-export class BoutonRetour {
+export class BoutonRetourComponent {
+  @Input() label: string = 'Retour';
 
+  constructor(private location: Location) {}
+
+  goBack() {
+    this.location.back();
+  }
 }
