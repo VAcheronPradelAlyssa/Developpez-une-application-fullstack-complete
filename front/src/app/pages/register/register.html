@@ -69,4 +69,8 @@
   </form>
   <div *ngIf="error" class="error">{{error}}</div>
   <div *ngIf="success" class="success">Inscription réussie ! Redirection ...</div>
+  <div *ngIf="alreadyLoggedIn" class="popup-already-logged">
+    Vous êtes déjà connecté.<br>
+    Redirection vers les articles...
+  </div>
 </div>
