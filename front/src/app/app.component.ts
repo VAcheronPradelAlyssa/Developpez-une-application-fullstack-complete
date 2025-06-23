@@ -8,6 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
   standalone: false, // Permet de l'utiliser dans d'autres composants
 })
 export class AppComponent {
+  title = 'front';
   showNavbar = true;
   hideNavbarRoutes = ['/']; // Seule la page d'accueil n'a aucune navbar
 

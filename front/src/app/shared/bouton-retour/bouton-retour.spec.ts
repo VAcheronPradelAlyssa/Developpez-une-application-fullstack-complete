@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BoutonRetourComponent } from './bouton-retour';
 
-import { BoutonRetour } from './bouton-retour';
-
-describe('BoutonRetour', () => {
-  let component: BoutonRetour;
-  let fixture: ComponentFixture<BoutonRetour>;
+describe('BoutonRetourComponent', () => {
+  let component: BoutonRetourComponent;
+  let fixture: ComponentFixture<BoutonRetourComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BoutonRetour]
-    })
-    .compileComponents();
+      declarations: [BoutonRetourComponent], // <-- ici, PAS dans imports
+      // imports: [ ... ] si besoin
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(BoutonRetour);
+    fixture = TestBed.createComponent(BoutonRetourComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

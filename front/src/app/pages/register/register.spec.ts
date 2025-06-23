@@ -1,18 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { Register } from './register';
+import { RegisterComponent } from './register';
+import { BoutonRetourComponent } from 'src/app/shared/bouton-retour/bouton-retour';
+import { PasswordFieldComponent } from 'src/app/shared/password-field/password-field';
 
-describe('Register', () => {
-  let component: Register;
-  let fixture: ComponentFixture<Register>;
+describe('RegisterComponent', () => {
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Register]
+      declarations: [
+        RegisterComponent,
+        BoutonRetourComponent,
+        PasswordFieldComponent
+      ],
+      imports: [
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        FormsModule
+      ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Register);
+    fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

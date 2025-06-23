@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { ListSubject } from './list-subject';
+import { ListSubjectComponent } from './list-subject';
 
-describe('ListSubject', () => {
-  let component: ListSubject;
-  let fixture: ComponentFixture<ListSubject>;
+describe('ListSubjectComponent', () => {
+  let component: ListSubjectComponent;
+  let fixture: ComponentFixture<ListSubjectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListSubject]
+      declarations: [ListSubjectComponent],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListSubject);
+    fixture = TestBed.createComponent(ListSubjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

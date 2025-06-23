@@ -1,18 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { CreatePost } from './create-post';
+import { CreatePostComponent } from './create-post';
+import { BoutonRetourComponent } from 'src/app/shared/bouton-retour/bouton-retour';
 
-describe('CreatePost', () => {
-  let component: CreatePost;
-  let fixture: ComponentFixture<CreatePost>;
+describe('CreatePostComponent', () => {
+  let component: CreatePostComponent;
+  let fixture: ComponentFixture<CreatePostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreatePost]
+      declarations: [
+        CreatePostComponent,
+        BoutonRetourComponent
+      ],
+      imports: [
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        FormsModule
+      ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreatePost);
+    fixture = TestBed.createComponent(CreatePostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

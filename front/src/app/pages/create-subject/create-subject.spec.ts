@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CreateSubjectComponent } from './create-subject';
 
-import { CreateSubject } from './create-subject';
-
-describe('CreateSubject', () => {
-  let component: CreateSubject;
-  let fixture: ComponentFixture<CreateSubject>;
+describe('CreateSubjectComponent', () => {
+  let component: CreateSubjectComponent;
+  let fixture: ComponentFixture<CreateSubjectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateSubject]
-    })
-    .compileComponents();
+      declarations: [CreateSubjectComponent],
+      imports: [HttpClientTestingModule]
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateSubject);
+    fixture = TestBed.createComponent(CreateSubjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
