@@ -27,18 +27,18 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getProfile(): Observable<UserProfile> {
-    return this.http.get<UserProfile>('/api/user/profile');
+    return this.http.get<UserProfile>('/api/user/profile', { withCredentials: true });
   }
 
   updateProfile(data: Partial<UserProfile>): Observable<UserProfile> {
-    return this.http.put<UserProfile>('/api/user/profile', data);
+    return this.http.put<UserProfile>('/api/user/profile', data, { withCredentials: true });
   }
 
   getSubscriptions(): Observable<Subscription[]> {
-    return this.http.get<Subscription[]>('/api/user/subscriptions');
+    return this.http.get<Subscription[]>('/api/user/subscriptions', { withCredentials: true });
   }
 
   unsubscribe(subjectId: number): Observable<void> {
-    return this.http.delete<void>(`/api/user/subscriptions/${subjectId}`);
+    return this.http.delete<void>(`/api/user/subscriptions/${subjectId}`, { withCredentials: true });
   }
 }

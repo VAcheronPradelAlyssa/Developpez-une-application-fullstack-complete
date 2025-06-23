@@ -10,14 +10,14 @@ export class SubjectService {
   constructor(private http: HttpClient) {}
 
   getAllSubjects(): Observable<SubjectDTO[]> {
-    return this.http.get<SubjectDTO[]>(this.apiUrl);
+    return this.http.get<SubjectDTO[]>(this.apiUrl, { withCredentials: true });
   }
 
   createSubject(subject: SubjectDTO): Observable<SubjectDTO> {
-    return this.http.post<SubjectDTO>(this.apiUrl, subject);
+    return this.http.post<SubjectDTO>(this.apiUrl, subject, { withCredentials: true });
   }
 
   getSubjectById(id: number): Observable<SubjectDTO> {
-    return this.http.get<SubjectDTO>(`${this.apiUrl}/${id}`);
+    return this.http.get<SubjectDTO>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 }

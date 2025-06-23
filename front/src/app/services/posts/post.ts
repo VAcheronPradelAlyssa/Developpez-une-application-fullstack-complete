@@ -19,22 +19,22 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   createPost(post: PostCreateDTO): Observable<any> {
-    return this.http.post(this.apiUrl, post);
+    return this.http.post(this.apiUrl, post, { withCredentials: true });
   }
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.apiUrl);
+    return this.http.get<Post[]>(this.apiUrl, { withCredentials: true });
   }
 
   getPostById(id: number): Observable<Post> {
-    return this.http.get<Post>(`${this.apiUrl}/${id}`);
+    return this.http.get<Post>(`${this.apiUrl}/${id}`, { withCredentials: true });
   }
 
   getComments(postId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`);
+    return this.http.get<any[]>(`${this.apiUrl}/${postId}/comments`, { withCredentials: true });
   }
 
   addComment(postId: number, comment: { content: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${postId}/comments`, comment);
+    return this.http.post(`${this.apiUrl}/${postId}/comments`, comment, { withCredentials: true });
   }
 }

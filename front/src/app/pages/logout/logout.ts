@@ -10,22 +10,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LogoutComponent {
   constructor(private router: Router, private http: HttpClient) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.http.post('/api/auth/logout', {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).subscribe({
-        complete: () => {
-          localStorage.removeItem('token');
-          this.router.navigate(['/login']);
-        },
-        error: () => {
-          localStorage.removeItem('token');
-          this.router.navigate(['/login']);
-        }
-      });
-    } else {
-      this.router.navigate(['/login']);
-    }
+    // Appelle simplement l'API logout avec les credentials (cookie)
+    this.http.post('/api/auth/logout', {}, { withCredentials: true }).subscribe({
+      complete: () => {
+        localStorage.removeItem('token'); // Nettoyage si jamais il reste un vieux token
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        localStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }
