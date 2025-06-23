@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { of, Subject } from 'rxjs';
 
-// Dummy component standalone
 @Component({
   standalone: true,
   template: ''
