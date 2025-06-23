@@ -130,3 +130,10 @@ button.btn-subscribed {
   color: white;
   cursor: default;
 }
+
+.loading-block, .no-subject, .error {
+  text-align: center;
+  margin-top: 2.2rem;
+  font-size: 1.07rem;
+  color: #dc143c;
+}

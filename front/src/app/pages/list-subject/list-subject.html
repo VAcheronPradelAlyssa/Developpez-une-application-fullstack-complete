@@ -1,5 +1,8 @@
 <div class="subject-list-container">
-  <div class="subjects-grid card-grid">
+  <div *ngIf="loading" class="loading-block">Chargement...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && subjects.length === 0" class="no-subject">Aucun thème</div>
+  <div class="subjects-grid card-grid" *ngIf="!loading && subjects.length > 0">
     <app-card *ngFor="let subject of subjects"
       [title]="subject.name"
       [description]="subject.description">

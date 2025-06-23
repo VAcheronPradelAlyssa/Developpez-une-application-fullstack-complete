@@ -12,6 +12,8 @@ import { SubscriptionService } from 'src/app/services/subscription/subscription'
 export class ListSubjectComponent implements OnInit {
   subjects: SubjectDTO[] = [];
   subscribedIds: number[] = [];
+  loading = true;
+  error: string | null = null;
 
   constructor(
     private subjectService: SubjectService,
@@ -20,8 +22,14 @@ export class ListSubjectComponent implements OnInit {
 
   ngOnInit() {
     this.subjectService.getAllSubjects().subscribe({
-      next: (subjects) => this.subjects = subjects,
-      error: () => alert('Erreur lors du chargement des sujets')
+      next: (subjects) => {
+        this.subjects = subjects;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Erreur lors du chargement des sujets';
+        this.loading = false;
+      }
     });
     this.loadSubscriptions();
   }
@@ -29,7 +37,7 @@ export class ListSubjectComponent implements OnInit {
   loadSubscriptions() {
     this.subscriptionService.getUserSubscriptions().subscribe({
       next: (subs: any[]) => this.subscribedIds = subs.map(sub => sub.subject ? sub.subject.id : sub),
-      error: () => alert('Erreur lors du chargement des abonnements')
+      error: () => {} // pas bloquant pour l'affichage des sujets
     });
   }
 
