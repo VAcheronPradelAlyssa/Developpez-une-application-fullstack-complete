@@ -11,20 +11,21 @@ import { CreatePostComponent } from './pages/create-post/create-post';
 import { PostDetailComponent } from './pages/post-detail/post-detail';
 import { LogoutComponent } from './pages/logout/logout';
 import { UserProfileComponent } from './pages/user-profil/user-profil';
+import { AuthGuard } from './guards/auth-guard';
+
 // consider a guard combined with canLoad / canActivate route option
 // to manage unauthenticated user to access private routes
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent},
-  { path: 'post', component: PostComponent},
-  { path: 'subject', component: ListSubjectComponent },
-  { path: 'create-subject', component: CreateSubjectComponent },
-  { path: 'create-post', component: CreatePostComponent },
-  { path: 'post/:id', component: PostDetailComponent },
-  { path: 'logout', component: LogoutComponent },
-  { path: 'user-profile', component: UserProfileComponent }
-
+  { path: 'login', component: LoginComponent },
+  { path: 'post', component: PostComponent, canActivate: [AuthGuard] },
+  { path: 'subject', component: ListSubjectComponent, canActivate: [AuthGuard] },
+  { path: 'create-subject', component: CreateSubjectComponent, canActivate: [AuthGuard] },
+  { path: 'create-post', component: CreatePostComponent, canActivate: [AuthGuard] },
+  { path: 'post/:id', component: PostDetailComponent, canActivate: [AuthGuard] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
