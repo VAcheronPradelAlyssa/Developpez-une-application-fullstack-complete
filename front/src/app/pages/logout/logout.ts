@@ -13,11 +13,9 @@ export class LogoutComponent {
     // Appelle simplement l'API logout avec les credentials (cookie)
     this.http.post('/api/auth/logout', {}, { withCredentials: true }).subscribe({
       complete: () => {
-        localStorage.removeItem('token'); // Nettoyage si jamais il reste un vieux token
         this.router.navigate(['/login']);
       },
       error: () => {
-        localStorage.removeItem('token');
         this.router.navigate(['/login']);
       }
     });

@@ -16,7 +16,6 @@ import { ListSubjectComponent } from './pages/list-subject/list-subject';
 import { CreatePostComponent } from './pages/create-post/create-post';
 import { NavbarComponent } from './navbar/navbar';
 import { PostDetailComponent } from './pages/post-detail/post-detail';
-import { AuthInterceptor } from './services/auth/auth.interceptor';
 import { LogoutComponent } from './pages/logout/logout';
 import { UserProfileComponent } from './pages/user-profil/user-profil';
 import { BoutonRetourComponent } from './shared/bouton-retour/bouton-retour';
@@ -24,7 +23,23 @@ import { PasswordFieldComponent } from './shared/password-field/password-field';
 import { CardComponent } from './shared/card/card';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegisterComponent, LoginComponent, PasswordFieldComponent,PostComponent, CreateSubjectComponent, ListSubjectComponent, CreatePostComponent, NavbarComponent, PostDetailComponent, LogoutComponent, UserProfileComponent, BoutonRetourComponent, CardComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    RegisterComponent,
+    LoginComponent,
+    PasswordFieldComponent,
+    PostComponent,
+    CreateSubjectComponent,
+    ListSubjectComponent,
+    CreatePostComponent,
+    NavbarComponent,
+    PostDetailComponent,
+    LogoutComponent,
+    UserProfileComponent,
+    BoutonRetourComponent,
+    CardComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,11 +53,8 @@ import { CardComponent } from './shared/card/card';
       cookieName: 'XSRF-TOKEN',
       headerName: 'X-XSRF-TOKEN'
     }),
-    
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

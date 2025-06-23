@@ -72,7 +72,6 @@ export class RegisterComponent {
     this.success = false;
     this.authService.register(this.registerForm.value).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
         this.success = true;
         setTimeout(() => {
           this.router.navigate(['/post']);
