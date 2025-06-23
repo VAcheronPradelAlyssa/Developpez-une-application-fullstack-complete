@@ -65,7 +65,7 @@ public class AuthController {
     public ResponseEntity<?> logout(HttpServletResponse response) {
         // Supprime le cookie côté client
         Cookie cookie = new Cookie("token", "");
-        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(false);
         cookie.setSecure(true); // à mettre à false en local si besoin, true en prod (HTTPS)
         cookie.setPath("/");
         cookie.setMaxAge(0); // expire immédiatement

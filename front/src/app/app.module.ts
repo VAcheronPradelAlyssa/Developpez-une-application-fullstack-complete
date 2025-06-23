@@ -8,7 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClientXsrfModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login';
 import { PostComponent } from './pages/post/post';
 import { CreateSubjectComponent } from './pages/create-subject/create-subject';
@@ -34,6 +34,10 @@ import { CardComponent } from './shared/card/card';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+    }),
     
   ],
   providers: [
