@@ -1,5 +1,4 @@
-<app-bouton-retour></app-bouton-retour>
-
+<app-bouton-retour [returnRoute]="['/post']"></app-bouton-retour>
 <div *ngIf="!loading && post" class="article-container">
  
   <h1 class="article-title">{{ post.title }}</h1>

@@ -1,84 +1,96 @@
 .login-container {
   max-width: 400px;
   margin: 3rem auto;
-  padding: 2rem;
+  padding: 2.5rem 2rem 2rem 2rem;
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #0001;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px #7c55ea22;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
   h2 {
     text-align: center;
     margin-bottom: 2rem;
     color: #7c55ea;
     font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 2rem;
   }
+
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
+
   input {
-    padding: 0.8rem;
-    border-radius: 6px;
-    border: 1px solid #7c55ea;
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid #a991d4;
     font-size: 1rem;
     outline: none;
     width: 100%;
     box-sizing: border-box;
-  }
-  button {
-    background: #7c55ea;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0.8rem;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background 0.2s;
-    &:hover, &:focus {
-      background: #a991d4;
+    background: #faf8ff;
+    transition: border 0.2s;
+    &:focus {
+      border-color: #7c55ea;
+      background: #f3f0fa;
     }
   }
+
+  app-password-field {
+    width: 100%;
+    display: block;
+  }
+
+  button {
+    background: linear-gradient(90deg, #7c55ea 60%, #a991d4 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px #7c55ea22;
+    transition: background 0.2s, box-shadow 0.2s;
+    &:hover, &:focus {
+      background: linear-gradient(90deg, #a991d4 0%, #7c55ea 100%);
+      box-shadow: 0 4px 16px #7c55ea33;
+    }
+  }
+
+  button[disabled] {
+    background: #e0e0e0 !important;
+    color: #aaa !important;
+    cursor: not-allowed !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+
   .error {
-    margin-top: 1rem;
-    color: #c00;
+    margin-top: 0.5rem;
+    color: #d32f2f;
+    background: #fff0f0;
+    border-radius: 6px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.98rem;
     text-align: center;
+    border: 1px solid #ffd6d6;
   }
+
   .success {
-    margin-top: 1rem;
-    color: #070;
+    margin-top: 0.5rem;
+    color: #388e3c;
+    background: #f0fff0;
+    border-radius: 6px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.98rem;
     text-align: center;
+    border: 1px solid #b6e6b6;
   }
-}
-
-/* Bouton retour (flèche) */
-.back-btn {
-  background: none;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.4em 1.5em 0.4em 1em;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-
-  .material-icons {
-    color: #7c55ea !important;
-    font-size: 2rem;
-    transition: none;
-  }
-}
-
-.back-btn:hover,
-.back-btn:focus {
-  background: none;
-  box-shadow: none;
-}
-
-.back-btn:hover .material-icons,
-.back-btn:focus .material-icons {
-  color: #7c55ea !important;
 }

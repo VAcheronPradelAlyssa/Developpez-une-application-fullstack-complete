@@ -1,5 +1,4 @@
-<app-bouton-retour></app-bouton-retour>
-
+<app-bouton-retour [returnRoute]="['/post']"></app-bouton-retour>
 <div class="new-post-container">
   <h1 class="new-post-title">Créer un nouvel article</h1>
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()" autocomplete="off">

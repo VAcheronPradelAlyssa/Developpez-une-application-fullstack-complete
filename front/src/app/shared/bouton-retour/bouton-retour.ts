@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class BoutonRetourComponent {
   @Input() label: string = 'Retour';
+  @Input() returnRoute: string | any[] = ['/'];
 
   constructor(private router: Router) {}
 
   goBack() {
-    this.router.navigate(['']);
+    this.router.navigate(Array.isArray(this.returnRoute) ? this.returnRoute : [this.returnRoute]);
   }
 }

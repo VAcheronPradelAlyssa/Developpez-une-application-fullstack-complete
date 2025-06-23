@@ -1,13 +1,18 @@
-<app-bouton-retour></app-bouton-retour>
-<div class="login-container">
+<app-bouton-retour [returnRoute]="['/']"></app-bouton-retour><div class="login-container">
   <h2>Connexion</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <input formControlName="emailOrUsername" type="text" placeholder="Email ou nom d'utilisateur" required>
+    <div *ngIf="(loginForm.get('emailOrUsername')?.touched || submitted) && loginForm.get('emailOrUsername')?.invalid" class="error">
+      Email ou nom d'utilisateur requis
+    </div>
     <app-password-field
       [control]="passwordControl"
       placeholder="Mot de passe"
       [required]="true"
     ></app-password-field>
+    <div *ngIf="(loginForm.get('password')?.touched || submitted) && loginForm.get('password')?.invalid" class="error">
+      Mot de passe requis
+    </div>
     <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
   </form>
   <div *ngIf="error" class="error">{{error}}</div>

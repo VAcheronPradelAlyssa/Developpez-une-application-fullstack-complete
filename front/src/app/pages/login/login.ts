@@ -14,6 +14,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   error: string = '';
   success: boolean = false;
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +33,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (this.loginForm.invalid) return;
     this.error = '';
     this.success = false;
