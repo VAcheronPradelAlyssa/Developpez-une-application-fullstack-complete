@@ -17,7 +17,6 @@
         Thèmes
       </a>
       <a routerLink="/user-profile">
-        <!-- Icône Material account_circle -->
         <span class="profile-avatar-icon" aria-label="Profil">
           <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" viewBox="0 0 24 24">
             <path fill="#bdb2fa" d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12Zm0 1.5c-3 0-9 1.5-9 4.5V21h18v-3c0-3-6-4.5-9-4.5Z"/>
@@ -25,7 +24,6 @@
         </span>
       </a>
     </nav>
-
     <!-- Burger icon for mobile -->
     <button class="burger show-on-mobile" (click)="toggleMobileMenu()" aria-label="Ouvrir le menu">
       <span class="burger-bar"></span>
@@ -35,18 +33,22 @@
   </ng-container>
 </header>
 
+<!-- Overlay sombre derrière la nav mobile -->
+<div *ngIf="mobileMenuOpen" class="mobile-menu-overlay show-on-mobile" (click)="closeMobileMenu()"></div>
+
 <!-- Menu mobile -->
 <div class="mobile-menu show-on-mobile" *ngIf="!lightNavbar && mobileMenuOpen">
-  <a class="mobile-nav-link" routerLink="/post" routerLinkActive="active" (click)="closeMobileMenu()">Articles</a>
-  <a class="mobile-nav-link" routerLink="/subject" routerLinkActive="active" (click)="closeMobileMenu()">Thèmes</a>
-  <a class="mobile-nav-link logout" routerLink="/logout" (click)="closeMobileMenu()">Se déconnecter</a>
-  <a class="mobile-nav-link" routerLink="/user-profile" (click)="closeMobileMenu()">
-    <!-- Icône Material account_circle -->
-    <span class="profile-avatar-icon" aria-label="Profil">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24">
-        <path fill="#bdb2fa" d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12Zm0 1.5c-3 0-9 1.5-9 4.5V21h18v-3c0-3-6-4.5-9-4.5Z"/>
-      </svg>
-    </span>
-    Mon profil
-  </a>
+  <button class="close-mobile-menu-btn" (click)="closeMobileMenu()" aria-label="Fermer le menu">&times;</button>
+  <nav class="mobile-nav-list">
+    <a class="mobile-nav-link logout" routerLink="/logout" (click)="closeMobileMenu()">Se déconnecter</a>
+    <a class="mobile-nav-link" routerLink="/post" routerLinkActive="active" (click)="closeMobileMenu()">Articles</a>
+    <a class="mobile-nav-link" routerLink="/subject" routerLinkActive="active" (click)="closeMobileMenu()">Thèmes</a>
+    <a class="mobile-profile-link" routerLink="/user-profile" (click)="closeMobileMenu()">
+      <span class="profile-avatar-icon" aria-label="Profil">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" viewBox="0 0 24 24">
+          <path fill="#bdb2fa" d="M12 12c2.7 0 4.5-1.8 4.5-4.5S14.7 3 12 3 7.5 4.8 7.5 7.5 9.3 12 12 12Zm0 1.5c-3 0-9 1.5-9 4.5V21h18v-3c0-3-6-4.5-9-4.5Z"/>
+        </svg>
+      </span>
+    </a>
+  </nav>
 </div>
