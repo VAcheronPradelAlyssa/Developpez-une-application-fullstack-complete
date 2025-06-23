@@ -3,7 +3,11 @@
   <h2>Connexion</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <input formControlName="emailOrUsername" type="text" placeholder="Email ou nom d'utilisateur" required>
-    <input formControlName="password" type="password" placeholder="Mot de passe" required>
+    <app-password-field
+      [control]="passwordControl"
+      placeholder="Mot de passe"
+      [required]="true"
+    ></app-password-field>
     <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
   </form>
   <div *ngIf="error" class="error">{{error}}</div>

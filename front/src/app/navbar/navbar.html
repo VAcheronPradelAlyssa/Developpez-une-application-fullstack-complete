@@ -4,8 +4,18 @@
   <ng-container *ngIf="!lightNavbar">
     <nav class="nav hide-on-mobile">      
       <a class="nav-link logout" routerLink="/logout">Se déconnecter</a>
-      <a class="nav-link" routerLink="/post" routerLinkActive="active">Articles</a>
-      <a class="nav-link" routerLink="/subject" routerLinkActive="active">Thèmes</a>
+      <a class="nav-link"
+         routerLink="/post"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+        Articles
+      </a>
+      <a class="nav-link"
+         routerLink="/subject"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+        Thèmes
+      </a>
       <a routerLink="/user-profile">
         <!-- Icône Material account_circle -->
         <span class="profile-avatar-icon" aria-label="Profil">

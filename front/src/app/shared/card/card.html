@@ -1,0 +1,10 @@
+<div class="card">
+  <h3 class="card-title">{{ title }}</h3>
+  <div class="card-meta" *ngIf="meta1 || meta2">
+    <span *ngIf="meta1">{{ meta1 }}</span>
+    <span *ngIf="meta2">{{ meta2 }}</span>
+  </div>
+  <p class="card-content">{{ description }}</p>
+  <br>
+  <ng-content></ng-content> <!-- Pour insérer un bouton si besoin -->
+</div>

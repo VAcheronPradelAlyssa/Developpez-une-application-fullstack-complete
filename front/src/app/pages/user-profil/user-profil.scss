@@ -102,7 +102,7 @@ h3 {
     
   }
   .unsubscribe-btn {
-    background: #7d5fff;
+    background: hwb(251 37% 0%);
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -115,6 +115,28 @@ h3 {
     transition: background 0.18s;
     &:hover { background: #5f47d4; }
   }
+}
+
+.btn-unsubscribe {
+  background: hwb(251 37% 0%);
+  color: #fff;
+  cursor: pointer;
+  width: 80%;
+  max-width: 220px;
+  border-radius: 8px;
+  border: none;
+  padding: 0.7rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px #ececff;
+  margin: 1.2rem auto 0 auto;
+  display: block;
+}
+
+.btn-unsubscribe:hover:enabled {
+  background: #5a3bb5;
 }
 
 @media (max-width: 900px) {
@@ -137,4 +159,6 @@ h3 {
   h3 {
     text-align: center;
   }
+
+  
 }

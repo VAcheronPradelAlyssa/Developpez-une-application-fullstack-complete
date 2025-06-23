@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth';
 import { Location } from '@angular/common';
@@ -15,9 +15,7 @@ export class RegisterComponent {
   error: string = '';
   success: boolean = false;
   showPasswordRules = false;
-  showPassword: boolean = false;
 
-  // Ajout pour l'analyse dynamique du mot de passe
   passwordChecks = {
     length: false,
     lowercase: false,
@@ -38,8 +36,11 @@ export class RegisterComponent {
       password: ['', [Validators.required, this.passwordValidator]]
     });
 
-    // Ajoute l'écoute sur le champ password pour analyse dynamique
     this.registerForm.get('password')?.valueChanges.subscribe(() => this.onPasswordInput());
+  }
+
+  get passwordControl(): FormControl {
+    return this.registerForm.get('password') as FormControl;
   }
 
   passwordValidator(control: AbstractControl): ValidationErrors | null {
@@ -56,7 +57,6 @@ export class RegisterComponent {
     return regex.test(value) ? null : { email: true };
   }
 
-  // Analyse dynamique du mot de passe
   onPasswordInput() {
     const value = this.registerForm.get('password')?.value || '';
     this.passwordChecks.length = value.length >= 8;
@@ -72,12 +72,11 @@ export class RegisterComponent {
     this.success = false;
     this.authService.register(this.registerForm.value).subscribe({
       next: (res) => {
-        // Stocke le token comme pour le login
         localStorage.setItem('token', res.token);
         this.success = true;
         setTimeout(() => {
           this.router.navigate(['/post']);
-        }, 500); // petite pause pour afficher "Inscription réussie"
+        }, 500);
       },
       error: (err) => {
         this.error =

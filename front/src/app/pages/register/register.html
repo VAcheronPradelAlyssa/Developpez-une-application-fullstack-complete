@@ -13,29 +13,15 @@
       </span>
     </div>
 
-    <div class="password-field-wrapper">
-      <input
-        formControlName="password"
-        [type]="showPassword ? 'text' : 'password'"
+    <div style="position: relative;">
+      <app-password-field
+        [control]="passwordControl"
         placeholder="Mot de passe"
-        required
+        [required]="true"
         (focus)="showPasswordRules = true"
         (blur)="showPasswordRules = false"
-      />
-      <button
-        type="button"
-        class="toggle-password-btn"
-        (click)="showPassword = !showPassword"
-        aria-label="Afficher ou masquer le mot de passe"
-        tabindex="-1"
-      >
-        <span class="material-icons">
-          {{ showPassword ? 'visibility_off' : 'visibility' }}
-        </span>
-      </button>
-    </div>
+      ></app-password-field>
 
-    <div style="position: relative;">
       <div
         class="password-rules-bubble"
         *ngIf="showPasswordRules"

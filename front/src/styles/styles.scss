@@ -10,7 +10,35 @@
   justify-items: center;
   margin-top: 1.5rem;
 }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.form-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid#7c55ea;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1.1rem;
+  background: #fff;
+  color: #222;
+  transition: border 0.2s;
+  outline: none;
 
+  &:focus {
+    border-color: #7c55ea;
+    background: #f7f7fa;
+  }
+}
 .subject-card {
   background: #fff;
   border-radius: 12px;
@@ -52,4 +80,12 @@
       cursor: default;
     }
   }
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // 2 colonnes sur PC
+  gap: 1.5rem;
+  width: 100%;
+  justify-items: center;
+  margin-top: 1.5rem;
 }

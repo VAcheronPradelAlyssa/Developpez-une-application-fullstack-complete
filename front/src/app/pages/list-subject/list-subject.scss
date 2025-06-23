@@ -62,31 +62,7 @@
   margin: 0.4rem 0.3rem;
   min-width: 120px;
   min-height: 38px;
-
-  &:hover,
-  &:focus {
-    background: var(--main-purple);
-    color: #fff;
-    border-color: var(--main-purple);
-    box-shadow: 0 4px 16px #d1d1f7;
-    outline: 2px solid #7d5fff33;
-  }
-
-  &.btn-primary, &.subscribe {
-    background: var(--main-purple);
-    color: #fff;
-    border: none;
-  }
-  &.btn-primary:hover, &.subscribe:hover {
-    background: #674ccf;
-    color: #fff;
-  }
-  &.btn-danger {
-    background: var(--danger);
-    color: #fff;
-  }
 }
-
 @media (max-width: 800px) {
   .subjects-grid {
     flex-direction: column;
@@ -97,4 +73,60 @@
     width: 96vw;
     min-width: unset;
   }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-btn-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+button.btn-subscribe,
+button.btn-subscribed {
+  width: 80%;
+  max-width: 220px;
+  border-radius: 8px;
+  border: none;
+  padding: 0.7rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px #ececff;
+  margin: 0 auto;
+  display: block;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn-subscribe {
+  background: hwb(251 37% 0%);
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-subscribe:hover:enabled {
+  background: #5a3bb5;
+}
+
+.btn-subscribed {
+  background: #e0e0e0;
+  color: white;
+  cursor: default;
 }
