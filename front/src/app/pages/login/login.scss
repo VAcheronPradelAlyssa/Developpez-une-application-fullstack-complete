@@ -23,6 +23,8 @@
     border: 1px solid #7c55ea;
     font-size: 1rem;
     outline: none;
+    width: 100%;
+    box-sizing: border-box;
   }
   button {
     background: #7c55ea;
@@ -34,7 +36,9 @@
     font-size: 1.1rem;
     cursor: pointer;
     transition: background 0.2s;
-    &:hover, &:focus { background: #a991d4; }
+    &:hover, &:focus {
+      background: #a991d4;
+    }
   }
   .error {
     margin-top: 1rem;
@@ -46,4 +50,35 @@
     color: #070;
     text-align: center;
   }
+}
+
+/* Bouton retour (flèche) */
+.back-btn {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.4em 1.5em 0.4em 1em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  .material-icons {
+    color: #7c55ea !important;
+    font-size: 2rem;
+    transition: none;
+  }
+}
+
+.back-btn:hover,
+.back-btn:focus {
+  background: none;
+  box-shadow: none;
+}
+
+.back-btn:hover .material-icons,
+.back-btn:focus .material-icons {
+  color: #7c55ea !important;
 }
