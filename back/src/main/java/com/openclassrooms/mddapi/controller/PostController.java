@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.PostCreateDTO;
-import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.dto.PostDTO;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
@@ -28,21 +28,21 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts() {
+    public List<PostDTO> getAllPosts() {
         return postService.getAllPosts();
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody PostCreateDTO dto, Authentication authentication) {
+    public ResponseEntity<PostDTO> createPost(@RequestBody PostCreateDTO dto, Authentication authentication) {
         Long userId = ((com.openclassrooms.mddapi.security.CustomUserPrincipal) authentication.getPrincipal()).getId();
         User author = userRepository.findById(userId).orElseThrow();
         Subject subject = subjectRepository.findById(dto.getSubjectId()).orElseThrow();
-        Post post = postService.createPost(dto, author, subject);
-        return ResponseEntity.ok(post);
+        PostDTO postDto = postService.createPost(dto, author, subject);
+        return ResponseEntity.ok(postDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+    public ResponseEntity<PostDTO> getPostById(@PathVariable Long id) {
         return postService.getPostById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());

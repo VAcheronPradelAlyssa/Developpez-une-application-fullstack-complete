@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.mddapi.dto.PostCreateDTO;
+import com.openclassrooms.mddapi.dto.PostDTO;
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.model.User;
@@ -60,6 +61,7 @@ class PostControllerTest {
     private Post post;
     private User user;
     private Subject subject;
+    private PostDTO postDto;
 
     @BeforeEach
     void setup() {
@@ -69,13 +71,16 @@ class PostControllerTest {
         subject = new Subject();
         subject.setId(2L);
         subject.setName("SujetTest");
-        post = new Post();
-        post.setId(3L);
-        post.setTitle("Titre test");
-        post.setContent("Contenu test");
-        post.setAuthor(user);
-        post.setSubject(subject);
-        post.setCreatedAt(LocalDateTime.now());
+
+        postDto = new PostDTO();
+        postDto.setId(3L);
+        postDto.setTitle("Titre test");
+        postDto.setContent("Contenu test");
+        postDto.setAuthorId(1L);
+        postDto.setAuthorUsername("mockuser");
+        postDto.setSubjectId(2L);
+        postDto.setSubjectName("SujetTest");
+        postDto.setCreatedAt(java.time.LocalDateTime.now());
     }
 
     private UsernamePasswordAuthenticationToken customAuth() {
@@ -89,7 +94,7 @@ class PostControllerTest {
 
     @Test
     void getAllPosts_shouldReturnList() throws Exception {
-        when(postService.getAllPosts()).thenReturn(Collections.singletonList(post));
+        when(postService.getAllPosts()).thenReturn(Collections.singletonList(postDto));
 
         mockMvc.perform(get("/api/posts")
                 .with(SecurityMockMvcRequestPostProcessors.user("mockuser")))
@@ -99,7 +104,7 @@ class PostControllerTest {
 
     @Test
     void getPostById_shouldReturnPost() throws Exception {
-        when(postService.getPostById(3L)).thenReturn(Optional.of(post));
+        when(postService.getPostById(3L)).thenReturn(Optional.of(postDto));
 
         mockMvc.perform(get("/api/posts/3")
                 .with(SecurityMockMvcRequestPostProcessors.user("mockuser")))
@@ -125,7 +130,7 @@ class PostControllerTest {
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(subjectRepository.findById(2L)).thenReturn(Optional.of(subject));
-        when(postService.createPost(any(), any(), any())).thenReturn(post);
+        when(postService.createPost(any(), any(), any())).thenReturn(postDto);
 
         mockMvc.perform(post("/api/posts")
                 .with(org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication(customAuth()))

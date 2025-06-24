@@ -29,6 +29,10 @@ public class SubjectController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SubjectDTO> getSubjectById(@PathVariable Long id) {
-        return ResponseEntity.ok(subjectService.getSubjectById(id));
+        SubjectDTO subject = subjectService.getSubjectById(id);
+        if (subject == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(subject);
     }
 }
