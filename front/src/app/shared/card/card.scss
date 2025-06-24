@@ -4,7 +4,10 @@
   border: 1px solid #e0e0e0;
   padding: 1.2rem 2rem 1.5rem 1.2rem; /* même padding que post.scss */
   min-width: 0;           /* ← Indispensable pour CSS Grid */
-  max-width: none;        /* ← Empêche d'être limité en largeur */
+  max-width: 50vw;        /* ← Ne dépasse pas la moitié de l'écran */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   min-height: 230px;
   display: flex;
   flex-direction: column;

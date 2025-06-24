@@ -37,9 +37,9 @@
 .article-list,
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); // 2 colonnes égales = 50%/50%
   gap: 1.1rem;
-  justify-content: flex-start;
+  justify-items: stretch; // ou center, mais stretch garantit 100% de la colonne
   margin-top: 1.3rem;
   align-items: stretch;
 }
