@@ -1,5 +1,12 @@
-<header class="site-header" *ngIf="!hideNavbar">
-  <img src="/assets/logo_p6.png" alt="Logo MDD" class="logo-mdd" />
+<header
+  class="site-header"
+  *ngIf="!hideNavbar && !(hideLinks && isMobile)">
+  <img
+    src="/assets/logo_p6.png"
+    alt="Logo MDD"
+    class="logo-mdd"
+    [class.hide-mobile-logo]="hideLinks"
+  />
 
   <ng-container>
     <nav class="nav hide-on-mobile">      

@@ -72,6 +72,9 @@
   .nav { display: none !important; }
   .burger { display: flex !important; }
   .logo-mdd { max-width: 90px; }
+  .logo-mdd.hide-mobile-logo {
+    display: none !important;
+  }
   .mobile-menu {
     display: flex !important;
     flex-direction: column;
