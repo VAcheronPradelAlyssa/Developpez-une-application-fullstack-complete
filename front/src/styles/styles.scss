@@ -89,3 +89,119 @@
   justify-items: center;
   margin-top: 1.5rem;
 }
+
+/* --------- PAGE HOME --------- */
+.home-container img {
+  display: block;
+  margin: 2.5rem auto 2.5rem auto;
+  max-width: 540px;
+  width: 100%;
+  height: auto;
+}
+
+// Tablette large et desktop : image très grande et centrée
+@media (min-width: 901px) {
+  .home-container img {
+    max-width: 540px;
+    width: 540px;
+    margin: 4rem auto 3rem auto;
+  }
+}
+
+// Tablette (481px à 900px)
+@media (min-width: 481px) and (max-width: 900px) {
+  .home-container img {
+    max-width: 400px;
+    width: 70vw;
+    margin: 2.5rem auto 2rem auto;
+  }
+}
+
+// Mobile large (401px à 480px)
+@media (max-width: 480px) and (min-width: 401px) {
+  .home-container img {
+    max-width: 400px;
+    width: 90vw;
+    margin: 1.2rem auto 1.2rem auto;
+  }
+}
+
+// Mobile standard (max 400px)
+@media (max-width: 400px) {
+  .home-container img {
+    max-width: 400px;
+    width: 95vw;
+    margin: 1rem auto 1rem auto;
+  }
+}
+
+/* --------- PAGE LOGIN & REGISTER LOGO RESPONSIVE --------- */
+.login-logo,
+.register-logo {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .login-logo,
+  .register-logo {
+    display: block !important;
+    margin: 0 auto 1.2rem auto;
+    max-width: 600px;
+    width: 90vw !important;
+    height: auto !important;
+  }
+}
+
+/* --------- LOGIN & REGISTER FORM SANS CARTE --------- */
+.login-container,
+.register-container {
+  background: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 3rem auto !important;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .login-container,
+  .register-container {
+    max-width: 99vw !important;
+    margin: 0 !important;
+    padding: 0 0.3rem 2rem 0.3rem !important;
+  }
+}
+
+/* --------- NAVBAR RESPONSIVE --------- */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // ...autres styles...
+}
+
+/* Masquer la navbar sur login/register en mobile/tablette */
+@media (max-width: 900px) {
+  body.login-page .site-header,
+  body.register-page .site-header {
+    display: none !important;
+  }
+  .site-header {
+    display: flex !important; // visible sur les autres pages mobile
+  }
+}
+
+/* Pour que la navbar soit visible uniquement sur desktop sur login/register */
+body.login-page .site-header,
+body.register-page .site-header {
+  display: flex !important;
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    display: none !important;
+  }
+}

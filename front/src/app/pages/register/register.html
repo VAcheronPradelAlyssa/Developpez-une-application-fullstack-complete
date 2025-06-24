@@ -1,5 +1,6 @@
-<app-bouton-retour  [returnRoute]="['']"></app-bouton-retour>
+<app-bouton-retour [returnRoute]="['']"></app-bouton-retour>
 <div class="register-container">
+  <img src="/assets/logo_p6.png" alt="logo" class="register-logo" />
   <h2>Inscription</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <input formControlName="username" placeholder="Nom d'utilisateur" required autocomplete="off">

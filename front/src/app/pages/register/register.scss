@@ -5,6 +5,17 @@
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .register-logo {
+    display: block;
+    margin: 0 auto 1.2rem auto;
+    max-width: 140px;
+    width: 60%;
+    height: auto;
+  }
 
   h2 {
     text-align: center;
@@ -16,6 +27,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    width: 100%;
   }
   input {
     padding: 0.8rem;
@@ -190,4 +202,23 @@
   10% { opacity: 1; }
   90% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  .register-container {
+    max-width: 99vw;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1.2rem 0.3rem 2rem 0.3rem;
+    .register-logo {
+      max-width: 110px;
+      width: 70vw;
+      margin-bottom: 1.2rem;
+    }
+    h2 {
+      margin-bottom: 1.2rem;
+      font-size: 1.3rem;
+    }
+  }
 }
