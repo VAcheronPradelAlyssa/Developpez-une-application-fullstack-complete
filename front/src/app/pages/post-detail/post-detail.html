@@ -11,7 +11,7 @@
   <hr>
   <h3 class="comment-title">Commentaires</h3>
   <div *ngFor="let comment of comments" class="comment-block">
-    <span class="username">{{ comment.author.username }}</span>
+    <span class="username">{{ comment.authorUsername }}</span>
     <span class="comment-content">{{ comment.content }}</span>
   </div>
   <form (ngSubmit)="addComment()" class="add-comment-form">
