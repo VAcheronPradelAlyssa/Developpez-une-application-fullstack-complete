@@ -1,175 +1,70 @@
-.article-list-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 2rem 0 1rem 0;
-  flex-wrap: wrap;
-  gap: 1.1rem;
-}
-
-.btn-create {
-  background: #7d5fff;
-  color: #fff;
-  border: none;
-  border-radius: 7px;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #e4e4fd;
-  transition: background 0.15s;
-  max-width: 320px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  &:hover { background: #5f47d4; }
-}
-
-.sort-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border: none;
-}
-
-/* Grille 2 colonnes égales, chaque carte prend exactement 50% */
-.article-list,
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // 2 colonnes égales = 50%/50%
-  gap: 1.1rem;
-  justify-items: stretch; // ou center, mais stretch garantit 100% de la colonne
-  margin-top: 1.3rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  justify-items: stretch;
   align-items: stretch;
 }
 
-.post-card,
-.card {
-  min-height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  cursor: pointer;
-  transition: box-shadow 0.13s, transform 0.11s;
-  min-width: 0;
-  max-width: none;
-  width: auto;
-  box-sizing: border-box;
-  flex: 1 1 0;
-  overflow: hidden;
-  background: #f7f7fa;
-  border-radius: 10px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 8px #e4e4fd;
-  margin-bottom: 1.2rem;
-  padding: 1.2rem 2rem 1.5rem 1.2rem;
-  &:hover {
-    box-shadow: 0 4px 18px #bdb2fa;
-    transform: translateY(-2px) scale(1.015);
-  }
-  .post-title {
-    font-size: 1.07rem;
-    font-weight: 600;
-    margin-bottom: 0.7rem;
-    color: #27213c;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .meta-row {
-    display: flex;
-    gap: 2.1rem;
-    font-size: 0.98rem;
-    color: #8f8f8f;
-    margin-bottom: 0.1rem;
-    span {
-      min-width: 80px;
-    }
-  }
-  .meta-values {
-    color: #7d5fff;
-    font-weight: 600;
-    margin-bottom: 0.13rem;
-    span { min-width: 80px; }
-  }
-  .content {
-    color: #252525;
-    margin-top: 1rem;
-    font-size: 0.96rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    word-break: break-word;
-    padding-right: 0.5rem;
-  }
-}
-
-.loading-block, .no-post, .error {
-  text-align: center;
-  margin-top: 2.2rem;
-  font-size: 1.07rem;
-  color: #dc143c;
-}
-
-/* Responsive : 1 colonne sur mobile/tablette */
 @media (max-width: 900px) {
-  .article-list,
   .card-grid {
     grid-template-columns: 1fr;
-    gap: 1.1rem;
-  }
-  .post-card,
-  .card {
-    width: 100%;
-    min-width: unset;
-    max-width: unset;
-    flex: 1 1 0;
-    padding: 1.1rem 0.7rem 1.5rem 0.7rem;
-    min-height: 230px;
-  }
-  .article-list-header {
-    flex-direction: column;
-    gap: 0.8rem;
-    align-items: stretch;
-  }
-  .sort-container {
-    justify-content: center;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-  }
-  .post-card {
-    width: 96vw;
-    min-width: unset;
-    margin: 6px;
+    gap: 1.1rem; }
+}
+.btn-create {
+  background: #7c55ea;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 1.5rem; // <-- Ajouté pour l'espacement avec la navbar
+  margin-bottom: 1.2rem;
+  &:hover {
+    background: #6847c6;
   }
 }
 
-@media (max-width: 600px) {
-  .article-list-header {
-    flex-direction: column;
-    gap: 0.8rem;
-    align-items: stretch;
-  }
-  .sort-container {
-    justify-content: center;
-    width: 100%;
-    margin: 0 auto;
+// Style pour le span "Trier par" qui ressemble à un bouton
+.sort-span {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+  .arrow {
+    margin-left: 0.7em;
     display: flex;
-  }
-  .post-card {
-    width: 99vw;
+    align-items: center;
   }
 }
+.article-list-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.2rem;
+  gap: 1.2rem;
+}
 
-@media (min-width: 901px) {
-  .btn-create {
-    max-width: none;
-    width: auto;
-    margin-left: 0;
-    margin-right: 0;
+@media (max-width: 900px) {
+  .article-list-header-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+  }
+  .sort-span {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

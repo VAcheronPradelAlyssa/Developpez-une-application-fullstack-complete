@@ -2,22 +2,6 @@
   width: 100%;
 }
 
-// Grille générique pour toutes les pages (2 colonnes sur PC, 1 sur mobile)
-.card-grid, .subjects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-  margin-top: 1.5rem;
-  justify-items: center;
-  align-items: stretch;
-}
-@media (max-width: 900px) {
-  .card-grid, .subjects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 // Formulaire générique
 .form-input {
   width: 100%;

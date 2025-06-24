@@ -1,55 +1,30 @@
 .card {
+  width: 95%;
+  max-width: 100%;
+  min-width: 0;
   background: #f7f7fa;
   border-radius: 10px;
   border: 1px solid #e0e0e0;
-  padding: 1.2rem 2rem 1.5rem 1.2rem; /* même padding que post.scss */
-  min-width: 0;           /* ← Indispensable pour CSS Grid */
-  max-width: 50vw;        /* ← Ne dépasse pas la moitié de l'écran */
-  width: 100%;
+  box-shadow: 0 2px 8px #e4e4fd;
+  padding: 0.7rem 0.5rem 1.2rem 0.5rem;
   margin-left: auto;
   margin-right: auto;
-  min-height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  box-shadow: 0 2px 8px #e4e4fd;
-  margin-bottom: 1.2rem;
-  overflow: hidden;       /* ← Ajouté : évite tout débordement */
-
-  .card-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .card-meta {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 0.7rem;
-    display: flex;
-    gap: 1.2rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .card-content {
-    color: #333;
-    font-size: 0.98rem;
-    margin-bottom: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    word-break: break-word;   /* ← Casse les mots trop longs */
-    padding-right: 0.5rem;    /* Marge à droite pour ne pas coller au bord */
-  }
-  .card-btn-row {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5rem; // Augmente la marge au-dessus du bouton
-  }
+  
 }
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+.card-meta {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.7rem;
+  display: flex;
+  gap: 2.2rem; // Ajouté pour espacer les meta
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
