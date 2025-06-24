@@ -44,6 +44,10 @@ h3 { font-size: 1.1rem; margin-bottom: 0.7rem; }
     margin-left: 0.5rem;
     cursor: pointer;
   }
+  .send-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 }
 @media (max-width: 700px) {
   .meta-list { flex-direction: column; gap: 0.5rem; }
@@ -174,6 +178,10 @@ border-radius: 12px;
       transform: scale(1.13);
     }
   }
+  .send-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 }
 
 @media (max-width: 800px) {

@@ -13,6 +13,7 @@
         (focus)="showSubjectOptions = true"
         (blur)="hideSubjectOptions()"
         autocomplete="off"
+        required
       />
       <!-- Suggestions -->
       <ul *ngIf="showSubjectOptions && filteredSubjects.length" class="autocomplete-list">
@@ -23,11 +24,11 @@
     </div>
     <!-- TITLE -->
     <div class="form-group">
-      <input class="input" formControlName="title" placeholder="Titre de l'article" autocomplete="off" />
+      <input class="input" formControlName="title" placeholder="Titre de l'article" autocomplete="off" required />
     </div>
     <!-- CONTENT -->
     <div class="form-group">
-      <textarea class="input textarea" formControlName="content" placeholder="Contenu de l'article"></textarea>
+      <textarea class="input textarea" formControlName="content" placeholder="Contenu de l'article" required></textarea>
     </div>
     <button class="btn-create" type="submit" [disabled]="postForm.invalid">Créer</button>
   </form>

@@ -5,17 +5,17 @@ import { Router, NavigationEnd } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false, // Permet de l'utiliser dans d'autres composants
+  standalone: false,
 })
 export class AppComponent {
   title = 'front';
   showNavbar = true;
-  hideNavbarRoutes = ['/']; // Seule la page d'accueil n'a aucune navbar
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.showNavbar = !this.hideNavbarRoutes.includes(this.router.url);
+        // Cache la navbar uniquement sur la page d'accueil exacte
+        this.showNavbar = this.router.url !== '/';
       }
     });
   }
