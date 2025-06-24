@@ -4,8 +4,8 @@
   <h1 class="article-title">{{ post.title }}</h1>
   <div class="meta-list">
     <span>Date: {{ post.createdAt | date:'short' }}</span>
-    <span>Auteur: {{ post.author.username }}</span>
-    <span>Thème: {{ post.subject.name }}</span>
+    <span>Auteur: {{ post.authorUsername }}</span>
+    <span>Thème: {{ post.subjectName }}</span>
   </div>
   <div class="article-content">{{ post.content }}</div>
   <hr>

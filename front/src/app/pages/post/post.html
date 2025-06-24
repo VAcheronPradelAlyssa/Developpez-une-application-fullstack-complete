@@ -19,7 +19,7 @@
     [title]="post.title"
     [description]="post.content"
     [meta1]="(post.createdAt | date:'dd/MM/yyyy') || undefined"
-    [meta2]="'Auteur : ' + post.author.username"
+    [meta2]="'Auteur : ' + post.authorUsername"
     (click)="goToPost(post.id)">
   </app-card>
 </div>
