@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth';
@@ -10,11 +10,12 @@ import { Location } from '@angular/common';
   styleUrls: ['./login.scss'],
   standalone: false,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string = '';
   success: boolean = false;
   submitted = false;
+  alreadyLoggedIn = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,17 @@ export class LoginComponent {
     this.loginForm = this.fb.group({
       emailOrUsername: ['', Validators.required],
       password: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.authService.isLoggedIn().subscribe(isLogged => {
+      if (isLogged) {
+        this.alreadyLoggedIn = true;
+        setTimeout(() => {
+          this.router.navigate(['/post']);
+        }, 1800);
+      }
     });
   }
 

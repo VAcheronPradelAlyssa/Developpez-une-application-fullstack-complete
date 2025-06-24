@@ -1,5 +1,7 @@
-<app-bouton-retour [returnRoute]="['/']"></app-bouton-retour><div class="login-container">
-  <h2>Connexion</h2>
+<app-bouton-retour [returnRoute]="['/']"></app-bouton-retour>
+<div class="login-container">
+  <img src="/assets/logo_p6.png" alt="logo" class="login-logo" />
+  <h2>Se connecter</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <input formControlName="emailOrUsername" type="text" placeholder="Email ou nom d'utilisateur" required>
     <div *ngIf="(loginForm.get('emailOrUsername')?.touched || submitted) && loginForm.get('emailOrUsername')?.invalid" class="error">
@@ -17,4 +19,8 @@
   </form>
   <div *ngIf="error" class="error">{{error}}</div>
   <div *ngIf="success" class="success">Connexion réussie ! Redirection ...</div>
+  <div *ngIf="alreadyLoggedIn" class="popup-already-logged">
+    Vous êtes déjà connecté.<br>
+    Redirection vers les articles...
+  </div>
 </div>

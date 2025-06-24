@@ -44,7 +44,7 @@ describe('Tests d\'accès', () => {
     cy.visit('http://localhost:4200/create-post');
     cy.url().should('include', '/create-post');
   });
-/*
+
   it('redirige vers /post si déjà connecté et visite /login ou /register', () => {
     // Inscription + connexion
     const username = 'rediruser' + Date.now();
@@ -64,5 +64,5 @@ describe('Tests d\'accès', () => {
     cy.visit('http://localhost:4200/register');
     cy.url().should('include', '/post');
   });
-*/
+
 });

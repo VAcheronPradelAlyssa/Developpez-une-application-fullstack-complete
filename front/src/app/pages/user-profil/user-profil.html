@@ -21,7 +21,7 @@
     <app-card *ngFor="let sub of subscriptions"
       [title]="sub.subject.name"
       [description]="sub.subject.description">
-      <button class="btn-unsubscribe" (click)="unsubscribe(sub.subject.id)">
+      <button class="btn-unsubscribe" type="button" (click)="unsubscribe(sub.subject.id)">
         Se désabonner
       </button>
     </app-card>

@@ -59,7 +59,8 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit() {
     if (this.postForm.valid) {
-      const subject = this.subjects.find(s => s.name === this.postForm.value.subjectName);
+      const subjectName = this.postForm.value.subjectName?.trim().toLowerCase();
+      const subject = this.subjects.find(s => s.name.toLowerCase() === subjectName);
       if (!subject) return alert('Veuillez sélectionner un thème valide.');
 
       const payload = {

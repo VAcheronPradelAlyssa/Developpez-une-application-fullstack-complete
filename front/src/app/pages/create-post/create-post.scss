@@ -1,13 +1,15 @@
 .new-post-container {
   max-width: 450px;
   margin: 2.6rem auto 0 auto;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px #e4e4fd;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
   padding: 2.2rem 2.3rem 2.2rem 2.3rem;
   display: flex;
   flex-direction: column;
   position: relative;
+  box-sizing: border-box;
+  align-items: center; // centre horizontalement le contenu
 }
 
 .new-post-title {
@@ -20,6 +22,10 @@
 .form-group {
   margin-bottom: 1.2rem;
   position: relative;
+  width: 100%;
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .input {
@@ -48,6 +54,7 @@
   border-radius: 7px;
   padding: 0.7rem 0;
   width: 100%;
+  max-width: 350px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -83,12 +90,22 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .new-post-container {
     max-width: 99vw;
     box-shadow: none;
-    padding: 1.1rem 0.5rem 1.4rem 0.5rem;
+    padding: 1.1rem 2rem 1.4rem 2rem; // augmente la marge à gauche et à droite
     border-radius: 0;
+    background: none;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
   }
-  .btn-create { font-size: 1rem; }
+  .form-group,
+  .btn-create {
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

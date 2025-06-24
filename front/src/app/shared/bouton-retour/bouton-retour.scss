@@ -14,5 +14,7 @@
     color: #7c55ea !important;
     font-size: 2rem;
     transition: none;
+    /* Ajoute un margin-right pour éviter que la flèche ne décale le contenu */
+    margin-right: 1em;
   }
 }

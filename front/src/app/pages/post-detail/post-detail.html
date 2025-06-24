@@ -15,8 +15,8 @@
     <span class="comment-content">{{ comment.content }}</span>
   </div>
   <form (ngSubmit)="addComment()" class="add-comment-form">
-    <textarea [(ngModel)]="newComment" name="newComment" placeholder="Écrivez ici votre commentaire"></textarea>
-    <button type="submit" class="send-btn" aria-label="Envoyer">
+    <textarea [(ngModel)]="newComment" name="newComment" placeholder="Écrivez ici votre commentaire" required></textarea>
+    <button type="submit" class="send-btn" aria-label="Envoyer" [disabled]="!newComment || !newComment.trim()">
       <svg width="30" height="30" viewBox="0 0 30 30"><path d="M3 27L29 15L3 3V13L21 15L3 17V27Z" fill="#7d5fff"/></svg>
     </button>
   </form>
