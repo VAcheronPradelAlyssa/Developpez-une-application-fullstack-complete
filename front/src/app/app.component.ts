@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +8,4 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'front';
-  showNavbar = true;
-
-  constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // Cache la navbar uniquement sur la page d'accueil exacte
-        this.showNavbar = this.router.url !== '/';
-      }
-    });
-  }
 }

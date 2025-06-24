@@ -190,25 +190,18 @@
   // ...autres styles...
 }
 
-/* Masquer la navbar sur login/register en mobile/tablette */
-@media (max-width: 900px) {
-  body.login-page .site-header,
-  body.register-page .site-header {
-    display: none !important;
-  }
-  .site-header {
-    display: flex !important; // visible sur les autres pages mobile
-  }
-}
-
-/* Pour que la navbar soit visible uniquement sur desktop sur login/register */
+/* Masquer la navbar uniquement sur home, login, register (mobile et desktop) */
+body.home-page .site-header,
 body.login-page .site-header,
 body.register-page .site-header {
-  display: flex !important;
+  display: none !important;
 }
 
+/* Afficher la navbar sur toutes les autres pages, même en mobile */
 @media (max-width: 900px) {
   .site-header {
-    display: none !important;
+    display: flex !important;
+    padding: 0 0.7rem;
+    min-height: 48px;
   }
 }

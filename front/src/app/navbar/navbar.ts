@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,13 +8,18 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class NavbarComponent {
-  public lightNavbar = false;
-  private lightRoutes = ['/login', '/register'];
+  public hideNavbar = false;
+  public hideBurger = false;
   mobileMenuOpen = false;
 
+  private hideRoutes = ['/', '/login', '/register'];
+
   constructor(private router: Router) {
-    this.router.events.subscribe(() => {
-      this.lightNavbar = this.lightRoutes.includes(this.router.url);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.hideNavbar = this.hideRoutes.includes(this.router.url);
+        this.hideBurger = this.hideRoutes.includes(this.router.url);
+      }
     });
   }
 
