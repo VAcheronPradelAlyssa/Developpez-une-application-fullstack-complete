@@ -1,10 +1,5 @@
 .subjects-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  width: 100%;
-  justify-content: center;
-  margin-top: 1.5rem;
+  // Utilise la grille partagée de styles.scss
 }
 
 .subject-card {
@@ -50,46 +45,6 @@
   }
 }
 
-.btn, button {
-  padding: 0.5rem 1.2rem;
-  border: 1px solid var(--border-grey);
-  border-radius: var(--radius);
-  background: #fff;
-  color: #222;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s, border 0.15s, box-shadow 0.15s;
-  margin: 0.4rem 0.3rem;
-  min-width: 120px;
-  min-height: 38px;
-}
-@media (max-width: 800px) {
-  .subjects-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.1rem;
-  }
-  .subject-card {
-    width: 96vw;
-    min-width: unset;
-  }
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-  margin-top: 1.5rem;
-  align-items: stretch;
-}
-
-@media (max-width: 900px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .card-btn-row {
   width: 100%;
   display: flex;
@@ -120,17 +75,14 @@ button.btn-subscribed {
   color: #fff;
   cursor: pointer;
 }
-
 .btn-subscribe:hover:enabled {
   background: #5a3bb5;
 }
-
 .btn-subscribed {
   background: #e0e0e0;
   color: white;
   cursor: default;
 }
-
 .btn-subscribed[disabled] {
   opacity: 0.6;
   cursor: not-allowed;

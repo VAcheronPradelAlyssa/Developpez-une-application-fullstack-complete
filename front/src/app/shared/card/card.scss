@@ -6,7 +6,6 @@
   min-width: 0;           /* ← Indispensable pour CSS Grid */
   max-width: none;        /* ← Empêche d'être limité en largeur */
   min-height: 230px;
-  /* height: 230px;  <-- RETIRE height fixe */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

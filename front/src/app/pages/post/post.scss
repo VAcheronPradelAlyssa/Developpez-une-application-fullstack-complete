@@ -37,23 +37,22 @@
 .article-list,
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.1rem;
   justify-content: flex-start;
   margin-top: 1.3rem;
-  align-items: stretch; /* ← Essentiel pour hauteurs égales */
+  align-items: stretch;
 }
 
 .post-card,
 .card {
   min-height: 230px;
-  /* height: 230px; <-- RETIRE height fixe */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   cursor: pointer;
   transition: box-shadow 0.13s, transform 0.11s;
-  min-width: 0;            /* Important pour CSS Grid */
+  min-width: 0;
   max-width: none;
   width: auto;
   box-sizing: border-box;
@@ -64,7 +63,7 @@
   border: 1px solid #e0e0e0;
   box-shadow: 0 2px 8px #e4e4fd;
   margin-bottom: 1.2rem;
-  padding: 1.2rem 2rem 1.5rem 1.2rem; /* Marge à droite pour éviter que le texte colle */
+  padding: 1.2rem 2rem 1.5rem 1.2rem;
   &:hover {
     box-shadow: 0 4px 18px #bdb2fa;
     transform: translateY(-2px) scale(1.015);
@@ -100,7 +99,6 @@
     font-size: 0.96rem;
     text-overflow: ellipsis;
     overflow: hidden;
-    /* Affiche 3 lignes max, coupe tout mot trop long, marge à droite */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -128,7 +126,6 @@
     width: 100%;
     min-width: unset;
     max-width: unset;
-    /* height: 230px; <-- RETIRE height fixe */
     flex: 1 1 0;
     padding: 1.1rem 0.7rem 1.5rem 0.7rem;
     min-height: 230px;

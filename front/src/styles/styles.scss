@@ -2,30 +2,27 @@
   width: 100%;
 }
 
-.subjects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); // 2 cartes par ligne sur écran PC
-  gap: 1.5rem;
-  width: 100%;
-  justify-items: center;
-  margin-top: 1.5rem;
-}
-.card-grid {
+// Grille générique pour toutes les pages (2 colonnes sur PC, 1 sur mobile)
+.card-grid, .subjects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   width: 100%;
   margin-top: 1.5rem;
+  justify-items: center;
+  align-items: stretch;
 }
 @media (max-width: 900px) {
-  .card-grid {
+  .card-grid, .subjects-grid {
     grid-template-columns: 1fr;
   }
 }
+
+// Formulaire générique
 .form-input {
   width: 100%;
   padding: 0.7rem 1rem;
-  border: 1.5px solid#7c55ea;
+  border: 1.5px solid #7c55ea;
   border-radius: 8px;
   font-size: 1rem;
   margin-bottom: 1.1rem;
@@ -33,124 +30,33 @@
   color: #222;
   transition: border 0.2s;
   outline: none;
-
   &:focus {
     border-color: #7c55ea;
     background: #f7f7fa;
   }
 }
-.subject-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #e4e4fd;
-  padding: 1.3rem 1.2rem 1.5rem 1.2rem;
-  width: 310px;
-  min-height: 160px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
-  h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.7rem;
-  }
-  p {
-    color: #333;
-    font-size: 0.98rem;
-    margin-bottom: 1.2rem;
-  }
-  button {
-    align-self: flex-end;
-    padding: 0.6rem 1.5rem;
-    border-radius: 8px;
-    border: none;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 2px 8px #ececff;
-    transition: background 0.15s, color 0.15s;
-    &.subscribe {
-      background: #7d5fff;
-      color: #fff;
-    }
-    &.subscribed {
-      background: #e4e4fd;
-      color: #7d5fff;
-      cursor: default;
-    }
-  }
-}
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); // 2 colonnes sur PC
-  gap: 1.5rem;
-  width: 100%;
-  justify-items: center;
-  margin-top: 1.5rem;
-}
-
-/* --------- PAGE HOME --------- */
+// Image page home responsive
 .home-container img {
   display: block;
-  margin: 2.5rem auto 2.5rem auto;
+  margin: 2.5rem auto;
   max-width: 220px;
   width: 80vw;
   height: auto;
 }
-
 @media (max-width: 600px) {
   .home-container img {
     max-width: 400px;
-    margin: 1.2rem auto 1.2rem auto;
+    margin: 1.2rem auto;
   }
 }
 
-// Tablette large et desktop : image très grande et centrée
-@media (min-width: 901px) {
-  .home-container img {
-    max-width: 540px;
-    width: 540px;
-    margin: 4rem auto 3rem auto;
-  }
-}
-
-// Tablette (481px à 900px)
-@media (min-width: 481px) and (max-width: 900px) {
-  .home-container img {
-    max-width: 400px;
-    width: 70vw;
-    margin: 2.5rem auto 2rem auto;
-  }
-}
-
-// Mobile large (401px à 480px)
-@media (max-width: 480px) and (min-width: 401px) {
-  .home-container img {
-    max-width: 400px;
-    width: 90vw;
-    margin: 1.2rem auto 1.2rem auto;
-  }
-}
-
-// Mobile standard (max 400px)
-@media (max-width: 400px) {
-  .home-container img {
-    max-width: 400px;
-    width: 95vw;
-    margin: 1rem auto 1rem auto;
-  }
-}
-
-/* --------- PAGE LOGIN & REGISTER LOGO RESPONSIVE --------- */
-.login-logo,
-.register-logo {
+// Login/Register logo responsive
+.login-logo, .register-logo {
   display: none !important;
 }
-
 @media (max-width: 900px) {
-  .login-logo,
-  .register-logo {
+  .login-logo, .register-logo {
     display: block !important;
     margin: 0 auto 1.2rem auto;
     max-width: 600px;
@@ -159,9 +65,8 @@
   }
 }
 
-/* --------- LOGIN & REGISTER FORM SANS CARTE --------- */
-.login-container,
-.register-container {
+// Login/Register form sans carte
+.login-container, .register-container {
   background: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -172,32 +77,27 @@
   flex-direction: column;
   align-items: center;
 }
-
 @media (max-width: 900px) {
-  .login-container,
-  .register-container {
+  .login-container, .register-container {
     max-width: 99vw !important;
     margin: 0 !important;
     padding: 0 0.3rem 2rem 0.3rem !important;
   }
 }
 
-/* --------- NAVBAR RESPONSIVE --------- */
+// Navbar responsive (uniquement la base, le reste dans navbar.scss)
 .site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // ...autres styles...
 }
 
-/* Masquer la navbar uniquement sur home, login, register (mobile et desktop) */
+// Masquer la navbar sur home, login, register
 body.home-page .site-header,
 body.login-page .site-header,
 body.register-page .site-header {
   display: none !important;
 }
-
-/* Afficher la navbar sur toutes les autres pages, même en mobile */
 @media (max-width: 900px) {
   .site-header {
     display: flex !important;
