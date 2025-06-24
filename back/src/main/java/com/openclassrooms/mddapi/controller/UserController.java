@@ -6,6 +6,7 @@ import com.openclassrooms.mddapi.dto.UserUpdateDTO;
 import com.openclassrooms.mddapi.model.Subscription;
 import com.openclassrooms.mddapi.security.CustomUserPrincipal;
 import com.openclassrooms.mddapi.service.UserService;
+import com.openclassrooms.mddapi.mapper.SubscriptionMapper;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +48,11 @@ public class UserController {
     public ResponseEntity<List<SubscriptionDTO>> getSubscriptions(Authentication authentication) {
         CustomUserPrincipal principal = (CustomUserPrincipal) authentication.getPrincipal();
         Long userId = principal.getId();
-        // Correction : utiliser une List au lieu d'un Set pour éviter les problèmes de mapping et d'ordre
         List<Subscription> subs = userService.getSubscriptions(userId)
             .stream().toList();
-        // Vérification : filtrer les abonnements non nuls et dont le subject n'est pas null
         List<SubscriptionDTO> dtos = subs.stream()
             .filter(sub -> sub != null && sub.getSubject() != null)
-            .map(SubscriptionDTO::new)
+            .map(SubscriptionMapper::toDto)
             .toList();
         return ResponseEntity.ok(dtos);
     }

@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.openclassrooms.mddapi.dto.SubscriptionDTO;
+import com.openclassrooms.mddapi.mapper.SubscriptionMapper;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.model.Subscription;
 import com.openclassrooms.mddapi.model.User;
@@ -55,6 +57,16 @@ public class SubscriptionService {
         return subscriptionRepository.findByUser(user)
             .stream()
             .map(s -> s.getSubject().getId())
+            .collect(Collectors.toSet());
+    }
+
+    // Nouvelle méthode pour exposer les abonnements détaillés
+    public Set<SubscriptionDTO> getUserSubscriptions(Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + userId));
+        return subscriptionRepository.findByUser(user)
+            .stream()
+            .map(SubscriptionMapper::toDto)
             .collect(Collectors.toSet());
     }
 }

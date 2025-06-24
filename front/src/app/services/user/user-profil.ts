@@ -18,7 +18,9 @@ export interface Subject {
 
 export interface Subscription {
   id: number;
-  subject: Subject;
+  subjectId: number;
+  subjectName: string;
+  description: string;
   subscribedAt: string;
 }
 
