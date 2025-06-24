@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,13 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, data, { withCredentials: true });
   }
 
-  // Version simple : vérifie juste la présence du cookie "token"
+  /**
+   * Vérifie la connexion en appelant une route protégée.
+   */
   isLoggedIn(): Observable<boolean> {
-    const hasToken = document.cookie.split(';').some(c => c.trim().startsWith('token='));
-    return of(hasToken);
+    return this.http.get('/api/user/profile', { withCredentials: true }).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 }
