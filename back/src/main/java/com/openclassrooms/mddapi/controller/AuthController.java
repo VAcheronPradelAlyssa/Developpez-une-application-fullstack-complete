@@ -3,11 +3,7 @@ package com.openclassrooms.mddapi.controller;
 import com.openclassrooms.mddapi.dto.LoginRequest;
 import com.openclassrooms.mddapi.dto.RegisterRequest;
 import com.openclassrooms.mddapi.dto.UserDto;
-import com.openclassrooms.mddapi.mapper.UserMapper;
-import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.AuthService;
-import com.openclassrooms.mddapi.service.TokenBlacklistService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +12,16 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request, HttpServletResponse response) {
