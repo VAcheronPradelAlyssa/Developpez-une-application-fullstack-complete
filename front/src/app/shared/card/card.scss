@@ -2,19 +2,25 @@
   background: #f7f7fa;
   border-radius: 10px;
   border: 1px solid #e0e0e0;
-  padding: 1.2rem 1.2rem 1.5rem 1.2rem;
-  min-width: 220px;
-  min-height: 120px;
+  padding: 1.2rem 2rem 1.5rem 1.2rem; /* même padding que post.scss */
+  min-width: 0;           /* ← Indispensable pour CSS Grid */
+  max-width: none;        /* ← Empêche d'être limité en largeur */
+  min-height: 230px;
+  /* height: 230px;  <-- RETIRE height fixe */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   box-shadow: 0 2px 8px #e4e4fd;
   margin-bottom: 1.2rem;
+  overflow: hidden;       /* ← Ajouté : évite tout débordement */
 
   .card-title {
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .card-meta {
     font-size: 0.95rem;
@@ -22,6 +28,9 @@
     margin-bottom: 0.7rem;
     display: flex;
     gap: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .card-content {
     color: #333;
@@ -32,6 +41,8 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    word-break: break-word;   /* ← Casse les mots trop longs */
+    padding-right: 0.5rem;    /* Marge à droite pour ne pas coller au bord */
   }
   .card-btn-row {
     width: 100%;
@@ -39,5 +50,4 @@
     justify-content: center;
     margin-top: 1.5rem; // Augmente la marge au-dessus du bouton
   }
-
 }

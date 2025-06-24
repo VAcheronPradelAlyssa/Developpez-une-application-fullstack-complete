@@ -33,31 +33,38 @@
   border: none;
 }
 
-
-/* Modifié pour 2 colonnes */
-.article-list {
+/* Grille 2 colonnes égales, chaque carte prend exactement 50% */
+.article-list,
+.card-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); // 2 colonnes sur PC
-  gap: 1.1rem; // réduit l'espace entre les cartes
+  grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+  gap: 1.1rem;
   justify-content: flex-start;
   margin-top: 1.3rem;
+  align-items: stretch; /* ← Essentiel pour hauteurs égales */
 }
 
-
-.post-card {
-  
-  background: #f6f6fe;
-  border-radius: 13px;
-  box-shadow: 0 2px 10px #e4e4fd;
-  padding: 1.2rem 1.2rem 1.7rem 1.2rem;
-  margin: 10px; // réduit la marge autour de chaque carte
+.post-card,
+.card {
   min-height: 230px;
+  /* height: 230px; <-- RETIRE height fixe */
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   cursor: pointer;
   transition: box-shadow 0.13s, transform 0.11s;
-  max-width: 500px; // optionnel, pour limiter la largeur sur grand écran
-  width: 100%;      // pour que la carte prenne la largeur de la colonne
+  min-width: 0;            /* Important pour CSS Grid */
+  max-width: none;
+  width: auto;
+  box-sizing: border-box;
+  flex: 1 1 0;
+  overflow: hidden;
+  background: #f7f7fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px #e4e4fd;
+  margin-bottom: 1.2rem;
+  padding: 1.2rem 2rem 1.5rem 1.2rem; /* Marge à droite pour éviter que le texte colle */
   &:hover {
     box-shadow: 0 4px 18px #bdb2fa;
     transform: translateY(-2px) scale(1.015);
@@ -93,7 +100,12 @@
     font-size: 0.96rem;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    /* Affiche 3 lignes max, coupe tout mot trop long, marge à droite */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    padding-right: 0.5rem;
   }
 }
 
@@ -104,7 +116,23 @@
   color: #dc143c;
 }
 
+/* Responsive : 1 colonne sur mobile/tablette */
 @media (max-width: 900px) {
+  .article-list,
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .post-card,
+  .card {
+    width: 100%;
+    min-width: unset;
+    max-width: unset;
+    /* height: 230px; <-- RETIRE height fixe */
+    flex: 1 1 0;
+    padding: 1.1rem 0.7rem 1.5rem 0.7rem;
+    min-height: 230px;
+  }
   .article-list-header {
     flex-direction: column;
     gap: 0.8rem;
@@ -117,9 +145,8 @@
     display: flex;
   }
   .post-card {
-    width: 96vw; // OK ici pour mobile/tablette
+    width: 96vw;
     min-width: unset;
-    padding: 1.1rem 0.7rem 1.5rem 0.7rem;
     margin: 6px;
   }
 }
@@ -137,7 +164,7 @@
     display: flex;
   }
   .post-card {
-    width: 99vw; // OK ici pour mobile
+    width: 99vw;
   }
 }
 
