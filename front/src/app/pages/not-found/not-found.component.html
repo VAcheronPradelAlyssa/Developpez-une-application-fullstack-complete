@@ -1,5 +1,7 @@
 <div class="not-found-container">
   <h1>404</h1>
   <p>Oups, cette page n'existe pas !</p>
-  <button (click)="goHome()">Retour à l'accueil</button>
+  <button (click)="goHome()">
+    {{ isLoggedIn ? "Retour aux articles" : "Retour à l'accueil" }}
+  </button>
 </div>
