@@ -5,6 +5,8 @@ import com.openclassrooms.mddapi.dto.LoginRequest;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.util.JwtUtil;
+import com.openclassrooms.mddapi.dto.UserDto;
+import com.openclassrooms.mddapi.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User register(RegisterRequest request) {
+    public UserDto register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email déjà utilisé");
         }
@@ -31,7 +33,8 @@ public class AuthService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole("USER");
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return UserMapper.toDto(savedUser);
     }
 
     public String login(LoginRequest request) {
@@ -43,8 +46,23 @@ public class AuthService {
         return null;
     }
 
+    public UserDto loginAndGetUserDto(LoginRequest request) {
+        Optional<User> userOpt = getUserByEmailOrUsername(request.getEmailOrUsername());
+        if (userOpt.isPresent() && passwordEncoder.matches(request.getPassword(), userOpt.get().getPassword())) {
+            return UserMapper.toDto(userOpt.get());
+        }
+        return null;
+    }
+
     public String generateToken(User user) {
         return JwtUtil.generateToken(user.getUsername(), user.getId());
+    }
+
+    public String generateTokenFromDto(UserDto userDto) {
+        if (userDto == null) {
+            throw new IllegalArgumentException("userDto ne doit pas être null");
+        }
+        return JwtUtil.generateToken(userDto.getUsername(), userDto.getId());
     }
 
     public Optional<User> getUserByEmailOrUsername(String emailOrUsername) {

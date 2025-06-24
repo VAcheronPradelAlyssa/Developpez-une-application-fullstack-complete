@@ -34,9 +34,10 @@ class UserServiceTest {
         User user = new User();
         user.setId(1L);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        Optional<User> result = userService.getUserById(1L);
-        assertTrue(result.isPresent());
-        assertEquals(1L, result.get().getId());
+        // Assuming UserDto has a getId() method
+        var result = userService.getUserById(1L);
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
     }
 
     @Test
@@ -52,9 +53,9 @@ class UserServiceTest {
         dto.setEmail("new@test.com");
         dto.setPassword("pass");
         when(passwordEncoder.encode("pass")).thenReturn("encoded");
-        User updated = userService.updateUser(1L, dto);
+        var updated = userService.updateUser(1L, dto);
         assertEquals("new", updated.getUsername());
         assertEquals("new@test.com", updated.getEmail());
-        assertEquals("encoded", updated.getPassword());
+        // Password should not be exposed in UserDto, so we do not check it here
     }
 }

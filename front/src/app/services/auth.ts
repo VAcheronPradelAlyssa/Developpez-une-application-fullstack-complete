@@ -18,19 +18,9 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, data, { withCredentials: true });
   }
 
+  // Version simple : vérifie juste la présence du cookie "token"
   isLoggedIn(): Observable<boolean> {
-    // Vérifie la connexion en appelant un endpoint protégé
-    return new Observable<boolean>(observer => {
-      this.http.get('/api/user/profile', { withCredentials: true }).subscribe({
-        next: () => {
-          observer.next(true);
-          observer.complete();
-        },
-        error: () => {
-          observer.next(false);
-          observer.complete();
-        }
-      });
-    });
+    const hasToken = document.cookie.split(';').some(c => c.trim().startsWith('token='));
+    return of(hasToken);
   }
 }

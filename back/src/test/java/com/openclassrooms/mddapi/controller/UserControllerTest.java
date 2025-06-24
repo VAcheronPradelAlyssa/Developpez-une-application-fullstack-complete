@@ -82,7 +82,12 @@ class UserControllerTest {
 
     @Test
     void getProfile_shouldReturnUser() throws Exception {
-        when(userService.getUserById(1L)).thenReturn(Optional.of(user));
+        // Assuming your controller expects a UserDto, create a UserDto instance and return it
+        com.openclassrooms.mddapi.dto.UserDto userDto = new com.openclassrooms.mddapi.dto.UserDto();
+        userDto.setId(1L);
+        userDto.setUsername("mockuser");
+        userDto.setEmail("mock@user.com");
+        when(userService.getUserById(1L)).thenReturn(userDto);
 
         mockMvc.perform(get("/api/user/profile")
                 .with(SecurityMockMvcRequestPostProcessors.authentication(
@@ -101,14 +106,12 @@ class UserControllerTest {
         dto.setUsername("newname");
         dto.setEmail("newmail@test.com");
 
-        User updated = new User();
-        updated.setId(1L);
-        updated.setUsername("newname");
-        updated.setEmail("newmail@test.com");
-        updated.setPassword("pwd");
-        updated.setRole("USER");
+        com.openclassrooms.mddapi.dto.UserDto updatedDto = new com.openclassrooms.mddapi.dto.UserDto();
+        updatedDto.setId(1L);
+        updatedDto.setUsername("newname");
+        updatedDto.setEmail("newmail@test.com");
 
-        when(userService.updateUser(Mockito.eq(1L), any(UserUpdateDTO.class))).thenReturn(updated);
+        when(userService.updateUser(Mockito.eq(1L), any(UserUpdateDTO.class))).thenReturn(updatedDto);
 
         mockMvc.perform(put("/api/user/profile")
                 .with(SecurityMockMvcRequestPostProcessors.authentication(
