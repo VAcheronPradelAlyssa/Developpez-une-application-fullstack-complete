@@ -8,7 +8,7 @@
     [class.hide-mobile-logo]="hideLinks"
   />
 
-  <ng-container>
+  <ng-container *ngIf="!hideLinks">
     <nav class="nav hide-on-mobile">      
       <a class="nav-link logout" routerLink="/logout">Se déconnecter</a>
       <a class="nav-link"
@@ -41,10 +41,10 @@
 </header>
 
 <!-- Overlay sombre derrière la nav mobile -->
-<div *ngIf="mobileMenuOpen && !hideBurger" class="mobile-menu-overlay show-on-mobile" (click)="closeMobileMenu()"></div>
+<div *ngIf="mobileMenuOpen && !hideBurger && !hideLinks" class="mobile-menu-overlay show-on-mobile" (click)="closeMobileMenu()"></div>
 
 <!-- Menu mobile -->
-<div class="mobile-menu show-on-mobile" *ngIf="!hideBurger && mobileMenuOpen">
+<div class="mobile-menu show-on-mobile" *ngIf="!hideBurger && !hideLinks && mobileMenuOpen">
   <button class="close-mobile-menu-btn" (click)="closeMobileMenu()" aria-label="Fermer le menu">&times;</button>
   <nav class="mobile-nav-list">
     <a class="mobile-nav-link logout" routerLink="/logout" (click)="closeMobileMenu()">Se déconnecter</a>

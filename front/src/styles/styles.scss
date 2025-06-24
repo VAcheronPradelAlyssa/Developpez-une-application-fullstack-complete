@@ -20,6 +20,14 @@
   }
 }
 
+
+@media (max-width: 600px) {
+  .home-container img {
+    max-width: 400px;
+    margin: 1.2rem auto;
+  }
+}
+
 // Login/Register logo responsive
 .login-logo, .register-logo {
   display: none !important;
