@@ -1,25 +1,132 @@
-# P6-Full-Stack-reseau-dev
+# MDD - Monde de Dév
 
-## Front
+## 📋 Description
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+**MDD** (Monde de Dév) est une application full-stack moderne conçue pour créer une communauté de développeurs. L'application permet aux utilisateurs de s'inscrire, de se connecter, de publier des articles, de commenter et de s'abonner à différents sujets technologiques.
 
-Don't forget to install your node_modules before starting (`npm install`).
+### 🛠️ Technologies utilisées
 
-### Development server
+**Frontend :**
+- Angular 20.0.0
+- Angular Material pour l'interface utilisateur
+- TypeScript
+- RxJS pour la programmation réactive
+- Cypress pour les tests end-to-end
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**Backend :**
+- Spring Boot 3.3.0
+- Java 21
+- Spring Security avec JWT
+- Spring Data JPA
+- MySQL 8.0
+- Maven pour la gestion des dépendances
 
-### Build
+## 🏗️ Architecture du projet
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+├── back/           # API REST Spring Boot
+├── front/          # Application Angular
+└── resources/      # Ressources et documentation
+```
 
-### Where to start
+## 🚀 Installation et démarrage
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+### Prérequis
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+- **Java 21** ou supérieur
+- **Node.js 18** ou supérieur
+- **MySQL 8.0**
+- **Maven 3.9+**
+- **Angular CLI 20.0+**
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+### Configuration de la base de données
 
-Good luck!
+1. Créez une base de données MySQL nommée `mdd`
+2. Modifiez les paramètres de connexion dans `back/src/main/resources/application.properties`
+
+### Démarrage rapide
+
+1. **Clonez le projet**
+```bash
+git clone <repository-url>
+cd Developpez-une-application-full-stack-complete
+```
+
+2. **Démarrage automatique (Frontend + Backend)**
+```bash
+cd front
+npm install
+npm run start:all
+```
+
+3. **Ou démarrage manuel :**
+
+**Backend :**
+```bash
+cd back
+mvn spring-boot:run
+```
+
+**Frontend :**
+```bash
+cd front
+npm install
+npm start
+```
+
+4. **Accédez à l'application :**
+   - Frontend : http://localhost:4200
+   - Backend API : http://localhost:8080
+
+## 🧪 Tests
+
+### Tests Backend
+```bash
+cd back
+mvn test
+```
+
+### Tests Frontend
+```bash
+cd front
+npm test
+```
+
+### Tests End-to-End
+```bash
+cd front
+npm run test:e2e:all
+```
+
+## 📚 Documentation
+
+- [Documentation Backend](./back/README.md)
+- [Documentation Frontend](./front/README.md)
+
+## 🔒 Sécurité
+
+L'application utilise JWT (JSON Web Tokens) pour l'authentification et l'autorisation. Les tokens sont valides pendant 24 heures.
+
+## 🎨 Interface utilisateur
+
+L'application utilise Angular Material pour une interface moderne et responsive. Les écrans disponibles incluent :
+
+- Page d'accueil
+- Connexion/Inscription
+- Liste des articles
+- Création d'articles
+- Profil utilisateur
+- Gestion des abonnements aux sujets
+
+## 📝 Fonctionnalités
+
+- ✅ Authentification et autorisation
+- ✅ Gestion des utilisateurs
+- ✅ Publication et lecture d'articles
+- ✅ Système de commentaires
+- ✅ Abonnement à des sujets
+- ✅ Interface responsive
+- ✅ Tests automatisés
+
+
+
