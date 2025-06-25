@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.repository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,7 +12,7 @@ import com.openclassrooms.mddapi.model.User;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     boolean existsByUserAndSubject(User user, Subject subject);
     Optional<Subscription> findByUserAndSubject(User user, Subject subject);
-    Set<Subscription> findByUser(User user);
+    List<Subscription> findByUser(User user);
     Optional<Subscription> findByUserIdAndSubjectId(Long userId, Long subjectId);
 
 }

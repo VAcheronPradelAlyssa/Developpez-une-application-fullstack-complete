@@ -21,6 +21,7 @@ import { UserProfileComponent } from './pages/user-profil/user-profil';
 import { BoutonRetourComponent } from './shared/bouton-retour/bouton-retour';
 import { PasswordFieldComponent } from './shared/password-field/password-field';
 import { CardComponent } from './shared/card/card';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CardComponent } from './shared/card/card';
     LogoutComponent,
     UserProfileComponent,
     BoutonRetourComponent,
-    CardComponent
+    CardComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

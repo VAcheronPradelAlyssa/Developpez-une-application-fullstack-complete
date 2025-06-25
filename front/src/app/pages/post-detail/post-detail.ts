@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/posts/post';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,13 +23,18 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
-    private location: Location
+    private location: Location,
+    private router: Router // Ajout du Router pour la redirection
   ) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.postService.getPosts().subscribe(posts => {
       this.post = posts.find((p: any) => p.id === id);
+      if (!this.post) {
+        this.router.navigate(['/not-found']);
+        return;
+      }
       this.loading = false;
     });
     this.loadComments(id);

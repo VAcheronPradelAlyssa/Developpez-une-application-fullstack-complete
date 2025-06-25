@@ -1,15 +1,16 @@
-<app-bouton-retour  [returnRoute]="['']"></app-bouton-retour>
+<app-bouton-retour [returnRoute]="['']"></app-bouton-retour>
 <div class="register-container">
+  <img src="/assets/logo_p6.png" alt="logo" class="register-logo" />
   <h2>Inscription</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <input formControlName="username" placeholder="Nom d'utilisateur" required>
+    <input formControlName="username" placeholder="Nom d'utilisateur" required autocomplete="off">
     <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="error">
       <span *ngIf="registerForm.get('username')?.errors?.['required']">
         Nom d'utilisateur requis.
       </span>
     </div>
 
-    <input formControlName="email" type="email" placeholder="Email" required>
+    <input formControlName="email" type="email" placeholder="Email" required autocomplete="off">
     <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error">
       <span *ngIf="registerForm.get('email')?.errors?.['required']">
         L'email est requis.
@@ -24,6 +25,7 @@
         [control]="passwordControl"
         placeholder="Mot de passe"
         [required]="true"
+        autocomplete="off"
         (focus)="showPasswordRules = true"
         (blur)="showPasswordRules = false"
       ></app-password-field>
@@ -69,4 +71,8 @@
   </form>
   <div *ngIf="error" class="error">{{error}}</div>
   <div *ngIf="success" class="success">Inscription réussie ! Redirection ...</div>
+  <div *ngIf="alreadyLoggedIn" class="popup-already-logged">
+    Vous êtes déjà connecté.<br>
+    Redirection vers les articles...
+  </div>
 </div>

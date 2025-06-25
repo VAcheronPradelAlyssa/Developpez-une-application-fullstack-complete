@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,15 @@ export class AuthService {
 
   login(data: { emailOrUsername: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, data, { withCredentials: true });
+  }
+
+  /**
+   * Vérifie la connexion en appelant une route protégée.
+   */
+  isLoggedIn(): Observable<boolean> {
+    return this.http.get('/api/user/profile', { withCredentials: true }).pipe(
+      map(() => true),
+      catchError(() => of(false))
+    );
   }
 }

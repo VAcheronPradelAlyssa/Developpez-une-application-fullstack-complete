@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,14 +8,31 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class NavbarComponent {
-  public lightNavbar = false;
-  private lightRoutes = ['/login', '/register'];
+  public hideNavbar = false;
+  public hideBurger = false;
+  public hideLinks = false;
+  public hideMobileMenu = false;
+  public isMobile = false; // Ajouté
   mobileMenuOpen = false;
 
+  private hideRoutes = ['/'];
+  private logoOnlyRoutes = ['/login', '/register'];
+
   constructor(private router: Router) {
-    this.router.events.subscribe(() => {
-      this.lightNavbar = this.lightRoutes.includes(this.router.url);
+    this.updateIsMobile();
+    window.addEventListener('resize', () => this.updateIsMobile());
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.hideNavbar = this.hideRoutes.includes(this.router.url);
+        this.hideBurger = this.hideRoutes.includes(this.router.url) || this.logoOnlyRoutes.includes(this.router.url);
+        this.hideLinks = this.logoOnlyRoutes.includes(this.router.url);
+        this.hideMobileMenu = this.logoOnlyRoutes.includes(this.router.url);
+      }
     });
+  }
+
+  updateIsMobile() {
+    this.isMobile = window.innerWidth <= 800;
   }
 
   toggleMobileMenu() {

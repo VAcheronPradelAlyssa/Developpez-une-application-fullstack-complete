@@ -3,6 +3,8 @@ export interface Post {
   title: string;
   content: string;
   createdAt: string;
-  author: { username: string };
-  subject: { name: string };
+  authorId: number;
+  authorUsername: string;
+  subjectId: number;
+  subjectName: string;
 }
