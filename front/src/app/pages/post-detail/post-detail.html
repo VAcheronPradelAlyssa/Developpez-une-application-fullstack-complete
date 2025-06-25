@@ -1,17 +1,18 @@
 <app-bouton-retour [returnRoute]="['/post']"></app-bouton-retour>
+<div *ngIf="loading"></div>
 <div *ngIf="!loading && post" class="article-container">
  
   <h1 class="article-title">{{ post.title }}</h1>
   <div class="meta-list">
     <span>Date: {{ post.createdAt | date:'short' }}</span>
-    <span>Auteur: {{ post.author.username }}</span>
-    <span>Thème: {{ post.subject.name }}</span>
+    <span>Auteur: {{ post.authorUsername }}</span>
+    <span>Thème: {{ post.subjectName }}</span>
   </div>
   <div class="article-content">{{ post.content }}</div>
   <hr>
   <h3 class="comment-title">Commentaires</h3>
   <div *ngFor="let comment of comments" class="comment-block">
-    <span class="username">{{ comment.author.username }}</span>
+    <span class="username">{{ comment.authorUsername }}</span>
     <span class="comment-content">{{ comment.content }}</span>
   </div>
   <form (ngSubmit)="addComment()" class="add-comment-form">

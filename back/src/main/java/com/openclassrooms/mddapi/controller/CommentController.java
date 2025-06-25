@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.CommentCreateDTO;
-import com.openclassrooms.mddapi.model.Comment;
+import com.openclassrooms.mddapi.dto.CommentDTO;
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.PostRepository;
@@ -29,17 +29,17 @@ public class CommentController {
     }
 
     @GetMapping
-    public List<Comment> getCommentsByPost(@PathVariable Long postId) {
+    public List<CommentDTO> getCommentsByPost(@PathVariable Long postId) {
         return commentService.getCommentsByPostId(postId);
     }
 
     @PostMapping
-    public ResponseEntity<Comment> addComment(@PathVariable Long postId, @RequestBody CommentCreateDTO dto, Authentication authentication) {
+    public ResponseEntity<CommentDTO> addComment(@PathVariable Long postId, @RequestBody CommentCreateDTO dto, Authentication authentication) {
         // Récupérer l'id utilisateur depuis le principal
         Long userId = ((CustomUserPrincipal) authentication.getPrincipal()).getId();
         User author = userRepository.findById(userId).orElseThrow();
         Post post = postRepository.findById(postId).orElseThrow();
-        Comment comment = commentService.createComment(dto, author, post);
-        return ResponseEntity.ok(comment);
+        CommentDTO commentDto = commentService.createComment(dto, author, post);
+        return ResponseEntity.ok(commentDto);
     }
 }

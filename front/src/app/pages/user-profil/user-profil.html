@@ -19,9 +19,9 @@
 
   <div class="subscriptions-list" *ngIf="subscriptions?.length && subscriptions.length > 0; else noSub">
     <app-card *ngFor="let sub of subscriptions"
-      [title]="sub.subject.name"
-      [description]="sub.subject.description">
-      <button class="btn-unsubscribe" type="button" (click)="unsubscribe(sub.subject.id)">
+      [title]="sub.subjectName"
+      [description]="sub.description">
+      <button class="btn-unsubscribe" type="button" (click)="unsubscribe(sub.subjectId)">
         Se désabonner
       </button>
     </app-card>

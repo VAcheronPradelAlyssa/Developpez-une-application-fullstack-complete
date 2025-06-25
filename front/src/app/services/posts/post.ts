@@ -2,15 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PostCreateDTO } from 'src/app/models/post-create.dto';
-
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  author: { username: string };
-  subject: { name: string };
-}
+import { Post } from 'src/app/models/post.dto'; // <-- Utilise l'interface Post centralisée
 
 @Injectable({ providedIn: 'root' })
 export class PostService {

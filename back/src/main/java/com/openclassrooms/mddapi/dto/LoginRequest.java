@@ -1,24 +1,11 @@
 package com.openclassrooms.mddapi.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class LoginRequest {
     private String emailOrUsername;
     private String password;
-
-    public LoginRequest() {}
-
-    public String getEmailOrUsername() {
-        return emailOrUsername;
-    }
-
-    public void setEmailOrUsername(String emailOrUsername) {
-        this.emailOrUsername = emailOrUsername;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

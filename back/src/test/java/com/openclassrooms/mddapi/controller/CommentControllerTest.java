@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.mddapi.dto.CommentCreateDTO;
+import com.openclassrooms.mddapi.dto.CommentDTO;
 import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.User;
@@ -12,7 +13,6 @@ import com.openclassrooms.mddapi.service.TokenBlacklistService;
 import com.openclassrooms.mddapi.security.CustomUserPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -22,7 +22,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.web.servlet.MockMvc;
@@ -60,6 +59,7 @@ class CommentControllerTest {
     private Comment comment;
     private User user;
     private Post post;
+    private CommentDTO commentDto;
 
     @BeforeEach
     void setup() {
@@ -75,6 +75,15 @@ class CommentControllerTest {
         comment.setAuthor(user);
         comment.setPost(post);
         comment.setCreatedAt(LocalDateTime.now());
+
+        // Prépare le DTO pour les mocks
+        commentDto = new CommentDTO();
+        commentDto.setId(3L);
+        commentDto.setContent("Contenu test");
+        commentDto.setAuthorId(1L);
+        commentDto.setAuthorUsername("mockuser");
+        commentDto.setPostId(2L);
+        commentDto.setCreatedAt(comment.getCreatedAt());
     }
 
     private UsernamePasswordAuthenticationToken customAuth() {
@@ -88,7 +97,7 @@ class CommentControllerTest {
 
     @Test
     void getCommentsByPost_shouldReturnList() throws Exception {
-        when(commentService.getCommentsByPostId(2L)).thenReturn(Collections.singletonList(comment));
+        when(commentService.getCommentsByPostId(2L)).thenReturn(Collections.singletonList(commentDto));
 
         mockMvc.perform(get("/api/posts/2/comments"))
             .andExpect(status().isOk())
@@ -101,7 +110,7 @@ class CommentControllerTest {
         dto.setContent("Nouveau commentaire");
         when(userRepository.findById(1L)).thenReturn(java.util.Optional.of(user));
         when(postRepository.findById(2L)).thenReturn(java.util.Optional.of(post));
-        when(commentService.createComment(any(), any(), any())).thenReturn(comment);
+        when(commentService.createComment(any(), any(), any())).thenReturn(commentDto);
 
         mockMvc.perform(post("/api/posts/2/comments")
                 .with(SecurityMockMvcRequestPostProcessors.authentication(customAuth()))

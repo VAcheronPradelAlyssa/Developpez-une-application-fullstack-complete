@@ -4,14 +4,10 @@ import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+import com.openclassrooms.mddapi.dto.SubscriptionDTO;
 import com.openclassrooms.mddapi.service.SubscriptionService;
 import com.openclassrooms.mddapi.security.CustomUserPrincipal;
 
@@ -36,8 +32,16 @@ public class SubscriptionController {
         return ResponseEntity.ok().build();
     }
 
+    // Retourne la liste détaillée des abonnements
     @GetMapping
-    public ResponseEntity<Set<Long>> getUserSubscriptions(Authentication authentication) {
+    public ResponseEntity<Set<SubscriptionDTO>> getUserSubscriptions(Authentication authentication) {
+        CustomUserPrincipal principal = (CustomUserPrincipal) authentication.getPrincipal();
+        return ResponseEntity.ok(subscriptionService.getUserSubscriptions(principal.getId()));
+    }
+
+    // Si tu veux garder aussi l'ancienne route pour les IDs uniquement :
+    @GetMapping("/ids")
+    public ResponseEntity<Set<Long>> getUserSubscriptionIds(Authentication authentication) {
         CustomUserPrincipal principal = (CustomUserPrincipal) authentication.getPrincipal();
         return ResponseEntity.ok(subscriptionService.getSubscribedSubjectIds(principal.getId()));
     }

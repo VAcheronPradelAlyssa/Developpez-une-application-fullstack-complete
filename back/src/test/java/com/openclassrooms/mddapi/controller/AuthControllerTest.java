@@ -71,7 +71,13 @@ class AuthControllerTest {
         req.setEmail("test@test.com");
         req.setUsername("test");
         req.setPassword("pass");
-        when(authService.register(any())).thenReturn(user);
+        // Create a UserDto object to return from the mock
+        com.openclassrooms.mddapi.dto.UserDto userDtoMock = new com.openclassrooms.mddapi.dto.UserDto();
+        userDtoMock.setId(1L);
+        userDtoMock.setUsername("test");
+        userDtoMock.setEmail("test@test.com");
+
+        when(authService.register(any())).thenReturn(userDtoMock);
         when(authService.generateToken(any())).thenReturn("token");
 
         mockMvc.perform(post("/api/auth/register")

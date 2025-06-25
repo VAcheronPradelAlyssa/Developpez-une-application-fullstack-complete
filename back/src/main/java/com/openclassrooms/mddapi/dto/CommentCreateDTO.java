@@ -1,10 +1,8 @@
 package com.openclassrooms.mddapi.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class CommentCreateDTO {
     private Long userId;
     private String content;

@@ -66,7 +66,7 @@ subscriptions: Subscription[] = [];
   unsubscribe(subjectId: number) {
     this.userService.unsubscribe(subjectId).subscribe({
       next: () => {
-        this.subscriptions = this.subscriptions.filter(s => s.subject.id !== subjectId);
+        this.subscriptions = this.subscriptions.filter(s => s.subjectId !== subjectId);
       },
       error: () => {
         this.error = "Erreur lors du désabonnement.";
