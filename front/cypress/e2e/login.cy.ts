@@ -1,6 +1,5 @@
 describe('Connexion', () => {
   beforeEach(() => {
-    // Réinitialise la base et crée un utilisateur de test
     cy.request('POST', 'http://localhost:8080/api/test/reset-db');
     cy.request('POST', 'http://localhost:8080/api/auth/register', {
       username: 'testuser',

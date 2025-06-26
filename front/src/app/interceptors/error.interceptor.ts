@@ -7,7 +7,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-
   constructor(
     private router: Router,
     private snackBar: MatSnackBar
@@ -65,3 +64,4 @@ export class ErrorInterceptor implements HttpInterceptor {
     );
   }
 }
+
