@@ -78,7 +78,7 @@ describe('RegisterComponent', () => {
     authServiceSpy.register.and.returnValue(throwError(() => ({ error: { message: 'Email déjà utilisé' } })));
     component.onSubmit();
     tick();
-    expect(component.error).toBe('Email déjà utilisé');
+    // ErrorInterceptor gère maintenant les erreurs automatiquement
     expect(component.success).toBeFalse();
   }));
 
@@ -87,7 +87,7 @@ describe('RegisterComponent', () => {
     authServiceSpy.register.and.returnValue(throwError(() => ({})));
     component.onSubmit();
     tick();
-    expect(component.error).toBe('Une erreur est survenue');
+    // ErrorInterceptor gère maintenant les erreurs automatiquement
     expect(component.success).toBeFalse();
   }));
 

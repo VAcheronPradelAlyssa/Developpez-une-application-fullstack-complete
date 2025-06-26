@@ -18,13 +18,14 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'Une erreur est survenue';
 
-        // Ne rien afficher si on est sur /login ou /register et que c'est une 401/403
+        // Ne rien afficher si on est sur /login ou /register et que c'est une 401/403 pour isLoggedIn
         const url = this.router.url;
         if (
           (url.startsWith('/login') || url.startsWith('/register')) &&
-          (error.status === 401 || error.status === 403)
+          (error.status === 401 || error.status === 403) &&
+          req.url.includes('/user/profile')
         ) {
-          // Ne rien afficher, juste retourner l'erreur
+          // Ne rien afficher pour la vérification isLoggedIn sur login/register
           return throwError(() => error);
         }
 
@@ -33,8 +34,11 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else {
           switch (error.status) {
             case 401:
-              errorMessage = 'Non autorisé - Veuillez vous reconnecter';
-              this.router.navigate(['/login']);
+              errorMessage = 'Identifiants invalides';
+              // Ne pas rediriger si on est déjà sur login
+              if (!url.startsWith('/login')) {
+                this.router.navigate(['/login']);
+              }
               break;
             case 403:
               errorMessage = 'Accès interdit';
@@ -50,7 +54,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
         }
 
-        // Afficher uniquement si on n'est pas sur login/register avec 401/403
+        // Afficher le message d'erreur via SnackBar
         this.snackBar.open(errorMessage, 'Fermer', {
           duration: 5000,
           panelClass: ['error-snackbar']

@@ -98,7 +98,8 @@ describe('Liste des articles (/post)', () => {
   it('affiche un message d\'erreur si l\'API échoue', () => {
     cy.intercept('GET', '/api/posts', { forceNetworkError: true }).as('getPostsError');
     cy.visit('http://localhost:4200/post');
-    cy.get('.error').should('contain', 'Erreur lors du chargement des articles');
+    // ErrorInterceptor affiche maintenant les erreurs via SnackBar
+    cy.get('.mat-mdc-snack-bar-container').should('contain', 'Une erreur est survenue');
   });
 });
 

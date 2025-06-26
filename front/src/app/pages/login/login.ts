@@ -51,10 +51,14 @@ export class LoginComponent implements OnInit {
     this.success = false;
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-        this.router.navigate(['/post']);
+        this.success = true;
+        setTimeout(() => {
+          this.router.navigate(['/post']);
+        }, 500);
       },
-      error: (err) => {
-        this.error = err?.error?.error || err?.error?.message || 'Erreur de connexion';
+      error: () => {
+        // ErrorInterceptor gère automatiquement l'affichage des erreurs
+        // Garde juste la gestion locale pour les cas spécifiques au login
       }
     });
   }
