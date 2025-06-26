@@ -19,6 +19,7 @@
   margin-bottom: 2.2rem;
 }
 
+// Override Material form field styles to keep your design
 .form-group {
   margin-bottom: 1.2rem;
   position: relative;
@@ -26,6 +27,25 @@
   max-width: 350px;
   margin-left: auto;
   margin-right: auto;
+  
+  .mat-mdc-form-field {
+    width: 100%;
+    
+    .mat-mdc-text-field-wrapper {
+      background: #fafaff !important;
+      border-radius: 8px !important;
+    }
+    
+    .mat-mdc-form-field-outline-thick {
+      color: #7d5fff !important;
+    }
+    
+    .mat-mdc-input-element,
+    .mat-mdc-form-field textarea {
+      padding: 0.78rem 1rem !important;
+      font-size: 1.01rem !important;
+    }
+  }
 }
 
 .input {
@@ -45,23 +65,33 @@
   resize: vertical;
 }
 
+.full-width {
+  width: 100% !important;
+}
+
 .btn-create {
   display: block;
   margin: 1.4rem auto 0 auto;
-  background: #7d5fff;
-  color: #fff;
-  border: none;
-  border-radius: 7px;
-  padding: 0.7rem 0;
-  width: 100%;
-  max-width: 350px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  background: #7d5fff !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 7px !important;
+  padding: 0.7rem 0 !important;
+  width: 100% !important;
+  max-width: 350px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
   cursor: pointer;
   box-shadow: 0 2px 8px #e4e4fd;
   transition: background 0.15s;
-  &:hover:enabled { background: #5f47d4; }
-  &:disabled { opacity: 0.6; cursor: not-allowed; }
+  &:hover:enabled {
+    background: #5f47d4 !important;
+  }
+  
+  &:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+  }
 }
 
 /* Autocomplete */

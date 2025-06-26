@@ -14,6 +14,58 @@ h2 {
   text-align: center;
 }
 
+// Override Material form styles to keep your design
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .mat-mdc-form-field {
+    width: 100%;
+    
+    .mat-mdc-text-field-wrapper {
+      background: #fff !important;
+      border-radius: 7px !important;
+    }
+    
+    .mat-mdc-form-field-outline-thick {
+      color: #bdb2fa !important;
+    }
+    
+    .mat-mdc-input-element {
+      padding: 0.7rem !important;
+      font-size: 1rem !important;
+    }
+  }
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.btn-cr {
+  background: #7d5fff !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 0.7rem 0 !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  margin-top: 0.2rem !important;
+  transition: background 0.18s !important;
+  
+  &:hover:enabled {
+    background: #5f47d4 !important;
+  }
+  
+  &:disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+  }
+}
+
 .profile-form {
   display: flex;
   flex-direction: column;
@@ -118,29 +170,42 @@ h3 {
 }
 
 .btn-unsubscribe {
-  background: hwb(251 37% 0%);
-  color: #fff;
-  cursor: pointer;
-  width: 80%;
-  max-width: 220px;
-  border-radius: 8px;
-  border: none;
-  padding: 0.7rem 0;
-  font-weight: 600;
-  font-size: 1rem;
-  text-align: center;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 2px 8px #ececff;
-  margin: 1.2rem auto 0 auto;
-  display: block;
+  background: hwb(251 37% 0%) !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  width: 80% !important;
+  max-width: 220px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  padding: 0.7rem 0 !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  transition: background 0.2s, color 0.2s !important;
+  box-shadow: 0 2px 8px #ececff !important;
+  margin: 1.2rem auto 0 auto !important;
+  display: block !important;
 
   &:hover:enabled {
-    background: #5a3bb5;
+    background: #5a3bb5 !important;
   }
 
   &[disabled] {
-    opacity: 0.6;
-    cursor: not-allowed;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  
+  p {
+    margin-top: 1rem;
+    color: var(--text-secondary);
   }
 }
 

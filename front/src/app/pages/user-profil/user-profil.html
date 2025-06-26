@@ -2,18 +2,32 @@
   <h2>Profil utilisateur</h2>
 
   <form (ngSubmit)="saveProfile()" class="profile-form">
-    <input type="text" [(ngModel)]="user.username" name="username" placeholder="Nom d'utilisateur" required />
-    <input type="email" [(ngModel)]="user.email" name="email" placeholder="email@email.fr" required />
-    <input type="password" [(ngModel)]="user.password" name="password" placeholder="Mot de passe" autocomplete="new-password" />
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput [(ngModel)]="user.username" name="username" required>
+    </mat-form-field>
 
-    <button class="btn-cr" type="submit" [disabled]="saving">Sauvegarder</button>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="user.email" name="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" [(ngModel)]="user.password" name="password" autocomplete="new-password">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="btn-cr" type="submit" [disabled]="saving">
+      Sauvegarder
+    </button>
 
     <div class="success" *ngIf="success">{{ success }}</div>
     <div class="error" *ngIf="error">{{ error }}</div>
   </form>
+</div>
 
-  
-</div><hr />
+<hr />
+
 <div class="subscriptions-container" *ngIf="!loading">
   <h2>Abonnements</h2>
 
@@ -21,7 +35,7 @@
     <app-card *ngFor="let sub of subscriptions"
       [title]="sub.subjectName"
       [description]="sub.description">
-      <button class="btn-unsubscribe" type="button" (click)="unsubscribe(sub.subjectId)">
+      <button mat-raised-button color="warn" class="btn-unsubscribe" type="button" (click)="unsubscribe(sub.subjectId)">
         Se désabonner
       </button>
     </app-card>
@@ -32,4 +46,7 @@
   </ng-template>
 </div>
 
-<div *ngIf="loading">Chargement…</div>
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner diameter="40"></mat-spinner>
+  <p>Chargement…</p>
+</div>

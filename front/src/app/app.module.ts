@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +23,15 @@ import { CardComponent } from './shared/card/card';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 // Material Modules
+import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 // Error Interceptor
 import { ErrorInterceptor } from './interceptors/error.interceptor';
@@ -54,6 +61,13 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     BrowserAnimationsModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatAutocompleteModule,
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,

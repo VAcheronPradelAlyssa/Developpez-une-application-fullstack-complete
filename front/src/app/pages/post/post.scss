@@ -13,40 +13,56 @@
     grid-template-columns: 1fr;
     gap: 1.1rem; }
 }
+
+// Override Material button styles to keep your design
 .btn-create {
-  background: #7c55ea;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-top: 1.5rem; // <-- Ajouté pour l'espacement avec la navbar
-  margin-bottom: 1.2rem;
+  background: #7c55ea !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.7rem 1.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.2rem !important;
+  
   &:hover {
-    background: #6847c6;
+    background: #6847c6 !important;
+  }
+  
+  mat-icon {
+    margin-right: 0.5rem;
   }
 }
 
-// Style pour le span "Trier par" qui ressemble à un bouton
 .sort-span {
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  padding: 0.7rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.2s;
+  border: none !important;
+  background: transparent !important;
+  color: inherit !important;
+  padding: 0.7rem 1.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  
   .arrow {
     margin-left: 0.7em;
-    display: flex;
-    align-items: center;
   }
 }
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  
+  p {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+  }
+}
+
 .article-list-header-flex {
   display: flex;
   justify-content: space-between;

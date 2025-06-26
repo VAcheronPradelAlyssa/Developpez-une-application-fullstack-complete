@@ -2,34 +2,43 @@
 <div class="new-post-container">
   <h1 class="new-post-title">Créer un nouvel article</h1>
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()" autocomplete="off">
-    <!-- AUTOCOMPLETE SUBJECT -->
-    <div class="form-group autocomplete-group">
-      <input 
-        type="text"
-        class="input"
-        formControlName="subjectName"
-        placeholder="Sélectionner un thème"
-        (input)="onSubjectInput()"
-        (focus)="showSubjectOptions = true"
-        (blur)="hideSubjectOptions()"
-        autocomplete="off"
-        required
-      />
-      <!-- Suggestions -->
-      <ul *ngIf="showSubjectOptions && filteredSubjects.length" class="autocomplete-list">
-        <li *ngFor="let subject of filteredSubjects" (mousedown)="selectSubject(subject)">
-          {{ subject.name }}
-        </li>
-      </ul>
+    
+    <!-- AUTOCOMPLETE SUBJECT avec Material -->
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Sélectionner un thème</mat-label>
+        <input matInput
+               formControlName="subjectName"
+               [matAutocomplete]="auto"
+               (input)="onSubjectInput()"
+               autocomplete="off"
+               required>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectSubject($event.option.value)">
+          <mat-option *ngFor="let subject of filteredSubjects" [value]="subject">
+            {{ subject.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
+
     <!-- TITLE -->
     <div class="form-group">
-      <input class="input" formControlName="title" placeholder="Titre de l'article" autocomplete="off" required />
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Titre de l'article</mat-label>
+        <input matInput formControlName="title" autocomplete="off" required>
+      </mat-form-field>
     </div>
+
     <!-- CONTENT -->
     <div class="form-group">
-      <textarea class="input textarea" formControlName="content" placeholder="Contenu de l'article" required></textarea>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contenu de l'article</mat-label>
+        <textarea matInput formControlName="content" rows="6" required></textarea>
+      </mat-form-field>
     </div>
-    <button class="btn-create" type="submit" [disabled]="postForm.invalid">Créer</button>
+
+    <button mat-raised-button color="primary" class="btn-create" type="submit" [disabled]="postForm.invalid">
+      Créer
+    </button>
   </form>
 </div>
