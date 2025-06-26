@@ -128,5 +128,44 @@ L'application utilise Angular Material pour une interface moderne et responsive.
 - ✅ Interface responsive
 - ✅ Tests automatisés
 
+# Choix Technologiques - Analyse Comparative
+
+Chaque technologie a été retenue après une analyse comparative :
+
+**Angular**, imposé par l'entreprise, est parfaitement adapté à notre besoin de SPA d'entreprise, avec une intégration totale de **RxJS** et **Angular Material**.
+
+**Spring Boot** et ses modules permettent un développement rapide, sécurisé, et une gestion efficace des utilisateurs/rôles avec **Spring Security**.
+
+**BCrypt** est le standard pour le hashage des mots de passe côté Spring.
+
+**RxJS** facilite la gestion des flux de données asynchrones.
+
+**Angular Material** permet de respecter les maquettes et d'assurer l'accessibilité.
+
+**Lombok** réduit considérablement le code Java répétitif.
+
+**Cypress** assure la robustesse de la chaîne de tests end-to-end.
+
+**GitHub** est le standard universel du versioning et de la collaboration en entreprise.
+
+## Stack Technique Finale
+
+### Frontend
+- Angular 20.0 + TypeScript 5.8
+- RxJS 7.8 pour la programmation réactive
+- Angular Material 20.0 pour l'UI/UX
+- Jasmine + Zone.js pour les tests unitaires
+
+### Backend  
+- Spring Boot 3.x + Java 21
+- Spring Security + JWT + BCrypt
+- Spring Data JPA + MySQL
+- Lombok pour la réduction du boilerplate
+
+### Tests & Outils
+- Cypress 14.5 pour les tests E2E
+- Maven pour le build Java
+- GitHub pour le versioning
+
 
 

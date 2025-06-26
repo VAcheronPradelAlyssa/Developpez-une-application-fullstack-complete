@@ -15,16 +15,21 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'Une erreur est survenue';
+        // Ne pas afficher d'erreur pour les requêtes silencieuses
+        if (req.headers.has('X-Silent-Request')) {
+          return throwError(() => error);
+        }
 
-        // Ne rien afficher si on est sur /login ou /register et que c'est une 401/403 pour isLoggedIn
+        let errorMessage = 'Une erreur est survenue';
         const url = this.router.url;
+
+        // Ne rien afficher si on est sur des pages publiques et que c'est une 401/403 pour isLoggedIn
         if (
-          (url.startsWith('/login') || url.startsWith('/register')) &&
+          (url === '/' || url.startsWith('/login') || url.startsWith('/register')) &&
           (error.status === 401 || error.status === 403) &&
           req.url.includes('/user/profile')
         ) {
-          // Ne rien afficher pour la vérification isLoggedIn sur login/register
+          // Ne rien afficher pour la vérification isLoggedIn sur les pages publiques
           return throwError(() => error);
         }
 
@@ -34,8 +39,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           switch (error.status) {
             case 401:
               errorMessage = 'Identifiants invalides';
-              // Ne pas rediriger si on est déjà sur login
-              if (!url.startsWith('/login')) {
+              // Ne pas rediriger si on est déjà sur login ou home
+              if (!url.startsWith('/login') && url !== '/') {
                 this.router.navigate(['/login']);
               }
               break;
