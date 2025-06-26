@@ -24,15 +24,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-            .csrf(csrf -> csrf.csrfTokenRepository(org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse()))
-            .cors(cors -> {}) // CORS géré par CorsConfig
             .csrf(csrf -> csrf.disable())
+            .cors(cors -> {}) // CORS géré par CorsConfig
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/login",
                     "/api/auth/register", 
                     "/api/auth/logout",
                     "/api/test/reset-db",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/swagger-resources/**",
+                    "/webjars/**",
                     "/"
                 ).permitAll()
                 .anyRequest().authenticated()

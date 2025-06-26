@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth';
 export class HomeComponent implements OnInit {
   isLoggedIn = false;
 
+  // Injection de dépendance native Angular
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
