@@ -23,6 +23,12 @@ import { PasswordFieldComponent } from './shared/password-field/password-field';
 import { CardComponent } from './shared/card/card';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
+// Material Modules
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+// Error Interceptor
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +53,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatSnackBarModule,
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -56,7 +63,13 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
       headerName: 'X-XSRF-TOKEN'
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

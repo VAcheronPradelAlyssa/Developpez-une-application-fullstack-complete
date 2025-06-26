@@ -25,7 +25,7 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     return this.http.get('/api/user/profile', { withCredentials: true }).pipe(
       map(() => true),
-      catchError(() => of(false))
+      catchError(() => of(false)) // Jamais d'erreur propagée
     );
   }
 }
