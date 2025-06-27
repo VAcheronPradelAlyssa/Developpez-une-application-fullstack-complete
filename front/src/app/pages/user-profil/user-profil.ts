@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Subscription, UserProfile, UserService, Subscription as UserSubscription } from 'src/app/services/user/user-profil';
 
 @Component({
@@ -9,11 +10,12 @@ import { Subscription, UserProfile, UserService, Subscription as UserSubscriptio
 })
 export class UserProfileComponent implements OnInit {
   user: UserProfile = { id: 0, username: '', email: '', password: '' };
-subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
   loading = true;
   saving = false;
   error = '';
   success = '';
+  passwordControl = new FormControl('');
 
   constructor(private userService: UserService) {}
 
@@ -43,21 +45,30 @@ subscriptions: Subscription[] = [];
   }
 
   saveProfile() {
+    if (this.saving) return;
     this.saving = true;
     this.error = '';
     this.success = '';
-    const { username, email, password } = this.user;
-    const data: any = { username, email };
-    if (password) data.password = password;
 
-    this.userService.updateProfile(data).subscribe({
-      next: (updated) => {
-        this.user = { ...updated, password: '' };
-        this.success = "Profil mis à jour !";
+    const updateData: any = {
+      username: this.user.username,
+      email: this.user.email
+    };
+
+    // Ajouter le mot de passe seulement s'il a été modifié
+    if (this.passwordControl.value && this.passwordControl.value.trim()) {
+      updateData.password = this.passwordControl.value;
+    }
+
+    this.userService.updateProfile(updateData).subscribe({
+      next: () => {
+        this.success = 'Profil mis à jour !';
         this.saving = false;
+        // Réinitialiser le champ mot de passe
+        this.passwordControl.setValue('');
       },
-      error: () => {
-        this.error = "Erreur lors de la mise à jour.";
+      error: (err) => {
+        this.error = 'Erreur lors de la mise à jour.';
         this.saving = false;
       }
     });
