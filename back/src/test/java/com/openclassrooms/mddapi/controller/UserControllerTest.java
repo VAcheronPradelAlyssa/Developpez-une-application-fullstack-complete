@@ -128,6 +128,7 @@ class UserControllerTest {
 
     @Test
     void getSubscriptions_shouldReturnList() throws Exception {
+        // Mock pour retourner une liste de Subscription (pas DTO)
         when(userService.getSubscriptions(1L)).thenReturn(List.of(subscription));
 
         mockMvc.perform(get("/api/user/subscriptions")
@@ -137,7 +138,7 @@ class UserControllerTest {
                         )
                 )))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].subject.name").value("SujetTest"));
+            .andExpect(jsonPath("$[0].subjectName").value("SujetTest"));
     }
 
     @Test
@@ -163,3 +164,4 @@ class UserControllerTest {
         }
     }
 }
+       

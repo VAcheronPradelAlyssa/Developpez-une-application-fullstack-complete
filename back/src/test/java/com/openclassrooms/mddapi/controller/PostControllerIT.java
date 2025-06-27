@@ -87,8 +87,8 @@ class PostControllerIT {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.title").value("Titre post"))
             .andExpect(jsonPath("$.content").value("Contenu post"))
-            .andExpect(jsonPath("$.author.username").value("postuser"))
-            .andExpect(jsonPath("$.subject.name").value("SujetPost"));
+            .andExpect(jsonPath("$.authorUsername").value("postuser"))
+            .andExpect(jsonPath("$.subjectName").value("SujetPost"));
 
         List<Post> posts = postRepository.findAll();
         assertThat(posts).hasSize(1);

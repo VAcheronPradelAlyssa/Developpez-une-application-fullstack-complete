@@ -128,16 +128,29 @@ class PostControllerTest {
         dto.setContent("Contenu créé");
         dto.setSubjectId(2L);
 
+        // Créer un PostDTO avec la vraie structure
+        PostDTO createdPostDto = new PostDTO();
+        createdPostDto.setId(3L);
+        createdPostDto.setTitle("Titre créé");
+        createdPostDto.setContent("Contenu créé");
+        createdPostDto.setAuthorId(1L);
+        createdPostDto.setAuthorUsername("mockuser");
+        createdPostDto.setSubjectId(2L);
+        createdPostDto.setSubjectName("SujetTest");
+        createdPostDto.setCreatedAt(java.time.LocalDateTime.now());
+
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(subjectRepository.findById(2L)).thenReturn(Optional.of(subject));
-        when(postService.createPost(any(), any(), any())).thenReturn(postDto);
+        when(postService.createPost(any(), any(), any())).thenReturn(createdPostDto);
 
         mockMvc.perform(post("/api/posts")
                 .with(org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication(customAuth()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.title").value("Titre test"));
+            .andExpect(jsonPath("$.title").value("Titre créé"))
+            .andExpect(jsonPath("$.authorUsername").value("mockuser"))
+            .andExpect(jsonPath("$.subjectName").value("SujetTest"));
     }
 
     @TestConfiguration

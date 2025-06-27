@@ -56,7 +56,7 @@ class AuthControllerIT {
         RegisterRequest register = new RegisterRequest();
         register.setEmail("integration@test.com");
         register.setUsername("integration");
-        register.setPassword("password");
+        register.setPassword("ValidPassword123!"); // Mot de passe valide
         mockMvc.perform(post("/api/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(register)))
@@ -67,7 +67,7 @@ class AuthControllerIT {
         // Login
         LoginRequest login = new LoginRequest();
         login.setEmailOrUsername("integration@test.com");
-        login.setPassword("password");
+        login.setPassword("ValidPassword123!"); // Mot de passe valide
         mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(login)))

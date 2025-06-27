@@ -111,7 +111,7 @@ class UserControllerIT {
         mockMvc.perform(get("/api/user/subscriptions")
                 .cookie(new Cookie("token", token)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].subject.name").value("SujetUser"));
+            .andExpect(jsonPath("$[0].subjectName").value("SujetUser"));
     }
 
     @Test
