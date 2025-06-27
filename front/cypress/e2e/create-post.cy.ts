@@ -39,15 +39,16 @@ describe('Création d\'article', () => {
 
   it('affiche les suggestions de thèmes', () => {
     cy.get('input[formcontrolname="subjectName"]').type('Cyp');
-    cy.get('.autocomplete-list').should('exist');
+    // Attend que les options d'autocomplete apparaissent
+    cy.get('mat-option').should('exist');
     cy.contains('CypressTest').should('exist');
-    cy.get('.autocomplete-list li').first().click();
+    cy.get('mat-option').first().click();
     cy.get('input[formcontrolname="subjectName"]').should('have.value', 'CypressTest');
   });
 
   it('crée un nouvel article', () => {
     cy.get('input[formcontrolname="subjectName"]').type('CypressTest');
-    cy.get('.autocomplete-list li').first().click();
+    cy.get('mat-option').first().click();
     cy.get('input[formcontrolname="title"]').type('Titre Cypress');
     cy.get('textarea[formcontrolname="content"]').type('Contenu de test');
     cy.get('button[type="submit"]').click();
@@ -75,5 +76,14 @@ describe('Création d\'article', () => {
     cy.request('POST', 'http://localhost:8080/api/auth/logout');
     cy.visit('http://localhost:4200/create-post');
     cy.url().should('not.include', '/create-post');
+    // Vérifie qu'on est redirigé vers l'accueil ou login
+    cy.url().should('match', /\/(login|)$/);
+  });
+
+  it('permet l\'accès si connecté', () => {
+    // Déjà connecté via beforeEach
+    cy.visit('http://localhost:4200/create-post');
+    cy.url().should('include', '/create-post');
+    cy.contains('Créer un nouvel article').should('exist');
   });
 });

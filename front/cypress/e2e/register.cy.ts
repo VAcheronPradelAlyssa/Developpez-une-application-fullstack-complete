@@ -66,4 +66,16 @@ describe('Inscription', () => {
     cy.get('h2').click();
     cy.get('button[type="submit"]').should('be.disabled');
   });
+
+  it('redirige vers /post si déjà connecté', () => {
+    // Se connecte d'abord via l'API
+    cy.request('POST', 'http://localhost:8080/api/auth/login', {
+      emailOrUsername: 'existant@test.com',
+      password: 'Test1234!'
+    });
+    
+    // Puis essaie d'accéder à la page d'inscription
+    cy.visit('http://localhost:4200/register');
+    cy.url({ timeout: 5000 }).should('include', '/post');
+  });
 });
