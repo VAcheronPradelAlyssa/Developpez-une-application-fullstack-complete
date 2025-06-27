@@ -1,23 +1,27 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of, throwError } from 'rxjs';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { CreatePostComponent } from './create-post';
 import { BoutonRetourComponent } from 'src/app/shared/bouton-retour/bouton-retour';
 import { PostService } from 'src/app/services/posts/post';
 import { SubjectService } from 'src/app/services/subject/subject';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 describe('CreatePostComponent', () => {
   let component: CreatePostComponent;
   let fixture: ComponentFixture<CreatePostComponent>;
   let postServiceSpy: jasmine.SpyObj<PostService>;
   let subjectServiceSpy: jasmine.SpyObj<SubjectService>;
-  let routerSpy: jasmine.SpyObj<Router>;
   let locationSpy: jasmine.SpyObj<Location>;
+  let routerSpy: jasmine.SpyObj<Router>;
 
   const mockSubjects = [
     { id: 1, name: 'Sujet1', description: 'Desc1' },
@@ -27,27 +31,39 @@ describe('CreatePostComponent', () => {
   beforeEach(async () => {
     postServiceSpy = jasmine.createSpyObj('PostService', ['createPost']);
     subjectServiceSpy = jasmine.createSpyObj('SubjectService', ['getAllSubjects']);
-    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     locationSpy = jasmine.createSpyObj('Location', ['back']);
+    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
+    // Configure le comportement par défaut pour éviter l'erreur lors du ngOnInit
+    subjectServiceSpy.getAllSubjects.and.returnValue(of([]));
+    routerSpy.navigate.and.returnValue(Promise.resolve(true));
 
     await TestBed.configureTestingModule({
-      declarations: [CreatePostComponent, BoutonRetourComponent],
+      declarations: [
+        CreatePostComponent,
+        BoutonRetourComponent
+      ],
       imports: [
+        HttpClientTestingModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule
       ],
       providers: [
         { provide: PostService, useValue: postServiceSpy },
         { provide: SubjectService, useValue: subjectServiceSpy },
-        { provide: Router, useValue: routerSpy },
-        { provide: Location, useValue: locationSpy }
+        { provide: Location, useValue: locationSpy },
+        { provide: Router, useValue: routerSpy }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreatePostComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -55,18 +71,27 @@ describe('CreatePostComponent', () => {
   });
 
   it('charge les sujets au démarrage', fakeAsync(() => {
+    // Reconfigure le spy pour ce test spécifique
     subjectServiceSpy.getAllSubjects.and.returnValue(of(mockSubjects));
-    fixture.detectChanges();
+    
+    // Appelle ngOnInit manuellement
+    component.ngOnInit();
     tick();
+    
     expect(component.subjects).toEqual(mockSubjects);
     expect(component.filteredSubjects).toEqual(mockSubjects);
   }));
 
   it('affiche une alerte si le chargement des sujets échoue', fakeAsync(() => {
     spyOn(window, 'alert');
+    
+    // Reconfigure le spy pour retourner une erreur
     subjectServiceSpy.getAllSubjects.and.returnValue(throwError(() => new Error('fail')));
-    fixture.detectChanges();
+    
+    // Appelle ngOnInit manuellement
+    component.ngOnInit();
     tick();
+    
     expect(window.alert).toHaveBeenCalledWith('Erreur lors du chargement des sujets');
   }));
 
@@ -94,12 +119,17 @@ describe('CreatePostComponent', () => {
 
   it('onSubmit appelle le service et redirige si succès', fakeAsync(() => {
     spyOn(window, 'alert');
-    subjectServiceSpy.getAllSubjects.and.returnValue(of(mockSubjects));
+    
+    // Configure les spies
     postServiceSpy.createPost.and.returnValue(of({}));
+    
+    // Prépare les données
     component.subjects = mockSubjects;
     component.postForm.setValue({ subjectName: 'Sujet1', title: 'Titre', content: 'Contenu' });
+    
     component.onSubmit();
     tick();
+    
     expect(postServiceSpy.createPost).toHaveBeenCalledWith({
       title: 'Titre',
       content: 'Contenu',
@@ -122,5 +152,21 @@ describe('CreatePostComponent', () => {
   it('goBack appelle location.back', () => {
     component.goBack();
     expect(locationSpy.back).toHaveBeenCalled();
+  });
+
+  it('doit avoir un formulaire avec les bons champs', () => {
+    expect(component.postForm.get('subjectName')).toBeTruthy();
+    expect(component.postForm.get('title')).toBeTruthy();
+    expect(component.postForm.get('content')).toBeTruthy();
+  });
+
+  it('le formulaire est invalide si les champs requis sont vides', () => {
+    component.postForm.setValue({ subjectName: '', title: '', content: '' });
+    expect(component.postForm.invalid).toBeTrue();
+  });
+
+  it('le formulaire est valide si tous les champs sont remplis', () => {
+    component.postForm.setValue({ subjectName: 'Sujet1', title: 'Titre', content: 'Contenu' });
+    expect(component.postForm.valid).toBeTrue();
   });
 });

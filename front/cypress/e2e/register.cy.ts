@@ -68,9 +68,16 @@ describe('Inscription', () => {
   });
 
   it('redirige vers /post si déjà connecté', () => {
-    // Se connecte d'abord via l'API
+    // Crée d'abord l'utilisateur qui va se connecter
+    cy.request('POST', 'http://localhost:8080/api/auth/register', {
+      username: 'userconnecte',
+      email: 'userconnecte@test.com',
+      password: 'Test1234!'
+    });
+    
+    // Se connecte avec cet utilisateur
     cy.request('POST', 'http://localhost:8080/api/auth/login', {
-      emailOrUsername: 'existant@test.com',
+      emailOrUsername: 'userconnecte@test.com',
       password: 'Test1234!'
     });
     

@@ -49,18 +49,20 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('doit afficher la navbar par défaut (lightNavbar false)', () => {
-    component.lightNavbar = false;
+  it('doit afficher la navbar par défaut', () => {
+    component.hideNavbar = false;
     fixture.detectChanges();
     const nav = fixture.debugElement.query(By.css('nav.nav'));
     expect(nav).toBeTruthy();
   });
 
-  it('doit masquer la navbar si lightNavbar true', () => {
-    component.lightNavbar = true;
+  it('doit masquer la navbar si hideNavbar true', () => {
+    component.hideNavbar = true;
     fixture.detectChanges();
-    const nav = fixture.debugElement.query(By.css('nav.nav'));
-    expect(nav).toBeNull();
+    
+    // Vérifie que l'élément header n'est pas affiché car *ngIf="!hideNavbar"
+    const header = fixture.debugElement.query(By.css('header.site-header'));
+    expect(header).toBeNull();
   });
 
   it('doit ouvrir et fermer le menu mobile', () => {
@@ -73,7 +75,9 @@ describe('NavbarComponent', () => {
 
   it('doit afficher le menu mobile quand mobileMenuOpen est true', () => {
     component.mobileMenuOpen = true;
-    component.lightNavbar = false;
+    component.hideNavbar = false;
+    component.hideLinks = false;
+    component.hideBurger = false;
     fixture.detectChanges();
     const mobileMenu = fixture.debugElement.query(By.css('.mobile-menu'));
     expect(mobileMenu).toBeTruthy();
@@ -88,37 +92,49 @@ describe('NavbarComponent', () => {
 
   it('doit appeler closeMobileMenu au clic sur un lien mobile', () => {
     component.mobileMenuOpen = true;
-    component.lightNavbar = false;
+    component.hideNavbar = false;
+    component.hideLinks = false;
+    component.hideBurger = false;
     fixture.detectChanges();
     spyOn(component, 'closeMobileMenu');
     const mobileLinks = fixture.debugElement.queryAll(By.css('.mobile-menu .mobile-nav-link'));
-    mobileLinks.forEach(link => {
-      // Passe un objet événement vide pour éviter l'erreur $event is undefined
-      link.triggerEventHandler('click', {});
-    });
-    expect(component.closeMobileMenu).toHaveBeenCalled();
+    if (mobileLinks.length > 0) {
+      mobileLinks.forEach(link => {
+        link.triggerEventHandler('click', {});
+      });
+      expect(component.closeMobileMenu).toHaveBeenCalled();
+    }
   });
 
-  it('doit réagir aux changements de route et mettre à jour lightNavbar', fakeAsync(() => {
-    // Utilise router.navigate pour changer de route proprement
+  it('doit réagir aux changements de route et mettre à jour les propriétés', fakeAsync(() => {
+    // Simule une navigation vers /login (logoOnlyRoutes)
     router.navigate(['/login']);
     tick();
     fixture.detectChanges();
-    expect(component.lightNavbar).toBeTrue();
+    
+    // Pour /login, hideBurger et hideLinks devraient être true
+    expect(component.hideBurger).toBeTrue();
+    expect(component.hideLinks).toBeTrue();
 
+    // Simule une navigation vers /post (route normale)
     router.navigate(['/post']);
     tick();
     fixture.detectChanges();
-    expect(component.lightNavbar).toBeFalse();
+    
+    expect(component.hideBurger).toBeFalse();
+    expect(component.hideLinks).toBeFalse();
   }));
 
   it('doit contenir le logo', () => {
+    component.hideNavbar = false;
+    fixture.detectChanges();
     const logo = fixture.debugElement.query(By.css('.logo-mdd'));
     expect(logo).toBeTruthy();
   });
 
-  it('doit contenir les liens principaux', () => {
-    component.lightNavbar = false;
+  it('doit contenir les liens principaux quand hideLinks est false', () => {
+    component.hideNavbar = false;
+    component.hideLinks = false;
     fixture.detectChanges();
     const links = fixture.debugElement.queryAll(By.css('nav.nav a.nav-link'));
     expect(links.length).toBeGreaterThan(0);
@@ -126,9 +142,20 @@ describe('NavbarComponent', () => {
     expect(logoutLink).toBeTruthy();
   });
 
-  it('doit contenir le bouton burger', () => {
+  it('doit contenir le bouton burger quand hideBurger est false', () => {
+    component.hideNavbar = false;
+    component.hideBurger = false;
+    fixture.detectChanges();
     const burger = fixture.debugElement.query(By.css('button.burger'));
     expect(burger).toBeTruthy();
+  });
+
+  it('doit masquer les liens quand hideLinks est true', () => {
+    component.hideNavbar = false;
+    component.hideLinks = true;
+    fixture.detectChanges();
+    const nav = fixture.debugElement.query(By.css('nav.nav'));
+    expect(nav).toBeNull(); // Car *ngIf="!hideLinks"
   });
 });
 

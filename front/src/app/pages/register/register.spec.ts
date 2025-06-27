@@ -17,8 +17,11 @@ describe('RegisterComponent', () => {
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    authServiceSpy = jasmine.createSpyObj('AuthService', ['register']);
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['register', 'isLoggedIn']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
+    // Configure le comportement par défaut de isLoggedIn
+    authServiceSpy.isLoggedIn.and.returnValue(of(false));
 
     await TestBed.configureTestingModule({
       declarations: [

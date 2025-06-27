@@ -56,10 +56,12 @@ describe('Profil utilisateur', () => {
       name: 'SujetProfil',
       description: 'Sujet pour profil'
     }).then(() => {
-      // Va sur la page des sujets et s'abonne via l'UI (pour garder le contexte utilisateur)
+      // Va sur la page des sujets et s'abonne via l'UI
       cy.visit('http://localhost:4200/subject');
-      cy.contains('SujetProfil').parent().within(() => {
-        cy.contains("S’abonner").click();
+      // Attendre que la page charge et utiliser le bon sélecteur
+      cy.contains('SujetProfil').should('be.visible');
+      cy.contains('SujetProfil').parents('app-card').within(() => {
+        cy.get('button').contains("S'abonner").click();
       });
       // Va sur le profil et vérifie l'abonnement
       cy.visit('http://localhost:4200/user-profile');
@@ -76,13 +78,16 @@ describe('Profil utilisateur', () => {
     }).then(() => {
       // Va sur la page des sujets et s'abonne via l'UI
       cy.visit('http://localhost:4200/subject');
-      cy.contains('SujetDesabonnement').parent().within(() => {
-        cy.contains("S’abonner").click();
+      cy.contains('SujetDesabonnement').should('be.visible');
+      cy.contains('SujetDesabonnement').parents('app-card').within(() => {
+        cy.get('button').contains("S'abonner").click();
       });
       // Va sur le profil et se désabonne via l'UI
       cy.visit('http://localhost:4200/user-profile');
       cy.contains('SujetDesabonnement').should('exist');
-      cy.get('button.btn-unsubscribe').contains('Se désabonner').click();
+      cy.contains('SujetDesabonnement').parents('app-card').within(() => {
+        cy.get('button').contains('Se désabonner').click();
+      });
       cy.contains('SujetDesabonnement').should('not.exist');
     });
   });

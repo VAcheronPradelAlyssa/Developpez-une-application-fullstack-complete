@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 import { PostDetailComponent } from './post-detail';
 import { BoutonRetourComponent } from 'src/app/shared/bouton-retour/bouton-retour';
 import { PostService } from 'src/app/services/posts/post';
+import { Post } from 'src/app/models/post.dto';
 
 describe('PostDetailComponent', () => {
   let component: PostDetailComponent;
@@ -17,13 +18,15 @@ describe('PostDetailComponent', () => {
   let locationSpy: jasmine.SpyObj<Location>;
   let httpMock: HttpTestingController;
 
-  const mockPost = {
+  const mockPost: Post = {
     id: 1,
     title: 'Titre',
     content: 'Contenu',
     createdAt: '2024-06-24T10:00:00Z',
-    author: { username: 'user' },
-    subject: { name: 'Sujet' }
+    authorId: 1,
+    authorUsername: 'user',
+    subjectId: 1,
+    subjectName: 'Sujet'
   };
   const mockComments = [
     { id: 1, content: 'Commentaire', author: { username: 'user' } }
