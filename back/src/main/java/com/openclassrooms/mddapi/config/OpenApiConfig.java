@@ -35,12 +35,7 @@ import org.springframework.context.annotation.Configuration;
             """,
         contact = @Contact(
             name = "Équipe MDD",
-            email = "contact@mdd.dev",
-            url = "https://mdd.dev"
-        ),
-        license = @License(
-            name = "MIT License",
-            url = "https://opensource.org/licenses/MIT"
+            url = "http://localhost:4200"
         )
     ),
     servers = {
@@ -48,10 +43,7 @@ import org.springframework.context.annotation.Configuration;
             url = "http://localhost:8080",
             description = "🔧 Serveur de développement"
         ),
-        @Server(
-            url = "https://api.mdd.dev",
-            description = "🚀 Serveur de production"
-        )
+       
     }
 )
 @SecurityScheme(
