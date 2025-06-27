@@ -137,6 +137,7 @@ hr {
     flex: 1;
     margin-right: 0;
     word-break: break-word;
+    white-space: pre-wrap; /* Préserve les retours à la ligne et espaces */
   }
 }
 
