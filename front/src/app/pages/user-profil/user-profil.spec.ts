@@ -14,7 +14,7 @@ describe('UserProfileComponent', () => {
 
   const mockProfile: UserProfile = { id: 1, username: 'user', email: 'user@test.com', password: '' };
   const mockSubs: Subscription[] = [
-    { id: 1, subject: { id: 1, name: 'Sujet', description: 'desc' }, subscribedAt: '2024-06-24T10:00:00Z' }
+    { id: 1, subjectId: 1, subjectName: 'Sujet', description: 'desc', subscribedAt: '2024-06-24T10:00:00Z' }
   ];
 
   beforeEach(async () => {
@@ -73,7 +73,7 @@ describe('UserProfileComponent', () => {
     component.loadSubscriptions();
     tick();
     expect(component.subscriptions.length).toBe(1);
-    expect(component.subscriptions[0].subject.name).toBe('Sujet');
+    expect(component.subscriptions[0].subjectName).toBe('Sujet');
   }));
 
   it('affiche une erreur si le chargement des abonnements échoue', fakeAsync(() => {

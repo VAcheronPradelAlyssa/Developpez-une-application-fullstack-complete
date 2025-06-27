@@ -17,8 +17,11 @@ describe('LoginComponent', () => {
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['login', 'isLoggedIn']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
+    // Configure le comportement par défaut de isLoggedIn
+    authServiceSpy.isLoggedIn.and.returnValue(of(false));
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -64,29 +67,41 @@ describe('LoginComponent', () => {
   });
 
   it('appelle AuthService.login et redirige si succès', fakeAsync(() => {
-    component.loginForm.setValue({ emailOrUsername: 'user', password: 'pass' });
+    component.loginForm.setValue({ emailOrUsername: 'user@test.com', password: 'Test1234!' });
     authServiceSpy.login.and.returnValue(of({}));
     component.onSubmit();
-    tick();
-    expect(authServiceSpy.login).toHaveBeenCalledWith({ emailOrUsername: 'user', password: 'pass' });
+    
+    expect(authServiceSpy.login).toHaveBeenCalledWith({ emailOrUsername: 'user@test.com', password: 'Test1234!' });
+    expect(component.success).toBeTrue();
+    
+    // Attendre le setTimeout de 500ms dans le composant
+    tick(500);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/post']);
-    expect(component.error).toBe('');
   }));
 
   it('affiche une erreur si AuthService.login échoue', fakeAsync(() => {
-    component.loginForm.setValue({ emailOrUsername: 'user', password: 'pass' });
-    authServiceSpy.login.and.returnValue(throwError(() => ({ error: { error: 'Identifiants invalides' } })));
+    component.loginForm.setValue({ emailOrUsername: 'user@test.com', password: 'wrong' });
+    authServiceSpy.login.and.returnValue(throwError(() => ({ error: { message: 'Identifiants invalides' } })));
     component.onSubmit();
     tick();
-    expect(component.error).toBe('Identifiants invalides');
+    
+    // L'ErrorInterceptor gère les erreurs automatiquement
+    // Le composant ne stocke plus les erreurs dans component.error
+    expect(component.success).toBeFalse();
+    // Vérifier que la navigation n'a pas eu lieu
+    expect(routerSpy.navigate).not.toHaveBeenCalled();
   }));
 
   it('affiche une erreur générique si AuthService.login échoue sans message', fakeAsync(() => {
-    component.loginForm.setValue({ emailOrUsername: 'user', password: 'pass' });
+    component.loginForm.setValue({ emailOrUsername: 'user@test.com', password: 'wrong' });
     authServiceSpy.login.and.returnValue(throwError(() => ({})));
     component.onSubmit();
     tick();
-    expect(component.error).toBe('Erreur de connexion');
+    
+    // L'ErrorInterceptor gère les erreurs automatiquement
+    expect(component.success).toBeFalse();
+    // Vérifier que la navigation n'a pas eu lieu
+    expect(routerSpy.navigate).not.toHaveBeenCalled();
   }));
 
   it('get passwordControl retourne le contrôle du mot de passe', () => {

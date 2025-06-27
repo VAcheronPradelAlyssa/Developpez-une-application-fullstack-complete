@@ -49,7 +49,7 @@ describe('UserService', () => {
 
   it('doit récupérer les abonnements', () => {
     const mockSubs: Subscription[] = [
-      { id: 1, subject: { id: 1, name: 'Sujet', description: 'desc' }, subscribedAt: '2024-01-01' }
+      { id: 1, subjectId: 1, subjectName: 'Sujet', description: 'desc', subscribedAt: '2024-01-01' }
     ];
     service.getSubscriptions().subscribe(subs => {
       expect(subs).toEqual(mockSubs);

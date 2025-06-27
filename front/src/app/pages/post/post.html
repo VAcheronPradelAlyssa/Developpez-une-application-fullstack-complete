@@ -1,17 +1,18 @@
 <div class="article-list-header-flex">
-  <button class="btn-create" routerLink="/create-post">
+  <button mat-raised-button color="primary" class="btn-create" routerLink="/create-post">
     Créer un article
   </button>
-  <span class="sort-span" (click)="toggleSort()" [attr.aria-label]="sortBy === 'desc' ? 'Trier du plus récent au plus ancien' : 'Trier du plus ancien au plus récent'">
+  <button mat-stroked-button class="sort-span" (click)="toggleSort()" [attr.aria-label]="sortBy === 'desc' ? 'Trier du plus récent au plus ancien' : 'Trier du plus ancien au plus récent'">
     Trier par
-    <span class="arrow">
-      <svg *ngIf="sortBy === 'desc'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 19V5m0 0-7 7m7-7 7 7" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg *ngIf="sortBy === 'asc'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 5v14m0 0 7-7m-7 7-7-7" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </span>
-  </span>
+    <mat-icon class="arrow">{{ sortBy === 'desc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+  </button>
 </div>
 
-<div *ngIf="loading" class="loading-block">Chargement...</div>
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner diameter="40"></mat-spinner>
+  <p>Chargement...</p>
+</div>
+
 <div *ngIf="error" class="error">{{ error }}</div>
 <div *ngIf="!loading && posts.length === 0" class="no-post">Aucun article trouvé.</div>
 <div *ngIf="!loading && posts.length > 0" class="article-list card-grid">

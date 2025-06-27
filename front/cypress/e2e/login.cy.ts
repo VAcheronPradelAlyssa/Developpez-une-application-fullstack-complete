@@ -1,7 +1,8 @@
 describe('Connexion', () => {
   beforeEach(() => {
-    // Réinitialise la base et crée un utilisateur de test
     cy.request('POST', 'http://localhost:8080/api/test/reset-db');
+    // Déconnexion pour s'assurer qu'aucun utilisateur n'est connecté
+    cy.request('POST', 'http://localhost:8080/api/auth/logout');
     cy.request('POST', 'http://localhost:8080/api/auth/register', {
       username: 'testuser',
       email: 'testuser@test.com',
@@ -11,7 +12,7 @@ describe('Connexion', () => {
   });
 
   it('affiche le formulaire de connexion', () => {
-    cy.contains('Connexion');
+    cy.contains('Se connecter');
     cy.get('input[formcontrolname="emailOrUsername"]').should('exist');
     cy.get('input[type="password"]').should('exist');
     cy.get('button[type="submit"]').should('be.disabled');
@@ -42,11 +43,23 @@ describe('Connexion', () => {
     cy.contains('Se déconnecter').should('exist');
   });
 
-it('connecte un utilisateur avec les bons identifiants username', () => {
+  it('connecte un utilisateur avec les bons identifiants username', () => {
     cy.get('input[formcontrolname="emailOrUsername"]').type('testuser');
     cy.get('input[type="password"]').type('Test1234!');
     cy.get('button[type="submit"]').click();
     cy.url({ timeout: 10000 }).should('include', '/post');
     cy.contains('Se déconnecter').should('exist');
+  });
+
+  it('redirige vers /post si déjà connecté', () => {
+    // Se connecte d'abord
+    cy.get('input[formcontrolname="emailOrUsername"]').type('testuser@test.com');
+    cy.get('input[type="password"]').type('Test1234!');
+    cy.get('button[type="submit"]').click();
+    cy.url({ timeout: 10000 }).should('include', '/post');
+    
+    // Puis essaie d'accéder à la page de login
+    cy.visit('http://localhost:4200/login');
+    cy.url({ timeout: 5000 }).should('include', '/post');
   });
 });

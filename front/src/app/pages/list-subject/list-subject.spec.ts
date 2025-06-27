@@ -41,14 +41,20 @@ describe('ListSubjectComponent', () => {
   });
 
   it('charge les sujets et les abonnements au démarrage', fakeAsync(() => {
+    // Configure les spies pour retourner les données mockées
     subjectServiceSpy.getAllSubjects.and.returnValue(of(mockSubjects));
-    // Corrige ici : retourne un tableau d'ids (number[]) et non un tableau d'objets
-    subscriptionServiceSpy.getUserSubscriptions.and.returnValue(of([1, 2]));
-    fixture.detectChanges();
+    subscriptionServiceSpy.getUserSubscriptions.and.returnValue(of([
+      { subjectId: 1 } as any,
+      { subjectId: 2 } as any
+    ]));
+
+    // Appelle ngOnInit manuellement pour ce test
+    component.ngOnInit();
     tick();
+
     expect(component.subjects).toEqual(mockSubjects);
-    expect(component.loading).toBeFalse();
     expect(component.subscribedIds).toEqual([1, 2]);
+    expect(component.loading).toBeFalse();
   }));
 
   it('affiche une erreur si le chargement des sujets échoue', fakeAsync(() => {

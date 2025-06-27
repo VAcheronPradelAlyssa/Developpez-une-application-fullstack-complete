@@ -21,7 +21,7 @@ describe('Déconnexion (logout)', () => {
     // Aller sur la page de logout
     cy.visit('http://localhost:4200/logout');
     cy.url({ timeout: 10000 }).should('include', '/login');
-    cy.contains('Connexion');
+    cy.contains('Se connecter');
   });
 
   it('supprime le cookie de session après logout', () => {

@@ -1,20 +1,5 @@
-.back-btn {
-  background: none;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 0.4em 1.5em 0.4em 1em;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
 
-  .material-icons {
+  mat-icon {
     color: #7c55ea !important;
-    font-size: 2rem;
-    transition: none;
-    /* Ajoute un margin-right pour éviter que la flèche ne décale le contenu */
-    margin-right: 1em;
+    font-size: 2rem !important;
   }
-}

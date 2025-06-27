@@ -5,7 +5,7 @@ describe('Tests d\'accès', () => {
 
   it('accès aux pages login et register sans être connecté', () => {
     cy.visit('http://localhost:4200/login');
-    cy.contains('Connexion');
+    cy.contains('Se connecter');
     cy.visit('http://localhost:4200/register');
     cy.contains('Inscription');
   });
@@ -59,10 +59,39 @@ describe('Tests d\'accès', () => {
     cy.get('input[type="password"]').type('Test1234!');
     cy.get('button[type="submit"]').click();
     cy.url({ timeout: 10000 }).should('include', '/post');
+    
+    // Test redirection depuis /login
     cy.visit('http://localhost:4200/login');
-    cy.url().should('include', '/post');
+    cy.url({ timeout: 5000 }).should('include', '/post');
+    
+    // Test redirection depuis /register  
     cy.visit('http://localhost:4200/register');
-    cy.url().should('include', '/post');
+    cy.url({ timeout: 5000 }).should('include', '/post');
+  });
+
+  it('affiche le message "déjà connecté" sur les pages login et register', () => {
+    // Inscription + connexion
+    const username = 'alreadyuser' + Date.now();
+    const email = 'already' + Date.now() + '@test.com';
+    cy.request('POST', 'http://localhost:8080/api/auth/register', {
+      username,
+      email,
+      password: 'Test1234!'
+    });
+    
+    // Connexion via l'API pour avoir le cookie
+    cy.request('POST', 'http://localhost:8080/api/auth/login', {
+      emailOrUsername: email,
+      password: 'Test1234!'
+    });
+    
+    // Visite la page de login et vérifie le message
+    cy.visit('http://localhost:4200/login');
+    cy.contains('Vous êtes déjà connecté').should('exist');
+    
+    // Visite la page d'inscription et vérifie le message
+    cy.visit('http://localhost:4200/register');
+    cy.contains('Vous êtes déjà connecté').should('exist');
   });
 
 });

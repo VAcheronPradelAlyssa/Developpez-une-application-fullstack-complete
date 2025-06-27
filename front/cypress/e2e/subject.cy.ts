@@ -31,40 +31,40 @@ describe('Gestion des thèmes (subject)', () => {
   });
 
   it('permet de s\'abonner à un thème', () => {
-    cy.contains('Sujet1').parent().within(() => {
-      cy.contains("S’abonner").click();
+    cy.contains('Sujet1').parents('app-card').within(() => {
+      cy.get('button').contains("S'abonner").click();
       cy.contains('Déjà abonné').should('exist');
     });
     // Vérifie que le bouton est désactivé après abonnement
-    cy.contains('Sujet1').parent().within(() => {
+    cy.contains('Sujet1').parents('app-card').within(() => {
       cy.get('button.btn-subscribed').should('exist');
     });
   });
 
   it('permet de se désabonner d\'un thème', () => {
     // S'abonne d'abord
-    cy.contains('Sujet2').parent().within(() => {
-      cy.contains("S’abonner").click();
+    cy.contains('Sujet2').parents('app-card').within(() => {
+      cy.get('button').contains("S'abonner").click();
       cy.contains('Déjà abonné').should('exist');
     });
     // Se désabonne directement sur la page /subject
-    cy.contains('Sujet2').parent().within(() => {
+    cy.contains('Sujet2').parents('app-card').within(() => {
       cy.get('button.btn-subscribed').should('exist').click();
     });
-    // Le bouton doit redevenir "S’abonner"
-    cy.contains('Sujet2').parent().within(() => {
-      cy.contains("S’abonner").should('exist');
+    // Le bouton doit redevenir "S'abonner"
+    cy.contains('Sujet2').parents('app-card').within(() => {
+      cy.get('button').contains("S'abonner").should('exist');
     });
   });
 
   it('affiche "Déjà abonné" si déjà abonné', () => {
-    cy.contains('Sujet1').parent().within(() => {
-      cy.contains("S’abonner").click();
+    cy.contains('Sujet1').parents('app-card').within(() => {
+      cy.get('button').contains("S'abonner").click();
       cy.contains('Déjà abonné').should('exist');
     });
     // Recharge la page pour vérifier la persistance
     cy.reload();
-    cy.contains('Sujet1').parent().within(() => {
+    cy.contains('Sujet1').parents('app-card').within(() => {
       cy.contains('Déjà abonné').should('exist');
     });
   });
@@ -93,4 +93,4 @@ describe('Gestion des thèmes (subject)', () => {
     cy.url().should('not.include', '/subject');
   });
 });
- 
+

@@ -8,7 +8,6 @@ import com.openclassrooms.mddapi.service.AuthService;
 import com.openclassrooms.mddapi.service.TokenBlacklistService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -25,6 +24,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthController.class)
@@ -70,15 +70,15 @@ class AuthControllerTest {
         RegisterRequest req = new RegisterRequest();
         req.setEmail("test@test.com");
         req.setUsername("test");
-        req.setPassword("pass");
-        // Create a UserDto object to return from the mock
+        req.setPassword("ValidPassword123!");
+        
         com.openclassrooms.mddapi.dto.UserDto userDtoMock = new com.openclassrooms.mddapi.dto.UserDto();
         userDtoMock.setId(1L);
         userDtoMock.setUsername("test");
         userDtoMock.setEmail("test@test.com");
 
         when(authService.register(any())).thenReturn(userDtoMock);
-        when(authService.generateToken(any())).thenReturn("token");
+        when(authService.generateTokenFromDto(any())).thenReturn("token");
 
         mockMvc.perform(post("/api/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +93,8 @@ class AuthControllerTest {
         RegisterRequest req = new RegisterRequest();
         req.setEmail("exists@test.com");
         req.setUsername("test");
-        req.setPassword("pass");
+        req.setPassword("ValidPassword123!");
+        
         when(authService.register(any())).thenThrow(new RuntimeException("Email déjà utilisé"));
 
         mockMvc.perform(post("/api/auth/register")
@@ -107,13 +108,21 @@ class AuthControllerTest {
     void login_shouldReturnUserAndSetCookie() throws Exception {
         LoginRequest req = new LoginRequest();
         req.setEmailOrUsername("test@test.com");
-        req.setPassword("pass");
-        when(authService.login(any())).thenReturn("token");
-        when(authService.getUserByEmailOrUsername(any())).thenReturn(Optional.of(user));
+        req.setPassword("ValidPassword123!");
+        
+        // Créer un UserDto pour le retour
+        com.openclassrooms.mddapi.dto.UserDto userDto = new com.openclassrooms.mddapi.dto.UserDto();
+        userDto.setId(1L);
+        userDto.setUsername("test");
+        userDto.setEmail("test@test.com");
+        
+        when(authService.loginAndGetUserDto(any())).thenReturn(userDto);
+        when(authService.generateTokenFromDto(any())).thenReturn("valid-jwt-token");
 
         mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(req)))
+            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(cookie().exists("token"))
             .andExpect(jsonPath("$.user.username").value("test"));
@@ -124,7 +133,8 @@ class AuthControllerTest {
         LoginRequest req = new LoginRequest();
         req.setEmailOrUsername("bad");
         req.setPassword("bad");
-        when(authService.login(any())).thenReturn(null);
+        
+        when(authService.loginAndGetUserDto(any())).thenReturn(null);
 
         mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -137,21 +147,22 @@ class AuthControllerTest {
     void login_shouldReturnErrorIfUserNotFound() throws Exception {
         LoginRequest req = new LoginRequest();
         req.setEmailOrUsername("notfound");
-        req.setPassword("pass");
-        when(authService.login(any())).thenReturn("token");
-        when(authService.getUserByEmailOrUsername("notfound")).thenReturn(Optional.empty());
+        req.setPassword("ValidPassword123!");
+        
+        when(authService.loginAndGetUserDto(any())).thenReturn(null);
 
         mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(req)))
-            .andExpect(status().isBadRequest())
-            .andExpect(jsonPath("$.message").isEmpty());
+            .andExpect(status().isUnauthorized())
+            .andExpect(jsonPath("$.error").value("Identifiants invalides"));
     }
 
     @Test
-    void logout_shouldClearCookie() throws Exception {
+    void logout_shouldRemoveCookie() throws Exception {
         mockMvc.perform(post("/api/auth/logout"))
             .andExpect(status().isOk())
             .andExpect(cookie().value("token", ""));
     }
 }
+    

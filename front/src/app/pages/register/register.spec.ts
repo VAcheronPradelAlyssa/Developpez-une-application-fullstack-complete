@@ -17,8 +17,11 @@ describe('RegisterComponent', () => {
   let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    authServiceSpy = jasmine.createSpyObj('AuthService', ['register']);
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['register', 'isLoggedIn']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
+    // Configure le comportement par défaut de isLoggedIn
+    authServiceSpy.isLoggedIn.and.returnValue(of(false));
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -78,7 +81,7 @@ describe('RegisterComponent', () => {
     authServiceSpy.register.and.returnValue(throwError(() => ({ error: { message: 'Email déjà utilisé' } })));
     component.onSubmit();
     tick();
-    expect(component.error).toBe('Email déjà utilisé');
+    // ErrorInterceptor gère maintenant les erreurs automatiquement
     expect(component.success).toBeFalse();
   }));
 
@@ -87,7 +90,7 @@ describe('RegisterComponent', () => {
     authServiceSpy.register.and.returnValue(throwError(() => ({})));
     component.onSubmit();
     tick();
-    expect(component.error).toBe('Une erreur est survenue');
+    // ErrorInterceptor gère maintenant les erreurs automatiquement
     expect(component.success).toBeFalse();
   }));
 

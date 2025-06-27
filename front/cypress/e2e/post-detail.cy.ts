@@ -61,9 +61,12 @@ describe('Détail d\'article', () => {
   it('désactive le bouton si le commentaire est vide', () => {
     cy.visit(`http://localhost:4200/post/${postId}`);
     cy.get('textarea[name="newComment"]').clear();
-    cy.get('button[type="submit"]').should('exist'); // bouton toujours existant mais ne fait rien si vide
-    cy.get('button[type="submit"]').click();
-    cy.contains('Nouveau commentaire').should('not.exist');
+    // Vérifie que le bouton est désactivé quand le textarea est vide
+    cy.get('button[type="submit"]').should('be.disabled');
+    
+    // Optionnel : vérifie qu'il se réactive quand on tape quelque chose
+    cy.get('textarea[name="newComment"]').type('Nouveau commentaire');
+    cy.get('button[type="submit"]').should('not.be.disabled');
   });
 
   it('le bouton retour ramène à la liste des articles', () => {

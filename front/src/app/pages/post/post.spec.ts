@@ -6,6 +6,7 @@ import { CardComponent } from 'src/app/shared/card/card';
 
 import { PostComponent } from './post';
 import { PostService } from 'src/app/services/posts/post';
+import { Post } from 'src/app/models/post.dto';
 
 describe('PostComponent', () => {
   let component: PostComponent;
@@ -13,22 +14,26 @@ describe('PostComponent', () => {
   let postServiceSpy: jasmine.SpyObj<PostService>;
   let routerSpy: jasmine.SpyObj<Router>;
 
-  const mockPosts = [
+  const mockPosts: Post[] = [
     {
       id: 1,
       title: 'Titre 1',
       content: 'Contenu 1',
       createdAt: '2024-06-24T10:00:00Z',
-      author: { username: 'user1' },
-      subject: { name: 'Sujet1' }
+      authorId: 1,
+      authorUsername: 'user1',
+      subjectId: 1,
+      subjectName: 'Sujet1'
     },
     {
       id: 2,
       title: 'Titre 2',
       content: 'Contenu 2',
       createdAt: '2024-06-25T10:00:00Z',
-      author: { username: 'user2' },
-      subject: { name: 'Sujet2' }
+      authorId: 2,
+      authorUsername: 'user2',
+      subjectId: 2,
+      subjectName: 'Sujet2'
     }
   ];
 
@@ -89,6 +94,13 @@ describe('PostComponent', () => {
     expect(component.sortBy).toBe('desc');
     expect(component.posts[0].id).toBe(2);
     expect(component.posts[1].id).toBe(1);
+  });
+
+  it('doit trier les posts par date', () => {
+    component.posts = [...mockPosts];
+    component.sortBy = 'desc';
+    component.sortPosts();
+    expect(component.posts[0].title).toBe('Titre 2');
   });
 
   

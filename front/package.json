@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --browsers=Chromium",
     "start:all": "concurrently \"npm start\" \"cd ../back && mvn spring-boot:run\"",
     "cypress:run": "cypress run",
     "start:back:test": "cd ../back && mvn spring-boot:run -Dspring-boot.run.profiles=test",
@@ -43,7 +43,6 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "puppeteer": "^24.10.2",
     "typescript": "~5.8.3",
     "wait-on": "^8.0.3"
   }

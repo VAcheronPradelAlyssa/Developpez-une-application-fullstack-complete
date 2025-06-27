@@ -1,6 +1,8 @@
 describe('Liste des articles (/post)', () => {
   beforeEach(() => {
     cy.request('POST', 'http://localhost:8080/api/test/reset-db');
+    // Déconnexion pour s'assurer qu'aucun utilisateur n'est connecté
+    cy.request('POST', 'http://localhost:8080/api/auth/logout');
     cy.request('POST', 'http://localhost:8080/api/auth/register', {
       username: 'postlist',
       email: 'postlist@test.com',
@@ -64,7 +66,8 @@ describe('Liste des articles (/post)', () => {
           cy.visit('http://localhost:4200/post');
           cy.get('.card-grid app-card').should('have.length.at.least', 2);
           cy.get('.card-grid app-card').first().should('contain.text', 'Récent');
-          cy.get('.sort-arrow').click();
+          // Utilise le bon sélecteur pour le bouton de tri
+          cy.get('button.sort-span').click();
           cy.get('.card-grid app-card').first().should('contain.text', 'Ancien');
         });
       });
@@ -92,12 +95,14 @@ describe('Liste des articles (/post)', () => {
 
   it('affiche un message de chargement', () => {
     cy.visit('http://localhost:4200/post');
-    cy.get('.loading-block').should('contain', 'Chargement');
+    // Utilise les classes correctes pour le message de chargement
+    cy.get('.loading-container').should('contain', 'Chargement');
   });
 
   it('affiche un message d\'erreur si l\'API échoue', () => {
     cy.intercept('GET', '/api/posts', { forceNetworkError: true }).as('getPostsError');
     cy.visit('http://localhost:4200/post');
+    // Vérifier que la page affiche une erreur (pas forcément via SnackBar)
     cy.get('.error').should('contain', 'Erreur lors du chargement des articles');
   });
 });
